@@ -1,4 +1,0 @@
-.. automodule:: gwemlightcurves.BHNSKilonovaLightcurve
-    :members:
-    :undoc-members:
-    :show-inheritance:
