@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.SALT2
+    :members:
+    :undoc-members:
+    :show-inheritance:

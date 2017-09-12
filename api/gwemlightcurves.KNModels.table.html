@@ -1,0 +1,523 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>&lt;no title&gt; &mdash; gwemlightcurves 586cf66b843593a17dd6e75dcae498d99c4b16b7 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../_static/gwemlightcurves-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="gwemlightcurves 586cf66b843593a17dd6e75dcae498d99c4b16b7 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> gwemlightcurves
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                586cf66b843593a17dd6e75dcae498d99c4b16b7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Simulating lightcurves</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">gwemlightcurves</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>&lt;no title&gt;</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/gwemlightcurves.KNModels.table.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-gwemlightcurves.KNModels.table"></span><p>Extend <code class="xref py py-mod docutils literal"><span class="pre">astropy.table</span></code> with the <cite>KNTable</cite></p>
+<dl class="class">
+<dt id="gwemlightcurves.KNModels.table.KNTable">
+<em class="property">class </em><code class="descclassname">gwemlightcurves.KNModels.table.</code><code class="descname">KNTable</code><span class="sig-paren">(</span><em>data=None</em>, <em>masked=None</em>, <em>names=None</em>, <em>dtype=None</em>, <em>meta=None</em>, <em>copy=True</em>, <em>rows=None</em>, <em>copy_indices=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">astropy.table.table.Table</span></code></p>
+<p>A container for a table of events</p>
+<p>This differs from the basic <cite>~astropy.table.Table</cite> in two ways</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<dl class="last docutils">
+<dt><code class="xref py py-obj docutils literal"><span class="pre">astropy.table.Table</span></code></dt>
+<dd>for details on parameters for creating an <cite>KNTable</cite></dd>
+</dl>
+</div>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ColumnClass</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">colnames</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">dtype</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">groups</span></code></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">has_mixin_columns</span></code></td>
+<td>True if table has any mixin columns (defined as columns that are not Column</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">iloc</span></code></td>
+<td>Return a TableILoc object that can be used for retrieving indexed rows in the order they appear in the index.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">indices</span></code></td>
+<td>Return the indices associated with columns of the table as a TableIndices object.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">loc</span></code></td>
+<td>Return a TableLoc object that can be used for retrieving rows by index in a given data range.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">mask</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">masked</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Column</span></code></td>
+<td>Define a data column for use in a Table object.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">MaskedColumn</span></code></td>
+<td>Define a masked data column for use in a Table object.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Row</span></code>(table,&nbsp;index)</td>
+<td>A class to represent one row of a Table object.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">TableColumns</span></code>([cols])</td>
+<td>OrderedDict subclass for a set of columns.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">TableFormatter</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">add_column</span></code>(col[,&nbsp;index,&nbsp;rename_duplicate])</td>
+<td>Add a new Column object <code class="docutils literal"><span class="pre">col</span></code> to the table.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">add_columns</span></code>(cols[,&nbsp;indexes,&nbsp;copy,&nbsp;…])</td>
+<td>Add a list of new Column objects <code class="docutils literal"><span class="pre">cols</span></code> to the table.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">add_index</span></code>(colnames[,&nbsp;engine,&nbsp;unique])</td>
+<td>Insert a new index among one or more columns.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">add_row</span></code>([vals,&nbsp;mask])</td>
+<td>Add a new row to the end of the table.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">argsort</span></code>([keys,&nbsp;kind])</td>
+<td>Return the indices which would sort the table according to one or more key columns.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">as_array</span></code>([keep_byteorder])</td>
+<td>Return a new copy of the table in the form of a structured np.ndarray or np.ma.MaskedArray object (as appropriate).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass" title="gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass"><code class="xref py py-obj docutils literal"><span class="pre">calc_baryonic_mass</span></code></a>()</td>
+<td># Equation to relate EOS and neutron star mass to Baryonic mass</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.calc_compactness" title="gwemlightcurves.KNModels.table.KNTable.calc_compactness"><code class="xref py py-obj docutils literal"><span class="pre">calc_compactness</span></code></a>()</td>
+<td>calculate compactness of objects from lambda1 and lambda2</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.calc_tidal_lambda" title="gwemlightcurves.KNModels.table.KNTable.calc_tidal_lambda"><code class="xref py py-obj docutils literal"><span class="pre">calc_tidal_lambda</span></code></a>([remove_negative_lambda])</td>
+<td>Takes posterior samples and calculates lambda1 and lambda2 from lambdat and dlambdat.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">convert_bytestring_to_unicode</span></code>([python3_only])</td>
+<td>Convert bytestring columns (dtype.kind=’S’) to unicode (dtype.kind=’U’) assuming ASCII encoding.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">convert_unicode_to_bytestring</span></code>([python3_only])</td>
+<td>Convert ASCII-only unicode columns (dtype.kind=’U’) to bytestring (dtype.kind=’S’).</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code>([copy_data])</td>
+<td>Return a copy of the table.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.downsample" title="gwemlightcurves.KNModels.table.KNTable.downsample"><code class="xref py py-obj docutils literal"><span class="pre">downsample</span></code></a>([Nsamples])</td>
+<td>randomly down samples the number os posterior samples used for calculating lightcurves</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">field</span></code>(item)</td>
+<td>Return column[item] for recarray compatibility.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">filled</span></code>([fill_value])</td>
+<td>Return a copy of self, with masked values filled.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">from_pandas</span></code>(dataframe)</td>
+<td>Create a <cite>Table</cite> from a <code class="xref py py-class docutils literal"><span class="pre">pandas.DataFrame</span></code> instance</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">group_by</span></code>(keys)</td>
+<td>Group this table by the specified <code class="docutils literal"><span class="pre">keys</span></code></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">index_column</span></code>(name)</td>
+<td>Return the positional index of column <code class="docutils literal"><span class="pre">name</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">index_mode</span></code>(mode)</td>
+<td>Return a context manager for an indexing mode.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">info</span></code></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">insert_row</span></code>(index[,&nbsp;vals,&nbsp;mask])</td>
+<td>Add a new row before the given <code class="docutils literal"><span class="pre">index</span></code> position in the table.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">itercols</span></code>()</td>
+<td>Iterate over the columns of this table.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">keep_columns</span></code>(names)</td>
+<td>Keep only the columns specified (remove the others).</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">keys</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.model" title="gwemlightcurves.KNModels.table.KNTable.model"><code class="xref py py-obj docutils literal"><span class="pre">model</span></code></a>(format_,&nbsp;*args,&nbsp;**kwargs)</td>
+<td>Fetch a table of events from a database</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">more</span></code>([max_lines,&nbsp;max_width,&nbsp;show_name,&nbsp;…])</td>
+<td>Interactively browse table with a paging interface.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">pformat</span></code>([max_lines,&nbsp;max_width,&nbsp;show_name,&nbsp;…])</td>
+<td>Return a list of lines for the formatted string representation of the table.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">pprint</span></code>([max_lines,&nbsp;max_width,&nbsp;show_name,&nbsp;…])</td>
+<td>Print a formatted string representation of the table.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">read</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Read and parse a data table and return as a Table.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.read_samples" title="gwemlightcurves.KNModels.table.KNTable.read_samples"><code class="xref py py-obj docutils literal"><span class="pre">read_samples</span></code></a>(filename_samples)</td>
+<td>Read LALinference posterior_samples</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_column</span></code>(name)</td>
+<td>Remove a column from the table.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_columns</span></code>(names)</td>
+<td>Remove several columns from the table.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_indices</span></code>(colname)</td>
+<td>Remove all indices involving the given column.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_row</span></code>(index)</td>
+<td>Remove a row from the table.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_rows</span></code>(row_specifier)</td>
+<td>Remove rows from the table.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">rename_column</span></code>(name,&nbsp;new_name)</td>
+<td>Rename a column.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">replace_column</span></code>(name,&nbsp;col)</td>
+<td>Replace column <code class="docutils literal"><span class="pre">name</span></code> with the new <code class="docutils literal"><span class="pre">col</span></code> object.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">reverse</span></code>()</td>
+<td>Reverse the row order of table rows.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">show_in_browser</span></code>([max_lines,&nbsp;jsviewer,&nbsp;…])</td>
+<td>Render the table in HTML and show it in a web browser.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">show_in_notebook</span></code>([tableid,&nbsp;css,&nbsp;…])</td>
+<td>Render the table in HTML and show it in the IPython notebook.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">sort</span></code>([keys])</td>
+<td>Sort the table according to one or more keys.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">to_pandas</span></code>()</td>
+<td>Return a <code class="xref py py-class docutils literal"><span class="pre">pandas.DataFrame</span></code> instance</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">write</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Write this Table object out in the specified format.</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass">
+<code class="descname">calc_baryonic_mass</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.calc_baryonic_mass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass" title="Permalink to this definition">¶</a></dt>
+<dd><p># Equation to relate EOS and neutron star mass to Baryonic mass
+# Eq 8: <a class="reference external" href="https://arxiv.org/pdf/1708.07714.pdf">https://arxiv.org/pdf/1708.07714.pdf</a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gwemlightcurves.KNModels.table.KNTable.calc_compactness">
+<code class="descname">calc_compactness</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.calc_compactness"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.calc_compactness" title="Permalink to this definition">¶</a></dt>
+<dd><p>calculate compactness of objects from lambda1 and lambda2</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gwemlightcurves.KNModels.table.KNTable.calc_tidal_lambda">
+<code class="descname">calc_tidal_lambda</code><span class="sig-paren">(</span><em>remove_negative_lambda=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.calc_tidal_lambda"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.calc_tidal_lambda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes posterior samples and calculates lambda1 and lambda2 from
+lambdat and dlambdat.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gwemlightcurves.KNModels.table.KNTable.downsample">
+<code class="descname">downsample</code><span class="sig-paren">(</span><em>Nsamples=100</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.downsample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.downsample" title="Permalink to this definition">¶</a></dt>
+<dd><p>randomly down samples the number os posterior samples used for calculating lightcurves
+plotting etc</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="gwemlightcurves.KNModels.table.KNTable.model">
+<em class="property">classmethod </em><code class="descname">model</code><span class="sig-paren">(</span><em>format_</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetch a table of events from a database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*args</strong></p>
+<blockquote>
+<div><p>all other positional arguments are specific to the
+data format, see below for basic usage</p>
+</div></blockquote>
+<p><strong>**kwargs</strong></p>
+<blockquote>
+<div><p>all other positional arguments are specific to the
+data format, see the online documentation for more details</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>table</strong> : <cite>KNTable</cite></p>
+<blockquote class="last">
+<div><p>a table of events recovered from the remote database</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The available named formats are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Format</th>
+<th class="head">Basic usage</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ArnettKilonovaLightcurve</td>
+<td><code class="docutils literal"><span class="pre">model('ArnettKilonovaLightcurve',</span> <span class="pre">table)</span></code></td>
+</tr>
+<tr class="row-odd"><td>BHNSKilonovaLightcurve</td>
+<td><code class="docutils literal"><span class="pre">model('BHNSKilonovaLightcurve',</span> <span class="pre">table)</span></code></td>
+</tr>
+<tr class="row-even"><td>BNSKilonovaLightcurve</td>
+<td><code class="docutils literal"><span class="pre">model('BNSKilonovaLightcurve',</span> <span class="pre">table)</span></code></td>
+</tr>
+<tr class="row-odd"><td>BlueKilonovaLightcurve</td>
+<td><code class="docutils literal"><span class="pre">model('BlueKilonovaLightcurve',</span> <span class="pre">table)</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="gwemlightcurves.KNModels.table.KNTable.read_samples">
+<em class="property">classmethod </em><code class="descname">read_samples</code><span class="sig-paren">(</span><em>filename_samples</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.read_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.read_samples" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read LALinference posterior_samples</p>
+</dd></dl>
+
+</dd></dl>
+
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'586cf66b843593a17dd6e75dcae498d99c4b16b7',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

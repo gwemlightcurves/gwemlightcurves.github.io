@@ -1,0 +1,27 @@
+gwemlightcurves package
+=======================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    gwemlightcurves.KNModels
+
+Submodules
+----------
+
+.. toctree::
+
+   gwemlightcurves.BOXFit
+   gwemlightcurves.SALT2
+   gwemlightcurves.lightcurve_utils
+   gwemlightcurves.version
+
+Module contents
+---------------
+
+.. automodule:: gwemlightcurves
+    :members:
+    :undoc-members:
+    :show-inheritance:

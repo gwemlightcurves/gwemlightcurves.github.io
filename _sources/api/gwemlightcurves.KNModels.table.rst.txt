@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.KNModels.table
+    :members:
+    :undoc-members:
+    :show-inheritance:

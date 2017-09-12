@@ -1,0 +1,22 @@
+gwemlightcurves\.KNModels\.io package
+=====================================
+
+Submodules
+----------
+
+.. toctree::
+
+   gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve
+   gwemlightcurves.KNModels.io.BHNSKilonovaLightcurve
+   gwemlightcurves.KNModels.io.BHNSKilonovaLightcurveOpt
+   gwemlightcurves.KNModels.io.BNSKilonovaLightcurve
+   gwemlightcurves.KNModels.io.BlueKilonovaLightcurve
+   gwemlightcurves.KNModels.io.model
+
+Module contents
+---------------
+
+.. automodule:: gwemlightcurves.KNModels.io
+    :members:
+    :undoc-members:
+    :show-inheritance:

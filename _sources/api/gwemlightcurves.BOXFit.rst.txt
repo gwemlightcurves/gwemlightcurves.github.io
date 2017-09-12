@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.BOXFit
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,24 @@
+gwemlightcurves\.KNModels package
+=================================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    gwemlightcurves.KNModels.io
+
+Submodules
+----------
+
+.. toctree::
+
+   gwemlightcurves.KNModels.table
+
+Module contents
+---------------
+
+.. automodule:: gwemlightcurves.KNModels
+    :members:
+    :undoc-members:
+    :show-inheritance:

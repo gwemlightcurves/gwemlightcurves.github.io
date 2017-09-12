@@ -1,0 +1,572 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gwemlightcurves.lightcurve_utils &mdash; gwemlightcurves 586cf66b843593a17dd6e75dcae498d99c4b16b7 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/gwemlightcurves-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="gwemlightcurves 586cf66b843593a17dd6e75dcae498d99c4b16b7 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gwemlightcurves
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                586cf66b843593a17dd6e75dcae498d99c4b16b7
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Simulating lightcurves</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gwemlightcurves</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>gwemlightcurves.lightcurve_utils</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gwemlightcurves.lightcurve_utils</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">optparse</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="c1">#matplotlib.rc(&#39;text&#39;, usetex=True)</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">})</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">astropy.time</span> <span class="k">import</span> <span class="n">Time</span>
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="k">import</span> <span class="n">Table</span>
+
+<div class="viewcode-block" id="loadModelsSpec"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.loadModelsSpec">[docs]</a><span class="k">def</span> <span class="nf">loadModelsSpec</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;barnes_kilonova_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_merger_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;kilonova_wind_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;macronovae-rosswog&quot;</span><span class="p">]</span>
+    <span class="n">models_ref</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Barnes et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Barnes and Kasen (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Kasen et al. (2014)&quot;</span><span class="p">,</span><span class="s2">&quot;Rosswog et al. (2017)&quot;</span><span class="p">]</span>
+
+    <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">legend_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">models</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">_spec.dat&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">legend_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">models_ref</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">break</span>
+    <span class="n">specs</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="n">read_files_spec</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">specs</span></div>
+
+<div class="viewcode-block" id="loadModels"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.loadModels">[docs]</a><span class="k">def</span> <span class="nf">loadModels</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;barnes_kilonova_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_merger_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;kilonova_wind_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_precursor_Lbol&quot;</span><span class="p">,</span><span class="s2">&quot;BHNS&quot;</span><span class="p">,</span><span class="s2">&quot;BNS&quot;</span><span class="p">,</span><span class="s2">&quot;SN&quot;</span><span class="p">,</span><span class="s2">&quot;tanaka_compactmergers&quot;</span><span class="p">,</span><span class="s2">&quot;macronovae-rosswog&quot;</span><span class="p">,</span><span class="s2">&quot;Blue&quot;</span><span class="p">,</span><span class="s2">&quot;Arnett&quot;</span><span class="p">]</span>
+    <span class="n">models_ref</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Barnes et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Barnes and Kasen (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Kasen et al. (2014)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger et al. (2015)&quot;</span><span class="p">,</span><span class="s2">&quot;Kawaguchi et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Dietrich et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Guy et al. (2007)&quot;</span><span class="p">,</span><span class="s2">&quot;Tanaka and Hotokezaka (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Rosswog et al. (2017)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger (2017)&quot;</span><span class="p">,</span> <span class="s2">&quot;Inserra et al. (2013)&quot;</span><span class="p">]</span>
+
+    <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">legend_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">models</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.dat&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">legend_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">models_ref</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">break</span>
+    <span class="n">mags</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="n">read_files</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mags</span></div>
+
+<div class="viewcode-block" id="loadModelsLbol"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.loadModelsLbol">[docs]</a><span class="k">def</span> <span class="nf">loadModelsLbol</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;barnes_kilonova_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_merger_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;kilonova_wind_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_precursor_Lbol&quot;</span><span class="p">,</span><span class="s2">&quot;BHNS&quot;</span><span class="p">,</span><span class="s2">&quot;BNS&quot;</span><span class="p">,</span><span class="s2">&quot;SN&quot;</span><span class="p">,</span><span class="s2">&quot;tanaka_compactmergers&quot;</span><span class="p">,</span><span class="s2">&quot;macronovae-rosswog&quot;</span><span class="p">,</span><span class="s2">&quot;Blue&quot;</span><span class="p">,</span><span class="s2">&quot;Arnett&quot;</span><span class="p">]</span>
+    <span class="n">models_ref</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Barnes et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Barnes and Kasen (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Kasen et al. (2014)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger et al. (2015)&quot;</span><span class="p">,</span><span class="s2">&quot;Kawaguchi et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Dietrich et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Guy et al. (2007)&quot;</span><span class="p">,</span><span class="s2">&quot;Tanaka and Hotokezaka (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Rosswog et al. (2017)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger (2017)&quot;</span><span class="p">,</span> <span class="s2">&quot;Inserra et al. (2013)&quot;</span><span class="p">]</span>
+
+    <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">legend_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">models</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">_Lbol.dat&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">legend_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">models_ref</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+        <span class="k">break</span>
+    <span class="n">Lbols</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="n">read_files_lbol</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Lbols</span></div>
+
+<div class="viewcode-block" id="loadEvent"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.loadEvent">[docs]</a><span class="k">def</span> <span class="nf">loadEvent</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)]</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">lines</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="n">lineSplit</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">lineSplit</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">lineSplit</span><span class="p">)</span>
+        <span class="n">mjd</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="n">lineSplit</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;isot&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mjd</span>
+        <span class="n">filt</span> <span class="o">=</span> <span class="n">lineSplit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mag</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lineSplit</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+        <span class="n">dmag</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lineSplit</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">filt</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">mjd</span><span class="p">,</span><span class="n">mag</span><span class="p">,</span><span class="n">dmag</span><span class="p">]]),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="loadEventSpec"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.loadEventSpec">[docs]</a><span class="k">def</span> <span class="nf">loadEventSpec</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">nameSplit</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="n">event</span> <span class="o">=</span> <span class="n">nameSplit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">instrument</span> <span class="o">=</span> <span class="n">nameSplit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">specdata</span> <span class="o">=</span> <span class="n">nameSplit</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>    
+
+    <span class="n">data_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Angstroms</span>
+    <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span> <span class="c1"># ergs/s/cm2./Angs </span>
+    <span class="c1">#if instrument == &quot;XSH&quot;:</span>
+    <span class="c1">#    spec[&quot;data&quot;] = np.abs(data_out[:,1])*1e-17 # ergs/s/cm2./Angs </span>
+    <span class="c1">#else:</span>
+    <span class="c1">#    spec[&quot;data&quot;] = np.abs(data_out[:,1]) # ergs/s/cm2./Angs</span>
+    <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># ergs/s/cm2./Angs</span>
+    <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]))</span>
+    <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">spec</span></div>
+
+<div class="viewcode-block" id="loadEventLbol"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.loadEventLbol">[docs]</a><span class="k">def</span> <span class="nf">loadEventLbol</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+    <span class="n">data_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;tt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Lbol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Lbol_err&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]))</span><span class="o">*</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;T_err&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="loadLightcurves"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.loadLightcurves">[docs]</a><span class="k">def</span> <span class="nf">loadLightcurves</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)]</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">lines</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="n">lineSplit</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">numid</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lineSplit</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">psid</span> <span class="o">=</span> <span class="n">lineSplit</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">filt</span> <span class="o">=</span> <span class="n">lineSplit</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">mjd</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lineSplit</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">mag</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lineSplit</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+        <span class="n">dmag</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">lineSplit</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">psid</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">psid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">filt</span> <span class="ow">in</span> <span class="n">data</span><span class="p">[</span><span class="n">psid</span><span class="p">]:</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">psid</span><span class="p">][</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="nb">float</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">psid</span><span class="p">][</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">psid</span><span class="p">][</span><span class="n">filt</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">mjd</span><span class="p">,</span><span class="n">mag</span><span class="p">,</span><span class="n">dmag</span><span class="p">]]),</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="event"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.event">[docs]</a><span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="n">dataDir</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+
+    <span class="n">filename_samples</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/event_data/</span><span class="si">%s</span><span class="s1">.dat&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">dataDir</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="n">data_out</span> <span class="o">=</span> <span class="n">read_posterior_samples</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_out</span></div>
+
+<div class="viewcode-block" id="going_the_distance"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.going_the_distance">[docs]</a><span class="k">def</span> <span class="nf">going_the_distance</span><span class="p">(</span><span class="n">dataDir</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+
+    <span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/going-the-distance_data/2015/compare/</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">dataDir</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">filename_samples</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span><span class="s1">&#39;lalinference_nest/posterior_samples.dat&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="n">data_out</span> <span class="o">=</span> <span class="n">read_posterior_samples</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_out</span></div>
+
+<div class="viewcode-block" id="massgap"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.massgap">[docs]</a><span class="k">def</span> <span class="nf">massgap</span><span class="p">(</span><span class="n">dataDir</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+
+    <span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/massgap_data/</span><span class="si">%s</span><span class="s1">/postblue&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">dataDir</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">filename_samples</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span><span class="s1">&#39;posterior_samples.dat&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="n">data_out</span> <span class="o">=</span> <span class="n">read_posterior_samples</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">)</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/massgap_data/injected_values.txt&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">dataDir</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">injnum</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">snr</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">data</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">eff_spin</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">totmass</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
+    <span class="n">a2</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">8</span><span class="p">]</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">truths</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">truths</span><span class="p">[</span><span class="s2">&quot;snr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">snr</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">truths</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m1</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">truths</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">m2</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">truths</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">truths</span><span class="p">[</span><span class="s2">&quot;a1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">a1</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+    <span class="n">truths</span><span class="p">[</span><span class="s2">&quot;a2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">a2</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">data_out</span><span class="p">,</span> <span class="n">truths</span></div>
+
+<div class="viewcode-block" id="read_posterior_samples_old"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.read_posterior_samples_old">[docs]</a><span class="k">def</span> <span class="nf">read_posterior_samples_old</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
+
+    <span class="n">data_out</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">)]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span><span class="n">skiprows</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">)):</span>
+        <span class="n">param</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span>
+  
+        <span class="n">data_out</span><span class="p">[</span><span class="n">param</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="n">ii</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">data_out</span></div>
+
+<div class="viewcode-block" id="read_posterior_samples"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.read_posterior_samples">[docs]</a><span class="k">def</span> <span class="nf">read_posterior_samples</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
+
+    <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data_out</span></div>
+
+<div class="viewcode-block" id="read_files_lbol"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.read_files_lbol">[docs]</a><span class="k">def</span> <span class="nf">read_files_lbol</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">Lbols</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_Lbol.txt&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_Lbol.dat&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">Lbol_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="n">Lbols</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">Lbols</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;tt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Lbol_d</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">Lbols</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;Lbol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Lbol_d</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Lbols</span><span class="p">,</span> <span class="n">names</span></div>
+
+<div class="viewcode-block" id="read_files_spec"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.read_files_spec">[docs]</a><span class="k">def</span> <span class="nf">read_files_spec</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">specs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_spec&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.spec&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.dat&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">data_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">t_d</span><span class="p">,</span> <span class="n">lambda_d</span><span class="p">,</span> <span class="n">spec_d</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data_out</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">:],</span> <span class="n">data_out</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="n">specs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">specs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">t_d</span>
+        <span class="n">specs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;lambda&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lambda_d</span>
+        <span class="n">specs</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spec_d</span>
+
+        <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">specs</span><span class="p">,</span> <span class="n">names</span></div>
+
+<div class="viewcode-block" id="read_files"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.read_files">[docs]</a><span class="k">def</span> <span class="nf">read_files</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">mags</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.txt&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.dat&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mag_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;u&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;g&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;r&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;i&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;z&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;J&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;H&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">8</span><span class="p">]</span>
+        <span class="n">mags</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s2">&quot;K&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[:,</span><span class="mi">9</span><span class="p">]</span>
+
+        <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">mags</span><span class="p">,</span> <span class="n">names</span></div>
+
+<div class="viewcode-block" id="xcorr_mags"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.xcorr_mags">[docs]</a><span class="k">def</span> <span class="nf">xcorr_mags</span><span class="p">(</span><span class="n">mags1</span><span class="p">,</span><span class="n">mags2</span><span class="p">):</span>
+    <span class="n">nmags1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mags1</span><span class="p">)</span>
+    <span class="n">nmags2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mags2</span><span class="p">)</span>
+    <span class="n">xcorrvals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nmags1</span><span class="p">,</span><span class="n">nmags2</span><span class="p">))</span>
+    <span class="n">chisquarevals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">nmags1</span><span class="p">,</span><span class="n">nmags2</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">name1</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mags1</span><span class="o">.</span><span class="n">iterkeys</span><span class="p">()):</span>
+        <span class="k">for</span> <span class="n">jj</span><span class="p">,</span><span class="n">name2</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">mags2</span><span class="o">.</span><span class="n">iterkeys</span><span class="p">()):</span>
+
+            <span class="n">t1</span> <span class="o">=</span> <span class="n">mags1</span><span class="p">[</span><span class="n">name1</span><span class="p">][</span><span class="s2">&quot;t&quot;</span><span class="p">]</span>
+            <span class="n">t2</span> <span class="o">=</span> <span class="n">mags2</span><span class="p">[</span><span class="n">name2</span><span class="p">][</span><span class="s2">&quot;t&quot;</span><span class="p">]</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="n">t2</span><span class="p">))</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">100</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)</span>      
+
+            <span class="n">mag1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">mags1</span><span class="p">[</span><span class="n">name1</span><span class="p">][</span><span class="s2">&quot;g&quot;</span><span class="p">])</span>
+            <span class="n">mag2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">t2</span><span class="p">,</span> <span class="n">mags2</span><span class="p">[</span><span class="n">name2</span><span class="p">][</span><span class="s2">&quot;g&quot;</span><span class="p">])</span>
+
+            <span class="n">indexes1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mag1</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">indexes2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mag2</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">indexes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">indexes1</span><span class="p">,</span><span class="n">indexes2</span><span class="p">)</span>
+            <span class="n">mag1</span> <span class="o">=</span> <span class="n">mag1</span><span class="p">[</span><span class="n">indexes1</span><span class="p">]</span>
+            <span class="n">mag2</span> <span class="o">=</span> <span class="n">mag2</span><span class="p">[</span><span class="n">indexes2</span><span class="p">]</span>
+
+            <span class="n">indexes1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">mag1</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">indexes2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">mag2</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">indexes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">indexes1</span><span class="p">,</span><span class="n">indexes2</span><span class="p">)</span>
+            <span class="n">mag1</span> <span class="o">=</span> <span class="n">mag1</span><span class="p">[</span><span class="n">indexes1</span><span class="p">]</span>
+            <span class="n">mag2</span> <span class="o">=</span> <span class="n">mag2</span><span class="p">[</span><span class="n">indexes2</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">xcorrvals</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="k">continue</span>           
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mag1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">mag2</span><span class="p">):</span>
+                <span class="n">mag1vals</span> <span class="o">=</span> <span class="p">(</span><span class="n">mag1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mag1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">mag1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">mag1</span><span class="p">))</span>
+                <span class="n">mag2vals</span> <span class="o">=</span> <span class="p">(</span><span class="n">mag2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mag2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">mag2</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mag1vals</span> <span class="o">=</span> <span class="p">(</span><span class="n">mag1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mag1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">mag1</span><span class="p">))</span>
+                <span class="n">mag2vals</span> <span class="o">=</span> <span class="p">(</span><span class="n">mag2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">mag2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">mag2</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">mag2</span><span class="p">))</span>
+
+            <span class="n">xcorr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">correlate</span><span class="p">(</span><span class="n">mag1vals</span><span class="p">,</span> <span class="n">mag2vals</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
+            <span class="n">xcorr_corr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">xcorr</span><span class="p">))</span>
+
+            <span class="c1">#mag1 = mag1 * 100.0 / np.sum(mag1)</span>
+            <span class="c1">#mag2 = mag2 * 100.0 / np.sum(mag2)</span>
+
+            <span class="n">nslides</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mag1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">mag1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">nslides</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">chisquares</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chisquare</span><span class="p">(</span><span class="n">mag1</span><span class="p">,</span> <span class="n">f_exp</span><span class="o">=</span><span class="n">mag1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">nslides</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">chisquares</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">nslides</span><span class="p">)):</span>
+                    <span class="n">chisquare</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chisquare</span><span class="p">(</span><span class="n">mag1</span><span class="p">,</span> <span class="n">f_exp</span><span class="o">=</span><span class="n">mag2</span><span class="p">[</span><span class="n">kk</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">mag1</span><span class="p">)])[</span><span class="mi">0</span><span class="p">]</span> 
+                    <span class="n">chisquares</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chisquare</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">nslides</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">chisquares</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">kk</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">nslides</span><span class="p">)):</span>
+                    <span class="n">chisquare</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">chisquare</span><span class="p">(</span><span class="n">mag2</span><span class="p">,</span> <span class="n">f_exp</span><span class="o">=</span><span class="n">mag1</span><span class="p">[</span><span class="n">kk</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">mag2</span><span class="p">)])[</span><span class="mi">0</span><span class="p">]</span> 
+                    <span class="n">chisquares</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chisquare</span><span class="p">)</span>
+
+            <span class="nb">print</span> <span class="n">name1</span><span class="p">,</span> <span class="n">name2</span><span class="p">,</span> <span class="n">xcorr_corr</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">chisquares</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">mag1</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">mag2</span><span class="p">)</span>
+            <span class="n">xcorrvals</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="n">xcorr_corr</span>
+            <span class="n">chisquarevals</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">chisquares</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">xcorrvals</span><span class="p">,</span> <span class="n">chisquarevals</span></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'586cf66b843593a17dd6e75dcae498d99c4b16b7',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

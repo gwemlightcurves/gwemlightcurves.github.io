@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.lightcurve_utils
+    :members:
+    :undoc-members:
+    :show-inheritance:

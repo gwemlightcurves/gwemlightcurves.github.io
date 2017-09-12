@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.ArnettKilonovaLightcurve
+    :members:
+    :undoc-members:
+    :show-inheritance:
