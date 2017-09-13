@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.io.BHNSKilonovaLightcurve &mdash; gwemlightcurves 0+untagged.62.g652b8d2.dirty documentation</title>
+  <title>gwemlightcurves.KNModels.io.BHNSKilonovaLightcurve &mdash; gwemlightcurves 0+untagged.67.g8d223d7 documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.62.g652b8d2.dirty documentation" href="../../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.67.g8d223d7 documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.62.g652b8d2.dirty
+                0+untagged.67.g8d223d7
               </div>
             
           
@@ -176,13 +176,21 @@
     <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
     <span class="c1"># Log mass ejecta</span>
-    <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">])</span>
+    <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">])</span>
     <span class="c1"># calc the velocity of ejecta for those non-zero ejecta mass samples</span>
     <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vej&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_vave</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">])</span>
-    <span class="n">t</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="n">lbol</span><span class="p">[</span><span class="s1">&#39;lbol&#39;</span><span class="p">],</span> <span class="n">mag</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_lc</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">],</span>
-                                               <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vej&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">],</span>
-                                               <span class="n">table</span><span class="p">[</span><span class="s1">&#39;th&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;ph&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;kappa&#39;</span><span class="p">],</span>
-                                               <span class="n">table</span><span class="p">[</span><span class="s1">&#39;eps&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;alp&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;eth&#39;</span><span class="p">])</span> 
+    <span class="c1"># Initialize columns</span>
+    <span class="n">timeseries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">table</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">timeseries</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span>
+    <span class="n">table</span><span class="p">[</span><span class="s1">&#39;lbol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">timeseries</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span>
+    <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="p">[{}]</span>
+    
+    <span class="c1"># Loop over samples</span>
+    <span class="k">for</span> <span class="n">isample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">)):</span>
+        <span class="n">table</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;lbol&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_lc</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span>
+                                               <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vej&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vmin&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span>
+                                               <span class="n">table</span><span class="p">[</span><span class="s1">&#39;th&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;ph&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;kappa&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span>
+                                               <span class="n">table</span><span class="p">[</span><span class="s1">&#39;eps&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;alp&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;eth&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">])</span> 
     <span class="k">return</span> <span class="n">table</span></div>
 
 <div class="viewcode-block" id="calc_meje"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.BHNSKilonovaLightcurve.html#gwemlightcurves.KNModels.io.BHNSKilonovaLightcurve.calc_meje">[docs]</a><span class="k">def</span> <span class="nf">calc_meje</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">chi_eff</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">mb</span><span class="p">,</span><span class="n">mns</span><span class="p">):</span>
@@ -218,7 +226,7 @@
   <span class="k">return</span> <span class="mi">3</span><span class="o">+</span><span class="n">z2</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">chi</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="mi">3</span><span class="o">-</span><span class="n">z1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">+</span><span class="n">z1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">z2</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="calc_lc"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.BHNSKilonovaLightcurve.html#gwemlightcurves.KNModels.io.BHNSKilonovaLightcurve.calc_lc">[docs]</a><span class="k">def</span> <span class="nf">calc_lc</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">mej</span><span class="p">,</span><span class="n">vave</span><span class="p">,</span><span class="n">vmin</span><span class="p">,</span><span class="n">th</span><span class="p">,</span><span class="n">ph</span><span class="p">,</span><span class="n">kappa</span><span class="p">,</span><span class="n">eps</span><span class="p">,</span><span class="n">alp</span><span class="p">,</span><span class="n">eth</span><span class="p">):</span>
-  
+
   <span class="n">td</span><span class="p">,</span> <span class="n">bc</span> <span class="o">=</span> <span class="n">setbc_APR4Q3a75</span><span class="p">()</span>
 
   <span class="n">t_d</span><span class="o">=</span><span class="p">[]</span>
@@ -1308,7 +1316,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'0+untagged.62.g652b8d2.dirty',
+            VERSION:'0+untagged.67.g8d223d7',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
