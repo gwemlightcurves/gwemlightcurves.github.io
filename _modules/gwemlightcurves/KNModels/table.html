@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.62.g652b8d2.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/gwemlightcurves-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.62.g652b8d2.dirty documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gwemlightcurves
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.62.g652b8d2.dirty
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Simulating lightcurves</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gwemlightcurves</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gwemlightcurves.KNModels.table</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gwemlightcurves.KNModels.table</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Copyright (C) Scott Coughlin (2017)</span>
+<span class="c1">#</span>
+<span class="c1"># This file is part of gwemlightcurves.</span>
+<span class="c1">#</span>
+<span class="c1"># gwemlightcurves is free software: you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1"># gwemlightcurves is distributed in the hope that it will be useful,</span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with gwemlightcurves.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</span>
+
+<span class="sd">&quot;&quot;&quot;Extend :mod:`astropy.table` with the `KNTable`</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">astropy.table</span> <span class="k">import</span> <span class="p">(</span><span class="n">Table</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">vstack</span><span class="p">)</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNTable&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">tidal_lambda_from_tilde</span><span class="p">(</span><span class="n">mass1</span><span class="p">,</span> <span class="n">mass2</span><span class="p">,</span> <span class="n">lam_til</span><span class="p">,</span> <span class="n">dlam_til</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Determine physical lambda parameters from effective parameters.</span>
+<span class="sd">    See Eqs. 5 and 6 from</span>
+<span class="sd">    https://journals.aps.org/prd/pdf/10.1103/PhysRevD.89.103012</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mt</span> <span class="o">=</span> <span class="n">mass1</span> <span class="o">+</span> <span class="n">mass2</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="n">mass1</span> <span class="o">*</span> <span class="n">mass2</span> <span class="o">/</span> <span class="n">mt</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">eta</span><span class="p">)</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mf">8.</span><span class="o">/</span><span class="mi">13</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">7</span><span class="o">*</span><span class="n">eta</span> <span class="o">-</span> <span class="mi">31</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mf">8.</span><span class="o">/</span><span class="mi">13</span><span class="p">)</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">9</span><span class="o">*</span><span class="n">eta</span> <span class="o">-</span> <span class="mi">11</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">q</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">13272</span><span class="o">*</span><span class="n">eta</span><span class="o">/</span><span class="mi">1319</span> <span class="o">+</span> <span class="mi">8944</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">1319</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mi">15910</span><span class="o">*</span><span class="n">eta</span><span class="o">/</span><span class="mi">1319</span> <span class="o">+</span> <span class="mi">32850</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">1319</span> <span class="o">+</span> <span class="mi">3380</span><span class="o">*</span><span class="n">eta</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">1319</span><span class="p">)</span>
+
+    <span class="n">lambda1</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">c</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="n">lam_til</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">dlam_til</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">c</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">lambda2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">c</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="n">lam_til</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">dlam_til</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">d</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lambda1</span><span class="p">,</span> <span class="n">lambda2</span>
+
+<span class="k">def</span> <span class="nf">CLove</span><span class="p">(</span><span class="n">lmbda</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compactness-Love relation for neutron stars from Eq. (78) of Yagi and Yunes, Phys. Rep. 681, 1 (2017), using the YY coefficients and capping the compactness at the Buchdahl limit of 4/9 = 0.44... (since the fit diverges as lambda \to 0). We also cap the compactness at zero, since it becomes negative for large lambda, though these lambdas are so large that they are unlikely to be encountered in practice. In both cases, we raise an error if it runs up against either of the bounds.</span>
+
+<span class="sd">    Input: Dimensionless quadrupolar tidal deformability lmbda</span>
+<span class="sd">    Output: Compactness (mass over radius, in geometrized units, so the result is dimensionless)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Give coefficients</span>
+    <span class="n">a0</span> <span class="o">=</span> <span class="mf">0.360</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.0355</span>
+    <span class="n">a2</span> <span class="o">=</span> <span class="mf">0.000705</span>
+
+    <span class="c1"># Compute fit</span>
+    <span class="n">lmbda</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">lmbda</span><span class="p">)</span>
+    <span class="n">ll</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">lmbda</span><span class="p">)</span>
+    <span class="n">cc</span> <span class="o">=</span> <span class="n">a0</span> <span class="o">+</span> <span class="p">(</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">ll</span><span class="p">)</span><span class="o">*</span><span class="n">ll</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Returned compactnesses &gt; 4/9 = 0.44 ... setting = 4/9&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setting compact value of </span><span class="si">{0}</span><span class="s2"> for lambda </span><span class="si">{1}</span><span class="s2"> to 4/9&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">],</span> <span class="n">lmbda</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">]))</span>
+        <span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cc</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Returned compactnesses &lt; 0 ... setting = 0.&quot;</span><span class="p">)</span>
+        <span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">return</span> <span class="n">cc</span>
+
+<span class="k">def</span> <span class="nf">EOSfit</span><span class="p">(</span><span class="n">mns</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    # Equation to relate EOS and neutron star mass to Baryonic mass</span>
+<span class="sd">    # Eq 8: https://arxiv.org/pdf/1708.07714.pdf</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mb</span> <span class="o">=</span> <span class="n">mns</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.8857853174243745</span><span class="o">*</span><span class="n">c</span><span class="o">**</span><span class="mf">1.2082383572002926</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mb</span>
+
+
+<div class="viewcode-block" id="KNTable"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable">[docs]</a><span class="k">class</span> <span class="nc">KNTable</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A container for a table of events</span>
+
+<span class="sd">    This differs from the basic `~astropy.table.Table` in two ways</span>
+
+<span class="sd">    See also</span>
+<span class="sd">    --------</span>
+<span class="sd">    astropy.table.Table</span>
+<span class="sd">        for details on parameters for creating an `KNTable`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># -- i/o ------------------------------------</span>
+<div class="viewcode-block" id="KNTable.read_samples"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.read_samples">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_samples</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename_samples</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Read LALinference posterior_samples</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Sample file supplied does not exist&quot;</span><span class="p">)</span>
+
+        <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span> 
+        <span class="k">return</span> <span class="n">KNTable</span><span class="p">(</span><span class="n">data_out</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KNTable.calc_tidal_lambda"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_tidal_lambda">[docs]</a>    <span class="k">def</span> <span class="nf">calc_tidal_lambda</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remove_negative_lambda</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes posterior samples and calculates lambda1 and lambda2 from</span>
+<span class="sd">        lambdat and dlambdat.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;lambda1&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;lambda2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tidal_lambda_from_tilde</span><span class="p">(</span>
+                                          <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">],</span>
+                                          <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambdat&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;dlambdat&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">remove_negative_lambda</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s1">&#39;You have requested to remove negative lambda values&#39;</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda1&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda2&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
+            <span class="nb">print</span> <span class="s2">&quot;Removing </span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2"> due to negative lambdas&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="KNTable.calc_compactness"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_compactness">[docs]</a>    <span class="k">def</span> <span class="nf">calc_compactness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        calculate compactness of objects from lambda1 and lambda2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLove</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda1&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLove</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda2&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="KNTable.calc_baryonic_mass"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass">[docs]</a>    <span class="k">def</span> <span class="nf">calc_baryonic_mass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        # Equation to relate EOS and neutron star mass to Baryonic mass</span>
+<span class="sd">        # Eq 8: https://arxiv.org/pdf/1708.07714.pdf</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;mb1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">EOSfit</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c1&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;mb2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">EOSfit</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c2&quot;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="KNTable.downsample"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.downsample">[docs]</a>    <span class="k">def</span> <span class="nf">downsample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">Nsamples</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        randomly down samples the number os posterior samples used for calculating lightcurves</span>
+<span class="sd">        plotting etc</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You are requesting to downsample the number of posterior samples to </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Nsamples</span><span class="p">))</span>
+        <span class="n">Nsamples</span> <span class="o">=</span> <span class="mi">100</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]))</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[:</span><span class="n">Nsamples</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="KNTable.model"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.model">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">format_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Fetch a table of events from a database</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+
+<span class="sd">        *args</span>
+<span class="sd">            all other positional arguments are specific to the</span>
+<span class="sd">            data format, see below for basic usage</span>
+
+<span class="sd">        **kwargs</span>
+<span class="sd">            all other positional arguments are specific to the</span>
+<span class="sd">            data format, see the online documentation for more details</span>
+
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        table : `KNTable`</span>
+<span class="sd">            a table of events recovered from the remote database</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----&quot;&quot;&quot;</span>
+        <span class="c1"># standard registered fetch</span>
+        <span class="kn">from</span> <span class="nn">.io.model</span> <span class="k">import</span> <span class="n">get_model</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">format_</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0+untagged.62.g652b8d2.dirty',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

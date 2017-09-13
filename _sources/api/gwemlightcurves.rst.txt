@@ -16,7 +16,6 @@ Submodules
    gwemlightcurves.BOXFit
    gwemlightcurves.SALT2
    gwemlightcurves.lightcurve_utils
-   gwemlightcurves.version
 
 Module contents
 ---------------

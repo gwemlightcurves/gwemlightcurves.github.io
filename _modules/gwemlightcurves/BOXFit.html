@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gwemlightcurves.BOXFit &mdash; gwemlightcurves 0+untagged.62.g652b8d2.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../_static/gwemlightcurves-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.62.g652b8d2.dirty documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> gwemlightcurves
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.62.g652b8d2.dirty
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/index.html">Simulating lightcurves</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">gwemlightcurves</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>gwemlightcurves.BOXFit</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gwemlightcurves.BOXFit</h1><div class="highlight"><pre>
+<span></span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">interpolate</span> <span class="k">as</span> <span class="n">interp</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<div class="viewcode-block" id="lightcurve"><a class="viewcode-back" href="../../api/gwemlightcurves.BOXFit.html#gwemlightcurves.BOXFit.lightcurve">[docs]</a><span class="k">def</span> <span class="nf">lightcurve</span><span class="p">(</span><span class="n">boxfitDir</span><span class="p">,</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">theta_0</span><span class="p">,</span><span class="n">E</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">theta_obs</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">epsilon_B</span><span class="p">,</span><span class="n">epsilon_E</span><span class="p">,</span><span class="n">ksi_N</span><span class="p">):</span>
+
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
+    <span class="n">lbol</span> <span class="o">=</span> <span class="mf">1e43</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">tt</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+    <span class="n">filts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span><span class="s2">&quot;g&quot;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="s2">&quot;i&quot;</span><span class="p">,</span><span class="s2">&quot;z&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="s2">&quot;J&quot;</span><span class="p">,</span><span class="s2">&quot;H&quot;</span><span class="p">,</span><span class="s2">&quot;K&quot;</span><span class="p">]</span>
+    <span class="n">lambdas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3561.8</span><span class="p">,</span><span class="mf">4866.46</span><span class="p">,</span><span class="mf">6214.6</span><span class="p">,</span><span class="mf">6389.4</span><span class="p">,</span><span class="mf">7127.0</span><span class="p">,</span><span class="mf">7544.6</span><span class="p">,</span><span class="mf">8679.5</span><span class="p">,</span><span class="mf">9633.3</span><span class="p">,</span><span class="mf">12350.0</span><span class="p">,</span><span class="mf">16620.0</span><span class="p">,</span><span class="mf">21590.0</span><span class="p">])</span><span class="o">*</span><span class="mf">1e-10</span>
+    <span class="n">nu_0s</span> <span class="o">=</span> <span class="mf">3e8</span><span class="o">/</span><span class="n">lambdas</span>
+
+    <span class="n">exampleIni</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/boxfit.ini&quot;</span><span class="o">%</span><span class="n">boxfitDir</span>
+    <span class="n">mag</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">filt</span><span class="p">,</span> <span class="n">nu_0</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">filts</span><span class="p">,</span><span class="n">nu_0s</span><span class="p">):</span>
+        <span class="n">ini</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">exampleIni</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_boxfitDir&quot;</span><span class="p">,</span><span class="n">boxfitDir</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_nu0&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5e</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">nu_0</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_theta0&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5f</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">theta_0</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_E&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5e</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">E</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_n&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5f</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">n</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_theta_obs&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5f</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">theta_obs</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_p&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5f</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">p</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_epsilon_B&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5e</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">epsilon_B</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_epsilon_E&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5e</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">epsilon_E</span><span class="p">)</span>
+             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;xxx_ksi_N&quot;</span><span class="p">,</span><span class="s2">&quot;</span><span class="si">%.5f</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">ksi_N</span><span class="p">)</span>
+             <span class="n">ini</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">paramFile</span> <span class="o">=</span> <span class="s2">&quot;boxfitsettings.txt&quot;</span> 
+        <span class="nb">open</span><span class="p">(</span><span class="n">paramFile</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ini</span><span class="p">))</span>
+        <span class="n">system_command</span> <span class="o">=</span> <span class="s2">&quot;mpiexec </span><span class="si">%s</span><span class="s2">/boxfit &gt; </span><span class="si">%s</span><span class="s2">/out&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">boxfitDir</span><span class="p">,</span><span class="n">boxfitDir</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">system_command</span><span class="p">)</span>
+
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">/out&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">boxfitDir</span><span class="p">)</span>
+        <span class="n">data_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+ 
+        <span class="n">t</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="mf">86400.0</span>
+        <span class="n">mJy</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">Jy</span> <span class="o">=</span> <span class="mf">1e-3</span> <span class="o">*</span> <span class="n">mJy</span>
+        <span class="n">mag_d</span> <span class="o">=</span> <span class="o">-</span><span class="mf">48.6</span> <span class="o">+</span> <span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">Jy</span><span class="o">/</span><span class="mf">1e23</span><span class="p">)</span><span class="o">*</span><span class="mf">2.5</span>
+
+        <span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">mag_d</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">interp</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="n">mag_d</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
+        <span class="n">maginterp</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+
+        <span class="n">mag</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">maginterp</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tt</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span></div>
+
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0+untagged.62.g652b8d2.dirty',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
