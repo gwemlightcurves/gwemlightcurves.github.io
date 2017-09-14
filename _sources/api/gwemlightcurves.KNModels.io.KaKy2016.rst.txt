@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.KNModels.io.KaKy2016
+    :members:
+    :undoc-members:
+    :show-inheritance:

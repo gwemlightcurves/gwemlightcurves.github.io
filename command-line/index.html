@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Running run_parameterized_models_event.py on the command line &mdash; gwemlightcurves 0+untagged.67.g8d223d7 documentation</title>
+  <title>Running run_parameterized_models_event.py on the command line &mdash; gwemlightcurves 0+untagged.72.ga16932d documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.67.g8d223d7 documentation" href="../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.72.ga16932d documentation" href="../index.html"/>
         <link rel="prev" title="Simulating lightcurves" href="../examples/index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.67.g8d223d7
+                0+untagged.72.ga16932d
               </div>
             
           
@@ -170,24 +170,16 @@
 <h2>Basic instructions<a class="headerlink" href="#basic-instructions" title="Permalink to this headline">¶</a></h2>
 <p>Basic instructions on running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> can be gained by looking at the <code class="docutils literal"><span class="pre">--help</span></code> menu:</p>
 <div class="highlight-text"><div class="highlight"><pre><span></span>$ run_parameterized_models_event.py --help
-usage: run_parameterized_models_event.py [-h] [-V] [-o OUTPUTDIR] [-p PLOTDIR]
-                                         [-d DATADIR]
-                                         [--posterior_samples POSTERIOR_SAMPLES]
-                                         [-l LIGHTCURVESDIR] [-m MODEL]
-                                         [--name NAME]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -V, --version         show program&#39;s version number and exit
-  -o OUTPUTDIR, --outputDir OUTPUTDIR
-  -p PLOTDIR, --plotDir PLOTDIR
-  -d DATADIR, --dataDir DATADIR
-  --posterior_samples POSTERIOR_SAMPLES
-  -l LIGHTCURVESDIR, --lightcurvesDir LIGHTCURVESDIR
-  -m MODEL, --model MODEL
-                        BHNSKilonovaLightcurve, BNSKilonovaLightcurve,
-                        BlueKilonovaLightcurve, ArnettKilonovaLightcurve
-  --name NAME
+Traceback (most recent call last):
+  File &quot;/Users/scottcoughlin/anaconda/bin/run_parameterized_models_event.py&quot;, line 6, in &lt;module&gt;
+    exec(compile(open(__file__).read(), __file__, &#39;exec&#39;))
+  File &quot;/Users/scottcoughlin/Documents/GitHub/gwemlightcurves/bin/run_parameterized_models_event.py&quot;, line 18, in &lt;module&gt;
+    from gwemlightcurves.KNModels import KNTable
+  File &quot;/Users/scottcoughlin/Documents/GitHub/gwemlightcurves/gwemlightcurves/KNModels/__init__.py&quot;, line 28, in &lt;module&gt;
+    from . import io
+  File &quot;/Users/scottcoughlin/Documents/GitHub/gwemlightcurves/gwemlightcurves/KNModels/io/__init__.py&quot;, line 22, in &lt;module&gt;
+    from . import (  # pylint: disable=unused-import
+ImportError: cannot import name WoKo2017
 </pre></div>
 </div>
 </div>
@@ -239,7 +231,7 @@ optional arguments:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.67.g8d223d7',
+            VERSION:'0+untagged.72.ga16932d',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

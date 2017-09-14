@@ -6,11 +6,11 @@ Submodules
 
 .. toctree::
 
-   gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve
-   gwemlightcurves.KNModels.io.BHNSKilonovaLightcurve
-   gwemlightcurves.KNModels.io.BHNSKilonovaLightcurveOpt
-   gwemlightcurves.KNModels.io.BNSKilonovaLightcurve
-   gwemlightcurves.KNModels.io.BlueKilonovaLightcurve
+   gwemlightcurves.KNModels.io.DiUj2017
+   gwemlightcurves.KNModels.io.KaKy2016
+   gwemlightcurves.KNModels.io.Me2017
+   gwemlightcurves.KNModels.io.SmCh2017
+   gwemlightcurves.KNModels.io.WoKo2017
    gwemlightcurves.KNModels.io.model
 
 Module contents

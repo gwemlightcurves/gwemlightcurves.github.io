@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve &mdash; gwemlightcurves 0+untagged.67.g8d223d7 documentation</title>
+  <title>gwemlightcurves.KNModels.io.SmCh2017 &mdash; gwemlightcurves 0+untagged.72.ga16932d documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.67.g8d223d7 documentation" href="../../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.72.ga16932d documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.67.g8d223d7
+                0+untagged.72.ga16932d
               </div>
             
           
@@ -142,7 +142,7 @@
         
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
         
-      <li>gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve</li>
+      <li>gwemlightcurves.KNModels.io.SmCh2017</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -159,7 +159,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve</h1><div class="highlight"><pre>
+  <h1>Source code for gwemlightcurves.KNModels.io.SmCh2017</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Kilonova Light Curve Calculator</span>
 <span class="c1"># includes heating from r-process nuclei, free neutrons, and remnant magnetar</span>
 <span class="c1"># based on physics in Metzger et al. 2010, Fernandez &amp; Metzger 2014, Metzger 2017</span>
@@ -171,15 +171,18 @@
 <span class="kn">from</span> <span class="nn">.model</span> <span class="k">import</span> <span class="n">register_model</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">KNTable</span>
 
-<div class="viewcode-block" id="get_ArnettKilonovaLightcurve_model"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.get_ArnettKilonovaLightcurve_model">[docs]</a><span class="k">def</span> <span class="nf">get_ArnettKilonovaLightcurve_model</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_meje</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mb1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mb2&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;c2&#39;</span><span class="p">])</span>
+<div class="viewcode-block" id="get_SmCh2017_model"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.get_SmCh2017_model">[docs]</a><span class="k">def</span> <span class="nf">get_SmCh2017_model</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;mej&#39;</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">colnames</span><span class="p">:</span>
+        <span class="c1"># calc the mass of ejecta</span>
+        <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_meje</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mb1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mb2&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;c2&#39;</span><span class="p">])</span>
+        <span class="c1"># calc the velocity of ejecta</span>
+        <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vej&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_vej</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">],</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;c2&#39;</span><span class="p">])</span>
+
     <span class="c1"># Throw out smaples where the mass ejecta is less than zero.</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">table</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
     <span class="c1"># Log mass ejecta</span>
     <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej10&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">])</span>
-    <span class="c1"># calc the velocity of ejecta for those non-zero ejecta mass samples</span>
-    <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vej&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_vej</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">],</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;c2&#39;</span><span class="p">])</span>
     <span class="c1"># Initialize lightcurve values in table</span>
     <span class="n">timeseries</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">table</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">timeseries</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span>
@@ -194,7 +197,7 @@
                                                                      <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vej&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;slope_r&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;kappa_r&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">table</span></div>
 
-<div class="viewcode-block" id="lightcurve_break"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.lightcurve_break">[docs]</a><span class="k">def</span> <span class="nf">lightcurve_break</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">slope_r</span><span class="p">,</span><span class="n">kappa_r</span><span class="p">,</span><span class="n">t_break</span><span class="p">,</span><span class="n">slope_break</span><span class="p">,</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+<div class="viewcode-block" id="lightcurve_break"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.lightcurve_break">[docs]</a><span class="k">def</span> <span class="nf">lightcurve_break</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">slope_r</span><span class="p">,</span><span class="n">kappa_r</span><span class="p">,</span><span class="n">t_break</span><span class="p">,</span><span class="n">slope_break</span><span class="p">,</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
 
     <span class="n">mej</span> <span class="o">=</span> <span class="n">calc_meje</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
     <span class="n">vej</span> <span class="o">=</span> <span class="n">calc_vej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
@@ -202,7 +205,7 @@
 
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">Tobs</span></div>
 
-<div class="viewcode-block" id="calc_meje"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.calc_meje">[docs]</a><span class="k">def</span> <span class="nf">calc_meje</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_meje"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.calc_meje">[docs]</a><span class="k">def</span> <span class="nf">calc_meje</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
 
     <span class="n">a</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.35695</span>
     <span class="n">b</span><span class="o">=</span>  <span class="mf">6.11252</span>
@@ -218,24 +221,24 @@
 
     <span class="k">return</span> <span class="n">meje_fit</span></div>
 
-<div class="viewcode-block" id="calc_vrho"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.calc_vrho">[docs]</a><span class="k">def</span> <span class="nf">calc_vrho</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_vrho"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.calc_vrho">[docs]</a><span class="k">def</span> <span class="nf">calc_vrho</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
     <span class="n">a</span><span class="o">=-</span><span class="mf">0.219479</span>
     <span class="n">b</span><span class="o">=</span><span class="mf">0.444836</span>
     <span class="n">c</span><span class="o">=-</span><span class="mf">2.67385</span>
 
     <span class="k">return</span> <span class="p">((</span><span class="n">m1</span><span class="o">/</span><span class="n">m2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">c1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">m1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">c2</span><span class="p">))</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">b</span></div>
 
-<div class="viewcode-block" id="calc_vz"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.calc_vz">[docs]</a><span class="k">def</span> <span class="nf">calc_vz</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_vz"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.calc_vz">[docs]</a><span class="k">def</span> <span class="nf">calc_vz</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
     <span class="n">a</span><span class="o">=-</span><span class="mf">0.315585</span>
     <span class="n">b</span><span class="o">=</span><span class="mf">0.63808</span>
     <span class="n">c</span><span class="o">=-</span><span class="mf">1.00757</span>
 
     <span class="k">return</span> <span class="p">((</span><span class="n">m1</span><span class="o">/</span><span class="n">m2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">c1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">m1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">c2</span><span class="p">))</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">b</span></div>
 
-<div class="viewcode-block" id="calc_vej"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.calc_vej">[docs]</a><span class="k">def</span> <span class="nf">calc_vej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_vej"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.calc_vej">[docs]</a><span class="k">def</span> <span class="nf">calc_vej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">calc_vrho</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span><span class="o">**</span><span class="mf">2.0</span><span class="o">+</span><span class="n">calc_vz</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span><span class="o">**</span><span class="mf">2.0</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="calc_qej"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.calc_qej">[docs]</a><span class="k">def</span> <span class="nf">calc_qej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_qej"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.calc_qej">[docs]</a><span class="k">def</span> <span class="nf">calc_qej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
     <span class="n">vrho</span><span class="o">=</span><span class="n">calc_vrho</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
     <span class="n">vz</span><span class="o">=</span><span class="n">calc_vz</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
     <span class="n">vrho2</span><span class="o">=</span><span class="n">vrho</span><span class="o">*</span><span class="n">vrho</span>
@@ -246,10 +249,10 @@
 
     <span class="k">return</span> <span class="n">qej</span></div>
 
-<div class="viewcode-block" id="calc_phej"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.calc_phej">[docs]</a><span class="k">def</span> <span class="nf">calc_phej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_phej"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.calc_phej">[docs]</a><span class="k">def</span> <span class="nf">calc_phej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
   <span class="k">return</span> <span class="mf">4.0</span><span class="o">*</span><span class="n">calc_qej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.0</span></div>
 
-<div class="viewcode-block" id="calc_lc"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.calc_lc">[docs]</a><span class="k">def</span> <span class="nf">calc_lc</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">,</span><span class="n">slope_r</span><span class="p">,</span><span class="n">kappa_r</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_lc"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.calc_lc">[docs]</a><span class="k">def</span> <span class="nf">calc_lc</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">,</span><span class="n">slope_r</span><span class="p">,</span><span class="n">kappa_r</span><span class="p">):</span>
 
     <span class="n">t_break</span> <span class="o">=</span> <span class="mf">10.0</span>
     <span class="n">slope_break</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">slope_r</span>
@@ -257,7 +260,7 @@
  
     <span class="k">return</span> <span class="n">t</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">Tobs</span>    </div>
 
-<div class="viewcode-block" id="calc_lc_break"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.html#gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve.calc_lc_break">[docs]</a><span class="k">def</span> <span class="nf">calc_lc_break</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">,</span><span class="n">slope_r</span><span class="p">,</span><span class="n">kappa_r</span><span class="p">,</span><span class="n">t_break</span><span class="p">,</span><span class="n">slope_break</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_lc_break"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.SmCh2017.html#gwemlightcurves.KNModels.io.SmCh2017.calc_lc_break">[docs]</a><span class="k">def</span> <span class="nf">calc_lc_break</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">,</span><span class="n">slope_r</span><span class="p">,</span><span class="n">kappa_r</span><span class="p">,</span><span class="n">t_break</span><span class="p">,</span><span class="n">slope_break</span><span class="p">):</span>
 
     <span class="c1"># ** define constants **</span>
     <span class="n">c</span> <span class="o">=</span> <span class="mf">3.0e10</span>
@@ -378,7 +381,7 @@
     <span class="k">return</span> <span class="n">tvec_days</span><span class="p">,</span> <span class="n">Ltotm</span><span class="o">*</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">mAB</span><span class="p">,</span> <span class="n">Tobs</span></div>
 
 
-<span class="n">register_model</span><span class="p">(</span><span class="s1">&#39;ArnettKilonovaLightcurve&#39;</span><span class="p">,</span> <span class="n">KNTable</span><span class="p">,</span> <span class="n">get_ArnettKilonovaLightcurve_model</span><span class="p">,</span>
+<span class="n">register_model</span><span class="p">(</span><span class="s1">&#39;SmCh2017&#39;</span><span class="p">,</span> <span class="n">KNTable</span><span class="p">,</span> <span class="n">get_SmCh2017_model</span><span class="p">,</span>
                  <span class="n">usage</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -416,7 +419,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'0+untagged.67.g8d223d7',
+            VERSION:'0+untagged.72.ga16932d',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -1,4 +1,0 @@
-.. automodule:: gwemlightcurves.KNModels.io.ArnettKilonovaLightcurve
-    :members:
-    :undoc-members:
-    :show-inheritance:

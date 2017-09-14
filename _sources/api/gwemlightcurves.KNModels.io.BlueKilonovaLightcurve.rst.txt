@@ -1,4 +1,0 @@
-.. automodule:: gwemlightcurves.KNModels.io.BlueKilonovaLightcurve
-    :members:
-    :undoc-members:
-    :show-inheritance:
