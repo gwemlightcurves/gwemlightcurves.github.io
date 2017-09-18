@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gwemlightcurves.EjectaFits.DiUj2017 &mdash; gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="stylesheet" href="../../../_static/gwemlightcurves-docs.css" type="text/css" />
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../../genindex.html"/>
+        <link rel="search" title="Search" href="../../../search.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> gwemlightcurves
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0+untagged.79.g4702d1c.dirty
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Simulating lightcurves</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">gwemlightcurves</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>gwemlightcurves.EjectaFits.DiUj2017</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gwemlightcurves.EjectaFits.DiUj2017</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># Modified from: http://www2.yukawa.kyoto-u.ac.jp/~kyohei.kawaguchi/kn_calc_bns1/main.html</span>
+<span class="c1"># Reference: Dietrich et al. http://adsabs.harvard.edu/cgi-bin/bib_query?arXiv:1612.03665 </span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+
+<div class="viewcode-block" id="calc_meje"><a class="viewcode-back" href="../../../api/gwemlightcurves.EjectaFits.DiUj2017.html#gwemlightcurves.EjectaFits.DiUj2017.calc_meje">[docs]</a><span class="k">def</span> <span class="nf">calc_meje</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:function:: calc_meje(m1,mb1,c1,m2,mb2,c2) </span>
+
+<span class="sd">    Neutron star mass ejected (M_sun). Masses in solar masses, neutron star radius in meters, and baryon mass, if provided, is in solar masses.</span>
+
+<span class="sd">    mass ejecta calculated from</span>
+
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.1</span>
+
+<span class="sd">    constants taken from</span>
+
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.2</span>
+
+<span class="sd">    _a, _b, _c, _d, _n= -1.35695, 6.11252, -49.43355, 16.1144, -2.5484</span>
+
+<span class="sd">   :param float m1: mass of larger ns (MSun)</span>
+<span class="sd">   :param float mb1: baryonic mass of larger ns</span>
+<span class="sd">   :param float c1: compactness of the larger neutron star</span>
+<span class="sd">   :param float m2: mass of samller ns (MSun)</span>
+<span class="sd">   :param float mb2: baryonic of smaller ns</span>
+<span class="sd">   :param float c2: compactness of the smaller neutron star</span>
+<span class="sd">   :return: ejecta mass (Msun)</span>
+<span class="sd">   :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">a</span><span class="o">=</span> <span class="o">-</span><span class="mf">1.35695</span>
+    <span class="n">b</span><span class="o">=</span>  <span class="mf">6.11252</span> 
+    <span class="n">c</span><span class="o">=-</span><span class="mf">49.43355</span>      
+    <span class="n">d</span><span class="o">=</span>  <span class="mf">16.1144</span>    
+    <span class="n">n</span><span class="o">=</span>  <span class="o">-</span><span class="mf">2.5484</span>
+
+    <span class="n">tmp1</span><span class="o">=</span><span class="p">((</span><span class="n">mb1</span><span class="o">*</span><span class="p">((</span><span class="n">m2</span><span class="o">/</span><span class="n">m1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="mf">2.0</span><span class="o">*</span><span class="n">c1</span><span class="p">)</span><span class="o">/</span><span class="n">c1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">mb2</span><span class="o">*</span><span class="p">((</span><span class="n">m1</span><span class="o">/</span><span class="n">m2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">))</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="mf">2.0</span><span class="o">*</span><span class="n">c2</span><span class="p">)</span><span class="o">/</span><span class="n">c2</span><span class="p">))</span> <span class="o">*</span> <span class="n">a</span>
+    <span class="n">tmp2</span><span class="o">=</span><span class="p">(</span><span class="n">mb1</span><span class="o">*</span><span class="p">((</span><span class="n">m2</span><span class="o">/</span><span class="n">m1</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="n">mb2</span><span class="o">*</span><span class="p">((</span><span class="n">m1</span><span class="o">/</span><span class="n">m2</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="n">b</span>
+    <span class="n">tmp3</span><span class="o">=</span><span class="p">(</span><span class="n">mb1</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">m1</span><span class="o">/</span><span class="n">mb1</span><span class="p">)</span><span class="o">+</span><span class="n">mb2</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">m2</span><span class="o">/</span><span class="n">mb2</span><span class="p">))</span> <span class="o">*</span> <span class="n">c</span>
+
+    <span class="n">meje_fit</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">tmp1</span><span class="o">+</span><span class="n">tmp2</span><span class="o">+</span><span class="n">tmp3</span><span class="o">+</span><span class="n">d</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">/</span><span class="mf">1000.0</span>
+  
+    <span class="k">return</span> <span class="n">meje_fit</span></div>
+
+<div class="viewcode-block" id="calc_vrho"><a class="viewcode-back" href="../../../api/gwemlightcurves.EjectaFits.DiUj2017.html#gwemlightcurves.EjectaFits.DiUj2017.calc_vrho">[docs]</a><span class="k">def</span> <span class="nf">calc_vrho</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:function:: calc_vrho(m1,c1,m2,c2) </span>
+<span class="sd">    </span>
+<span class="sd">    velocity mass ejecta </span>
+<span class="sd">    </span>
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.5</span>
+
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.6</span>
+
+<span class="sd">    a = −0.219479,  b= 0.444836,  c=−2.67385</span>
+
+<span class="sd">   :param float m1: mass of larger ns (MSun)</span>
+<span class="sd">   :param float c1: compactness of the larger neutron star</span>
+<span class="sd">   :param float m2: mass of samller ns (MSun)</span>
+<span class="sd">   :param float c2: compactness of the smaller neutron star</span>
+<span class="sd">   :return: velocity of ejecta mass (Msun)</span>
+<span class="sd">   :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span><span class="o">=-</span><span class="mf">0.219479</span>
+    <span class="n">b</span><span class="o">=</span><span class="mf">0.444836</span> 
+    <span class="n">c</span><span class="o">=-</span><span class="mf">2.67385</span>      
+  
+    <span class="k">return</span> <span class="p">((</span><span class="n">m1</span><span class="o">/</span><span class="n">m2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">c1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">m1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">c2</span><span class="p">))</span><span class="o">*</span><span class="n">a</span><span class="o">+</span><span class="n">b</span></div>
+
+<div class="viewcode-block" id="calc_vz"><a class="viewcode-back" href="../../../api/gwemlightcurves.EjectaFits.DiUj2017.html#gwemlightcurves.EjectaFits.DiUj2017.calc_vz">[docs]</a><span class="k">def</span> <span class="nf">calc_vz</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:function:: calc_vz(m1,c1,m2,c2) </span>
+<span class="sd">    </span>
+<span class="sd">    the velocity orthogonal to the orbital plane</span>
+<span class="sd">    </span>
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.7</span>
+
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.8</span>
+
+<span class="sd">    a=−0.315585,  b= 0.63808,  c=−1.00757</span>
+
+<span class="sd">   :param float m1: mass of larger ns (MSun)</span>
+<span class="sd">   :param float c1: compactness of the larger neutron star</span>
+<span class="sd">   :param float m2: mass of samller ns (MSun)</span>
+<span class="sd">   :param float c2: compactness of the smaller neutron star</span>
+<span class="sd">   :return: velocity of ejecta mass (Msun)</span>
+<span class="sd">   :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">a</span><span class="o">=-</span><span class="mf">0.315585</span>
+    <span class="n">b</span><span class="o">=</span><span class="mf">0.63808</span> 
+    <span class="n">c</span><span class="o">=-</span><span class="mf">1.00757</span>      
+
+    <span class="k">return</span> <span class="p">((</span><span class="n">m1</span><span class="o">/</span><span class="n">m2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">c1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">m2</span><span class="o">/</span><span class="n">m1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">c</span><span class="o">*</span><span class="n">c2</span><span class="p">))</span><span class="o">*</span><span class="n">a</span> <span class="o">+</span><span class="n">b</span></div>
+
+<div class="viewcode-block" id="calc_vej"><a class="viewcode-back" href="../../../api/gwemlightcurves.EjectaFits.DiUj2017.html#gwemlightcurves.EjectaFits.DiUj2017.calc_vej">[docs]</a><span class="k">def</span> <span class="nf">calc_vej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:function:: calc_vej(m1,c1,m2,c2) </span>
+
+<span class="sd">    velocity mass ejecta calculated from</span>
+
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.9</span>
+
+<span class="sd">   :param float m1: mass of larger ns (MSun)</span>
+<span class="sd">   :param float c1: compactness of the larger neutron star</span>
+<span class="sd">   :param float m2: mass of samller ns (MSun)</span>
+<span class="sd">   :param float c2: compactness of the smaller neutron star</span>
+<span class="sd">   :return: velocity of ejecta mass (Msun)</span>
+<span class="sd">   :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">calc_vrho</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span><span class="o">**</span><span class="mf">2.0</span><span class="o">+</span><span class="n">calc_vz</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span><span class="o">**</span><span class="mf">2.0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="calc_qej"><a class="viewcode-back" href="../../../api/gwemlightcurves.EjectaFits.DiUj2017.html#gwemlightcurves.EjectaFits.DiUj2017.calc_qej">[docs]</a><span class="k">def</span> <span class="nf">calc_qej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:function:: calc_qej(m1,c1,m2,c2) </span>
+
+<span class="sd">    opening  angle theta_ej</span>
+
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.12</span>
+
+<span class="sd">   :param float m1: mass of larger ns (MSun)</span>
+<span class="sd">   :param float c1: compactness of the larger neutron star</span>
+<span class="sd">   :param float m2: mass of samller ns (MSun)</span>
+<span class="sd">   :param float c2: compactness of the smaller neutron star</span>
+<span class="sd">   :return: opening angle </span>
+<span class="sd">   :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">vrho</span><span class="o">=</span><span class="n">calc_vrho</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+    <span class="n">vz</span><span class="o">=</span><span class="n">calc_vz</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+    <span class="n">vrho2</span><span class="o">=</span><span class="n">vrho</span><span class="o">*</span><span class="n">vrho</span>
+    <span class="n">vz2</span><span class="o">=</span><span class="n">vz</span><span class="o">*</span><span class="n">vz</span>
+
+    <span class="n">tmp1</span><span class="o">=</span><span class="mf">3.</span><span class="o">*</span><span class="n">vz</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">9</span><span class="o">*</span><span class="n">vz2</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">vrho2</span><span class="p">)</span>
+    <span class="n">qej</span><span class="o">=</span><span class="p">((</span><span class="mf">2.0</span><span class="o">**</span><span class="p">(</span><span class="mf">4.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">))</span><span class="o">*</span><span class="n">vrho2</span><span class="o">+</span><span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">vrho2</span><span class="o">*</span><span class="n">tmp1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">))</span><span class="o">/</span><span class="p">((</span><span class="n">vrho</span><span class="o">**</span><span class="mf">5.0</span><span class="p">)</span><span class="o">*</span><span class="n">tmp1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">3.0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">qej</span></div>
+
+<div class="viewcode-block" id="calc_phej"><a class="viewcode-back" href="../../../api/gwemlightcurves.EjectaFits.DiUj2017.html#gwemlightcurves.EjectaFits.DiUj2017.calc_phej">[docs]</a><span class="k">def</span> <span class="nf">calc_phej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:function:: calc_qej(m1,c1,m2,c2) </span>
+
+<span class="sd">    opening  angle theta_ej</span>
+
+<span class="sd">    θej∈[π/8,3π/8] and φej∈[π,2π], and that θej and φ ej</span>
+<span class="sd">    are linearly correlated</span>
+<span class="sd">    </span>
+<span class="sd">    https://arxiv.org/pdf/1612.03665.pdf#equation.3.13</span>
+<span class="sd">    </span>
+<span class="sd">   :param float m1: mass of larger ns (MSun)</span>
+<span class="sd">   :param float c1: compactness of the larger neutron star</span>
+<span class="sd">   :param float m2: mass of samller ns (MSun)</span>
+<span class="sd">   :param float c2: compactness of the smaller neutron star</span>
+<span class="sd">   :return: opening angle </span>
+<span class="sd">   :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="mf">4.0</span><span class="o">*</span><span class="n">calc_qej</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">2.0</span></div>
+
+</pre></div>
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Scott Coughlin.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0+untagged.79.g4702d1c.dirty',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

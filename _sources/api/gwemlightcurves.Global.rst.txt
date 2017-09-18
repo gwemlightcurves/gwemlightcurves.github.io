@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.Global
+    :members:
+    :undoc-members:
+    :show-inheritance:

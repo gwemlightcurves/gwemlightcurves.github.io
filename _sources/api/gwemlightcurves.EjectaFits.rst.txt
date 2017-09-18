@@ -1,0 +1,18 @@
+gwemlightcurves\.EjectaFits package
+===================================
+
+Submodules
+----------
+
+.. toctree::
+
+   gwemlightcurves.EjectaFits.DiUj2017
+   gwemlightcurves.EjectaFits.KaKy2016
+
+Module contents
+---------------
+
+.. automodule:: gwemlightcurves.EjectaFits
+    :members:
+    :undoc-members:
+    :show-inheritance:

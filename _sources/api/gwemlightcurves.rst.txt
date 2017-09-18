@@ -6,7 +6,9 @@ Subpackages
 
 .. toctree::
 
+    gwemlightcurves.EjectaFits
     gwemlightcurves.KNModels
+    gwemlightcurves.sampler
 
 Submodules
 ----------
@@ -14,6 +16,7 @@ Submodules
 .. toctree::
 
    gwemlightcurves.BOXFit
+   gwemlightcurves.Global
    gwemlightcurves.SALT2
    gwemlightcurves.lightcurve_utils
 

@@ -1,0 +1,20 @@
+gwemlightcurves\.sampler package
+================================
+
+Submodules
+----------
+
+.. toctree::
+
+   gwemlightcurves.sampler.loglike
+   gwemlightcurves.sampler.model
+   gwemlightcurves.sampler.prior
+   gwemlightcurves.sampler.run
+
+Module contents
+---------------
+
+.. automodule:: gwemlightcurves.sampler
+    :members:
+    :undoc-members:
+    :show-inheritance:

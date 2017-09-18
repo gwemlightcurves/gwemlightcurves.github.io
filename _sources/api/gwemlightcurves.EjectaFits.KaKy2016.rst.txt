@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.EjectaFits.KaKy2016
+    :members:
+    :undoc-members:
+    :show-inheritance:

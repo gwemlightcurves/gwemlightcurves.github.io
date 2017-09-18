@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.EjectaFits.DiUj2017
+    :members:
+    :undoc-members:
+    :show-inheritance:

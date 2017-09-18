@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.sampler.loglike
+    :members:
+    :undoc-members:
+    :show-inheritance:

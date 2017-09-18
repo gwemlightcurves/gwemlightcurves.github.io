@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.lightcurve_utils &mdash; gwemlightcurves 0+untagged.72.ga16932d documentation</title>
+  <title>gwemlightcurves.lightcurve_utils &mdash; gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.72.ga16932d documentation" href="../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.72.ga16932d
+                0+untagged.79.g4702d1c.dirty
               </div>
             
           
@@ -505,6 +505,108 @@
             <span class="n">chisquarevals</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">chisquares</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">xcorrvals</span><span class="p">,</span> <span class="n">chisquarevals</span></div>
+
+<div class="viewcode-block" id="norm_sym_ratio"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.norm_sym_ratio">[docs]</a><span class="k">def</span> <span class="nf">norm_sym_ratio</span><span class="p">(</span><span class="n">eta</span><span class="p">):</span>
+    <span class="c1"># Assume floating point precision issues</span>
+    <span class="c1">#if np.any(np.isclose(eta, 0.25)):</span>
+    <span class="c1">#eta[np.isclose(eta, 0.25)] = 0.25</span>
+
+    <span class="c1"># Assert phyisicality</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">eta</span> <span class="o">&lt;=</span> <span class="mf">0.25</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">4.</span> <span class="o">*</span> <span class="n">eta</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="q2eta"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.q2eta">[docs]</a><span class="k">def</span> <span class="nf">q2eta</span><span class="p">(</span><span class="n">q</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">q</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">q</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span></div>
+
+<div class="viewcode-block" id="mc2ms"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.mc2ms">[docs]</a><span class="k">def</span> <span class="nf">mc2ms</span><span class="p">(</span><span class="n">mc</span><span class="p">,</span><span class="n">eta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Utility function for converting mchirp,eta to component masses. The</span>
+<span class="sd">    masses are defined so that m1&gt;m2. The rvalue is a tuple (m1,m2).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">0.25</span><span class="o">-</span><span class="n">eta</span><span class="p">)</span>
+    <span class="n">fraction</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">+</span><span class="n">root</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.5</span><span class="o">-</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">invfraction</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">fraction</span>
+
+    <span class="n">m2</span><span class="o">=</span> <span class="n">mc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="mi">1</span><span class="o">+</span><span class="n">fraction</span><span class="p">),</span><span class="mf">0.2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">fraction</span><span class="p">,</span><span class="mf">0.6</span><span class="p">)</span>
+
+    <span class="n">m1</span><span class="o">=</span> <span class="n">mc</span><span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">invfraction</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">invfraction</span><span class="p">,</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">m2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ms2mc"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.ms2mc">[docs]</a><span class="k">def</span> <span class="nf">ms2mc</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">m2</span><span class="p">):</span>
+    <span class="n">eta</span> <span class="o">=</span> <span class="n">m1</span><span class="o">*</span><span class="n">m2</span><span class="o">/</span><span class="p">(</span> <span class="p">(</span><span class="n">m1</span><span class="o">+</span><span class="n">m2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">m1</span><span class="o">+</span><span class="n">m2</span><span class="p">)</span> <span class="p">)</span>
+    <span class="n">mchirp</span> <span class="o">=</span> <span class="p">((</span><span class="n">m1</span><span class="o">*</span><span class="n">m2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">3.</span><span class="o">/</span><span class="mf">5.</span><span class="p">))</span> <span class="o">*</span> <span class="p">((</span><span class="n">m1</span> <span class="o">+</span> <span class="n">m2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="o">/</span><span class="mf">5.</span><span class="p">))</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">m2</span><span class="o">/</span><span class="n">m1</span>
+
+    <span class="k">return</span> <span class="p">(</span><span class="n">mchirp</span><span class="p">,</span><span class="n">eta</span><span class="p">,</span><span class="n">q</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="hist_results"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.hist_results">[docs]</a><span class="k">def</span> <span class="nf">hist_results</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span><span class="n">Nbins</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bounds</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+        <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">Nbins</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">samples</span><span class="p">),</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">samples</span><span class="p">),</span><span class="n">Nbins</span><span class="p">)</span>
+    <span class="n">hist1</span><span class="p">,</span> <span class="n">bin_edges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">samples</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">hist1</span><span class="p">[</span><span class="n">hist1</span><span class="o">==</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-3</span>
+    <span class="c1">#hist1 = hist1 / float(np.sum(hist1))</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">bins</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="mf">2.0</span>
+
+    <span class="k">return</span> <span class="n">bins</span><span class="p">,</span> <span class="n">hist1</span></div>
+
+<div class="viewcode-block" id="get_post_file"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.get_post_file">[docs]</a><span class="k">def</span> <span class="nf">get_post_file</span><span class="p">(</span><span class="n">basedir</span><span class="p">):</span>
+    <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">basedir</span><span class="p">,</span><span class="s1">&#39;2-post*&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">filenames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">return</span> <span class="n">filename</span></div>
+
+<div class="viewcode-block" id="EOSfit"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.EOSfit">[docs]</a><span class="k">def</span> <span class="nf">EOSfit</span><span class="p">(</span><span class="n">mns</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+    <span class="n">mb</span> <span class="o">=</span> <span class="n">mns</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.8857853174243745</span><span class="o">*</span><span class="n">c</span><span class="o">**</span><span class="mf">1.2082383572002926</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mb</span></div>
+
+<div class="viewcode-block" id="get_truths"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.get_truths">[docs]</a><span class="k">def</span> <span class="nf">get_truths</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">n_params</span><span class="p">,</span><span class="n">doEjecta</span><span class="p">):</span>
+    <span class="n">truths</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">n_params</span><span class="p">):</span>
+        <span class="c1">#truths.append(False)</span>
+        <span class="n">truths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;DiUj2017&quot;</span><span class="p">,</span><span class="s2">&quot;KaKy2016&quot;</span><span class="p">,</span><span class="s2">&quot;Me2017&quot;</span><span class="p">,</span><span class="s2">&quot;SmCh2017&quot;</span><span class="p">,</span><span class="s2">&quot;WoKo2017&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">truths</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">doEjecta</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">truths</span>
+
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;DiUj2017_H4M005V20&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.005</span><span class="p">),</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">3.14</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;KaKy2016_H4M005V20&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.005</span><span class="p">),</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">3.14</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;rpft_m005_v2&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.005</span><span class="p">),</span><span class="mf">0.2</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;APR4-1215_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.009</span><span class="p">),</span><span class="mf">0.24</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;APR4-1314_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.008</span><span class="p">),</span><span class="mf">0.22</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;H4-1215_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.004</span><span class="p">),</span><span class="mf">0.21</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;H4-1314_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.0007</span><span class="p">),</span><span class="mf">0.17</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Sly-135_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.02</span><span class="p">),</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;APR4Q3a75_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span><span class="mf">0.24</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;H4Q3a75_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.05</span><span class="p">),</span><span class="mf">0.21</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;MS1Q3a75_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.07</span><span class="p">),</span><span class="mf">0.25</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;MS1Q7a75_k1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.06</span><span class="p">),</span><span class="mf">0.25</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_nsbh1&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.04</span><span class="p">),</span><span class="mf">0.2</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_ns12ns12_kappa10&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.0079</span><span class="p">),</span> <span class="mf">0.12</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">truths</span></div>
+
 </pre></div>
 
            </div>
@@ -541,7 +643,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.72.ga16932d',
+            VERSION:'0+untagged.79.g4702d1c.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
