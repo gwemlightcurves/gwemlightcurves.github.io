@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation</title>
+  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.93.gee3bdbf documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation" href="../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.93.gee3bdbf documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.79.g4702d1c.dirty
+                0+untagged.93.gee3bdbf
               </div>
             
           
@@ -184,12 +184,13 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">astropy.table</span> <span class="k">import</span> <span class="p">(</span><span class="n">Table</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">vstack</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">distutils.spawn</span> <span class="k">import</span> <span class="n">find_executable</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNTable&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNTable&#39;</span><span class="p">,</span> <span class="s1">&#39;tidal_lambda_from_tilde&#39;</span><span class="p">,</span> <span class="s1">&#39;CLove&#39;</span><span class="p">,</span> <span class="s1">&#39;EOSfit&#39;</span><span class="p">]</span>
 
 
-<span class="k">def</span> <span class="nf">tidal_lambda_from_tilde</span><span class="p">(</span><span class="n">mass1</span><span class="p">,</span> <span class="n">mass2</span><span class="p">,</span> <span class="n">lam_til</span><span class="p">,</span> <span class="n">dlam_til</span><span class="p">):</span>
+<div class="viewcode-block" id="tidal_lambda_from_tilde"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.tidal_lambda_from_tilde">[docs]</a><span class="k">def</span> <span class="nf">tidal_lambda_from_tilde</span><span class="p">(</span><span class="n">mass1</span><span class="p">,</span> <span class="n">mass2</span><span class="p">,</span> <span class="n">lam_til</span><span class="p">,</span> <span class="n">dlam_til</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Determine physical lambda parameters from effective parameters.</span>
 <span class="sd">    See Eqs. 5 and 6 from</span>
@@ -207,9 +208,9 @@
     <span class="n">lambda1</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">c</span> <span class="o">-</span> <span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="n">lam_til</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">dlam_til</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">c</span> <span class="o">-</span> <span class="n">a</span><span class="o">*</span><span class="n">d</span><span class="p">)</span>
     <span class="n">lambda2</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">c</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span> <span class="o">*</span> <span class="n">lam_til</span> <span class="o">-</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span> <span class="o">*</span> <span class="n">dlam_til</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">d</span> <span class="o">-</span> <span class="n">b</span><span class="o">*</span><span class="n">c</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">lambda1</span><span class="p">,</span> <span class="n">lambda2</span>
+    <span class="k">return</span> <span class="n">lambda1</span><span class="p">,</span> <span class="n">lambda2</span></div>
 
-<span class="k">def</span> <span class="nf">CLove</span><span class="p">(</span><span class="n">lmbda</span><span class="p">):</span>
+<div class="viewcode-block" id="CLove"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.CLove">[docs]</a><span class="k">def</span> <span class="nf">CLove</span><span class="p">(</span><span class="n">lmbda</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compactness-Love relation for neutron stars from Eq. (78) of Yagi and Yunes, Phys. Rep. 681, 1 (2017), using the YY coefficients and capping the compactness at the Buchdahl limit of 4/9 = 0.44... (since the fit diverges as lambda \to 0). We also cap the compactness at zero, since it becomes negative for large lambda, though these lambdas are so large that they are unlikely to be encountered in practice. In both cases, we raise an error if it runs up against either of the bounds.</span>
 
@@ -235,15 +236,15 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Returned compactnesses &lt; 0 ... setting = 0.&quot;</span><span class="p">)</span>
         <span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-    <span class="k">return</span> <span class="n">cc</span>
+    <span class="k">return</span> <span class="n">cc</span></div>
 
-<span class="k">def</span> <span class="nf">EOSfit</span><span class="p">(</span><span class="n">mns</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+<div class="viewcode-block" id="EOSfit"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.EOSfit">[docs]</a><span class="k">def</span> <span class="nf">EOSfit</span><span class="p">(</span><span class="n">mns</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    # Equation to relate EOS and neutron star mass to Baryonic mass</span>
 <span class="sd">    # Eq 8: https://arxiv.org/pdf/1708.07714.pdf</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">mb</span> <span class="o">=</span> <span class="n">mns</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.8857853174243745</span><span class="o">*</span><span class="n">c</span><span class="o">**</span><span class="mf">1.2082383572002926</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">mb</span>
+    <span class="k">return</span> <span class="n">mb</span></div>
 
 
 <div class="viewcode-block" id="KNTable"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable">[docs]</a><span class="k">class</span> <span class="nc">KNTable</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
@@ -266,7 +267,22 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Sample file supplied does not exist&quot;</span><span class="p">)</span>
 
-        <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span> 
+        <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;m1_source&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_out</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+            <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">]</span>
+            <span class="nb">print</span> <span class="s1">&#39;setting m1 to m1_source&#39;</span>
+        <span class="k">if</span> <span class="s1">&#39;m2_source&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_out</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+            <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">]</span>
+            <span class="nb">print</span> <span class="s1">&#39;setting m2 to m2_source&#39;</span>
+
+        <span class="k">if</span> <span class="s1">&#39;dlam_tilde&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_out</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+            <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;dlambdat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;dlam_tilde&#39;</span><span class="p">]</span>
+            <span class="nb">print</span> <span class="s1">&#39;setting dlambdat to dlam_tilde&#39;</span>
+        <span class="k">if</span> <span class="s1">&#39;lam_tilde&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_out</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+            <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;lambdat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;lam_tilde&#39;</span><span class="p">]</span>
+            <span class="nb">print</span> <span class="s1">&#39;setting lambdat to lam_tilde&#39;</span>
+
         <span class="k">return</span> <span class="n">KNTable</span><span class="p">(</span><span class="n">data_out</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="KNTable.calc_tidal_lambda"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_tidal_lambda">[docs]</a>    <span class="k">def</span> <span class="nf">calc_tidal_lambda</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">remove_negative_lambda</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -274,34 +290,118 @@
 <span class="sd">        Takes posterior samples and calculates lambda1 and lambda2 from</span>
 <span class="sd">        lambdat and dlambdat.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;lambda1&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;lambda2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tidal_lambda_from_tilde</span><span class="p">(</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="s1">&#39;lambda1&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="s1">&#39;lambda2&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">columns</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;lambda1&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;lambda2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tidal_lambda_from_tilde</span><span class="p">(</span>
                                           <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">],</span>
                                           <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambdat&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;dlambdat&quot;</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">remove_negative_lambda</span><span class="p">:</span>
             <span class="nb">print</span> <span class="s1">&#39;You have requested to remove negative lambda values&#39;</span>
             <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda1&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda2&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
             <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="o">~</span><span class="n">mask</span><span class="p">]</span>
-            <span class="nb">print</span> <span class="s2">&quot;Removing </span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2"> due to negative lambdas&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span>
+            <span class="nb">print</span> <span class="s2">&quot;Removing </span><span class="si">%d</span><span class="s2">/</span><span class="si">%d</span><span class="s2"> due to negative lambdas&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">mask</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span>
 
         <span class="k">return</span> <span class="bp">self</span></div>
 
 
-<div class="viewcode-block" id="KNTable.calc_compactness"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_compactness">[docs]</a>    <span class="k">def</span> <span class="nf">calc_compactness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KNTable.calc_compactness"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_compactness">[docs]</a>    <span class="k">def</span> <span class="nf">calc_compactness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        calculate compactness of objects from lambda1 and lambda2</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLove</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda1&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLove</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda2&quot;</span><span class="p">])</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">lal</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">G_SI</span><span class="p">;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">C_SI</span><span class="p">;</span> <span class="n">msun</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">MSUN_SI</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">astropy.units</span> <span class="k">as</span> <span class="nn">u</span>
+            <span class="kn">import</span> <span class="nn">astropy.constants</span> <span class="k">as</span> <span class="nn">C</span>
+            <span class="n">G</span> <span class="o">=</span> <span class="n">lal</span><span class="o">.</span><span class="n">G_SI</span><span class="p">;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">value</span><span class="p">;</span> <span class="n">msun</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">M_sun</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">kg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">fit</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s1">&#39;You have chose to calculate compactness from fit.&#39;</span>
+            <span class="nb">print</span> <span class="s1">&#39;you are therefore choosing to be EOS agnostic&#39;</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLove</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda1&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLove</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;lambda2&quot;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span> <span class="s1">&#39;You have chose to calculate compactness from radius.&#39;</span>
+            <span class="nb">print</span> <span class="s1">&#39;you are therefore must have selected a EOS&#39;</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">G</span> <span class="o">/</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">msun</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;c2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">G</span> <span class="o">/</span> <span class="n">c</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">msun</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
 
-<div class="viewcode-block" id="KNTable.calc_baryonic_mass"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass">[docs]</a>    <span class="k">def</span> <span class="nf">calc_baryonic_mass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KNTable.calc_baryonic_mass"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass">[docs]</a>    <span class="k">def</span> <span class="nf">calc_baryonic_mass</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">EOS</span><span class="p">,</span> <span class="n">TOV</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        # Equation to relate EOS and neutron star mass to Baryonic mass</span>
-<span class="sd">        # Eq 8: https://arxiv.org/pdf/1708.07714.pdf</span>
+<span class="sd">        if fit=True then the fit from</span>
+<span class="sd">        Equation to relate EOS and neutron star mass to Baryonic mass</span>
+<span class="sd">        Eq 8: https://arxiv.org/pdf/1708.07714.pdf</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;mb1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">EOSfit</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c1&quot;</span><span class="p">])</span>
-        <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;mb2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">EOSfit</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c2&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">fit</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;mb1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">EOSfit</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c1&quot;</span><span class="p">])</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;mb2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">EOSfit</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;c2&quot;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="k">if</span> <span class="n">EOS</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span> <span class="s1">&#39;sly&#39;</span><span class="p">,</span> <span class="s1">&#39;mpa1&#39;</span><span class="p">,</span> <span class="s1">&#39;ms1&#39;</span><span class="p">,</span> <span class="s1">&#39;ms1b&#39;</span><span class="p">,</span> <span class="s1">&#39;alf2&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;You have provided a EOS &#39;</span>
+                             <span class="s1">&#39;for which we have no data &#39;</span>
+                             <span class="s1">&#39;and therefore cannot &#39;</span>
+                             <span class="s1">&#39;calculate the Baryonic mass.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">TOV</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Monica&#39;</span><span class="p">,</span> <span class="s1">&#39;Wolfgang&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;You have provided a TOV &#39;</span>
+                             <span class="s1">&#39;for which we have no data &#39;</span>
+                             <span class="s1">&#39;and therefore cannot &#39;</span>
+                             <span class="s1">&#39;calculate the Baryonic mass.&#39;</span><span class="p">)</span>
+
+        
+        <span class="k">if</span> <span class="n">TOV</span> <span class="o">==</span> <span class="s1">&#39;Monica&#39;</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">gwemlightcurves.EOS.TOV.Monica.MonotonicSpline</span> <span class="k">as</span> <span class="nn">ms</span>
+            <span class="kn">import</span> <span class="nn">gwemlightcurves.EOS.TOV.Monica.eos_tools</span> <span class="k">as</span> <span class="nn">et</span>
+            <span class="n">MassRadiusBaryMassTable</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">find_executable</span><span class="p">(</span><span class="n">EOS</span> <span class="o">+</span> <span class="s1">&#39;_mr.dat&#39;</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+            <span class="n">baryonic_mass_of_mass_const</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mb&#39;</span><span class="p">])</span>
+            <span class="c1"># after obtaining the baryonic_mass_of_mass constants we now can either take values directly from table or use pre calculated spline to extrapolate the values</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;mb1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">values_from_table</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mb&#39;</span><span class="p">],</span> <span class="n">baryonic_mass_of_mass_const</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;mb2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">values_from_table</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mb&#39;</span><span class="p">],</span> <span class="n">baryonic_mass_of_mass_const</span><span class="p">)</span>
+            
+            
+
+        <span class="k">if</span> <span class="n">TOV</span> <span class="o">==</span> <span class="s1">&#39;Wolfgang&#39;</span><span class="p">:</span>
+            <span class="n">MassRadiusBaryMassTable</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">EOS</span> <span class="o">+</span> <span class="s1">&#39;.tidal.seq&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+<div class="viewcode-block" id="KNTable.calc_radius"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_radius">[docs]</a>    <span class="k">def</span> <span class="nf">calc_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">EOS</span><span class="p">,</span> <span class="n">TOV</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">TOV</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Monica&#39;</span><span class="p">,</span> <span class="s1">&#39;Wolfgang&#39;</span><span class="p">,</span> <span class="s1">&#39;lalsim&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;You have provided a TOV &#39;</span>
+                             <span class="s1">&#39;for which we have no data &#39;</span>
+                             <span class="s1">&#39;and therefore cannot &#39;</span>
+                             <span class="s1">&#39;calculate the radius.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">EOS</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;H4&#39;</span><span class="p">,</span> <span class="s1">&#39;sly&#39;</span><span class="p">,</span> <span class="s1">&#39;mpa1&#39;</span><span class="p">,</span> <span class="s1">&#39;ms1&#39;</span><span class="p">,</span> <span class="s1">&#39;ms1b&#39;</span><span class="p">,</span> <span class="s1">&#39;alf2&#39;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;You have provided a EOS &#39;</span>
+                             <span class="s1">&#39;for which we have no data &#39;</span>
+                             <span class="s1">&#39;and therefore cannot &#39;</span>
+                             <span class="s1">&#39;calculate the radius.&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">TOV</span> <span class="o">==</span> <span class="s1">&#39;Monica&#39;</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">gwemlightcurves.EOS.TOV.Monica.MonotonicSpline</span> <span class="k">as</span> <span class="nn">ms</span>
+            <span class="kn">import</span> <span class="nn">gwemlightcurves.EOS.TOV.Monica.eos_tools</span> <span class="k">as</span> <span class="nn">et</span>
+            <span class="n">MassRadiusBaryMassTable</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">find_executable</span><span class="p">(</span><span class="n">EOS</span> <span class="o">+</span> <span class="s1">&#39;_mr.dat&#39;</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+            <span class="n">radius_of_mass_const</span> <span class="o">=</span> <span class="n">ms</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">])</span>
+            <span class="c1"># after obtaining the radius_of_mass constants we now can either take values directly from table or use pre calculated spline to extrapolate the values</span>
+            <span class="c1"># also radius is in km in table. need to convert to SI (i.e. meters)</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;r1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">values_from_table</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">],</span> <span class="n">radius_of_mass_const</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">3</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">et</span><span class="o">.</span><span class="n">values_from_table</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">],</span> <span class="n">MassRadiusBaryMassTable</span><span class="p">[</span><span class="s1">&#39;radius&#39;</span><span class="p">],</span> <span class="n">radius_of_mass_const</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">3</span>
+
+        <span class="k">elif</span> <span class="n">TOV</span> <span class="o">==</span> <span class="s1">&#39;Wolfgang&#39;</span><span class="p">:</span>
+            <span class="n">MassRadiusBaryMassTable</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">EOS</span> <span class="o">+</span> <span class="s1">&#39;.tidal.seq&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">TOV</span> <span class="o">==</span> <span class="s1">&#39;lalsim&#39;</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">lalsimulation</span> <span class="k">as</span> <span class="nn">lalsim</span>
+            <span class="n">MassRadiusTable</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">find_executable</span><span class="p">(</span><span class="n">EOS</span> <span class="o">+</span> <span class="s1">&#39;_lalsim_mr.dat&#39;</span><span class="p">),</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+
+
         <span class="k">return</span> <span class="bp">self</span></div>
 
 
@@ -383,7 +483,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0+untagged.79.g4702d1c.dirty',
+            VERSION:'0+untagged.93.gee3bdbf',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

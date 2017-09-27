@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    gwemlightcurves.EOS
     gwemlightcurves.EjectaFits
     gwemlightcurves.KNModels
     gwemlightcurves.sampler
@@ -19,6 +20,7 @@ Submodules
    gwemlightcurves.Global
    gwemlightcurves.SALT2
    gwemlightcurves.lightcurve_utils
+   gwemlightcurves.svd_utils
 
 Module contents
 ---------------

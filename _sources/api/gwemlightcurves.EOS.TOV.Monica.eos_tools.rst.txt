@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.EOS.TOV.Monica.eos_tools
+    :members:
+    :undoc-members:
+    :show-inheritance:

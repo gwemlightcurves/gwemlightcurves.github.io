@@ -1,0 +1,18 @@
+gwemlightcurves\.EOS\.TOV\.Monica package
+=========================================
+
+Submodules
+----------
+
+.. toctree::
+
+   gwemlightcurves.EOS.TOV.Monica.MonotonicSpline
+   gwemlightcurves.EOS.TOV.Monica.eos_tools
+
+Module contents
+---------------
+
+.. automodule:: gwemlightcurves.EOS.TOV.Monica
+    :members:
+    :undoc-members:
+    :show-inheritance:

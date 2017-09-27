@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.lightcurve_utils &mdash; gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation</title>
+  <title>gwemlightcurves.lightcurve_utils &mdash; gwemlightcurves 0+untagged.93.gee3bdbf documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation" href="../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.93.gee3bdbf documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.79.g4702d1c.dirty
+                0+untagged.93.gee3bdbf
               </div>
             
           
@@ -194,10 +194,29 @@
 
     <span class="k">return</span> <span class="n">specs</span></div>
 
+<div class="viewcode-block" id="getLegend"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.getLegend">[docs]</a><span class="k">def</span> <span class="nf">getLegend</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">names</span><span class="p">):</span>
+
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;barnes_kilonova_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_merger_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;kilonova_wind_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_precursor_Lbol&quot;</span><span class="p">,</span><span class="s2">&quot;BHNS&quot;</span><span class="p">,</span><span class="s2">&quot;BNS&quot;</span><span class="p">,</span><span class="s2">&quot;SN&quot;</span><span class="p">,</span><span class="s2">&quot;tanaka_compactmergers&quot;</span><span class="p">,</span><span class="s2">&quot;macronovae-rosswog&quot;</span><span class="p">,</span><span class="s2">&quot;Afterglow&quot;</span><span class="p">,</span><span class="s2">&quot;metzger_rprocess&quot;</span><span class="p">,</span><span class="s2">&quot;korobkin_kilonova&quot;</span><span class="p">,</span><span class="s2">&quot;Blue&quot;</span><span class="p">]</span>
+    <span class="n">models_ref</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Barnes et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Barnes and Kasen (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Kasen et al. (2015)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger et al. (2015)&quot;</span><span class="p">,</span><span class="s2">&quot;Kawaguchi et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Dietrich and Ujevic (2017)&quot;</span><span class="p">,</span><span class="s2">&quot;Guy et al. (2007)&quot;</span><span class="p">,</span><span class="s2">&quot;Tanaka and Hotokezaka (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Rosswog et al. (2017)&quot;</span><span class="p">,</span><span class="s2">&quot;Van Eerten et al. (2012)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger et al. (2010)&quot;</span><span class="p">,</span><span class="s2">&quot;Wollaeger et al. (2017)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger (2017)&quot;</span><span class="p">]</span>
+
+    <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">legend_names</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ii</span><span class="p">,</span><span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">models</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">.dat&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">model</span><span class="p">,</span><span class="n">name</span><span class="p">)</span>
+            <span class="nb">print</span> <span class="n">filename</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">legend_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">models_ref</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">legend_names</span></div>
+
 <div class="viewcode-block" id="loadModels"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.loadModels">[docs]</a><span class="k">def</span> <span class="nf">loadModels</span><span class="p">(</span><span class="n">outputDir</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
 
-    <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;barnes_kilonova_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_merger_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;kilonova_wind_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_precursor_Lbol&quot;</span><span class="p">,</span><span class="s2">&quot;BHNS&quot;</span><span class="p">,</span><span class="s2">&quot;BNS&quot;</span><span class="p">,</span><span class="s2">&quot;SN&quot;</span><span class="p">,</span><span class="s2">&quot;tanaka_compactmergers&quot;</span><span class="p">,</span><span class="s2">&quot;macronovae-rosswog&quot;</span><span class="p">,</span><span class="s2">&quot;Blue&quot;</span><span class="p">,</span><span class="s2">&quot;Arnett&quot;</span><span class="p">]</span>
-    <span class="n">models_ref</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Barnes et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Barnes and Kasen (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Kasen et al. (2014)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger et al. (2015)&quot;</span><span class="p">,</span><span class="s2">&quot;Kawaguchi et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Dietrich et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Guy et al. (2007)&quot;</span><span class="p">,</span><span class="s2">&quot;Tanaka and Hotokezaka (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Rosswog et al. (2017)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger (2017)&quot;</span><span class="p">,</span> <span class="s2">&quot;Inserra et al. (2013)&quot;</span><span class="p">]</span>
+    <span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;barnes_kilonova_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_merger_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;kilonova_wind_spectra&quot;</span><span class="p">,</span><span class="s2">&quot;ns_precursor_Lbol&quot;</span><span class="p">,</span><span class="s2">&quot;BHNS&quot;</span><span class="p">,</span><span class="s2">&quot;BNS&quot;</span><span class="p">,</span><span class="s2">&quot;SN&quot;</span><span class="p">,</span><span class="s2">&quot;tanaka_compactmergers&quot;</span><span class="p">,</span><span class="s2">&quot;macronovae-rosswog&quot;</span><span class="p">,</span><span class="s2">&quot;Blue&quot;</span><span class="p">,</span><span class="s2">&quot;Arnett&quot;</span><span class="p">,</span><span class="s2">&quot;kasen_kilonova_survey&quot;</span><span class="p">]</span>
+    <span class="n">models_ref</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Barnes et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Barnes and Kasen (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Kasen et al. (2014)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger et al. (2015)&quot;</span><span class="p">,</span><span class="s2">&quot;Kawaguchi et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Dietrich et al. (2016)&quot;</span><span class="p">,</span><span class="s2">&quot;Guy et al. (2007)&quot;</span><span class="p">,</span><span class="s2">&quot;Tanaka and Hotokezaka (2013)&quot;</span><span class="p">,</span><span class="s2">&quot;Rosswog et al. (2017)&quot;</span><span class="p">,</span><span class="s2">&quot;Metzger (2017)&quot;</span><span class="p">,</span> <span class="s2">&quot;Inserra et al. (2013)&quot;</span><span class="p">,</span> <span class="s2">&quot;Kasen (2017)&quot;</span><span class="p">]</span>
 
     <span class="n">filenames</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">legend_names</span> <span class="o">=</span> <span class="p">[]</span>
@@ -280,10 +299,12 @@
 
     <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">data</span><span class="p">[</span><span class="s2">&quot;tt&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Lbol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Lbol_err&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]))</span><span class="o">*</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
-    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;T_err&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Lbol&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Lbol_err&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]))</span><span class="o">*</span><span class="n">data_out</span><span class="p">[:,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;T&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;T_err&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;R&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s2">&quot;R_err&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[:,</span><span class="mi">7</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">data</span></div>
 
@@ -380,6 +401,12 @@
 <div class="viewcode-block" id="read_posterior_samples"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.read_posterior_samples">[docs]</a><span class="k">def</span> <span class="nf">read_posterior_samples</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
 
     <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;m1_source&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_out</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="s1">&#39;m2_source&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_out</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m2_source&#39;</span><span class="p">]</span>
+
     <span class="k">return</span> <span class="n">data_out</span></div>
 
 <div class="viewcode-block" id="read_files_lbol"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.read_files_lbol">[docs]</a><span class="k">def</span> <span class="nf">read_files_lbol</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
@@ -554,7 +581,7 @@
     <span class="k">return</span> <span class="n">bins</span><span class="p">,</span> <span class="n">hist1</span></div>
 
 <div class="viewcode-block" id="get_post_file"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.get_post_file">[docs]</a><span class="k">def</span> <span class="nf">get_post_file</span><span class="p">(</span><span class="n">basedir</span><span class="p">):</span>
-    <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">basedir</span><span class="p">,</span><span class="s1">&#39;2-post*&#39;</span><span class="p">))</span>
+    <span class="n">filenames</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">basedir</span><span class="p">,</span><span class="s1">&#39;2-pos*&#39;</span><span class="p">))</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filenames</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">filenames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -583,6 +610,8 @@
         <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.005</span><span class="p">),</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">3.14</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;rpft_m005_v2&quot;</span><span class="p">:</span>
         <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.005</span><span class="p">),</span><span class="mf">0.2</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;rpft_m05_v2&quot;</span><span class="p">:</span>
+        <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.05</span><span class="p">),</span><span class="mf">0.2</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">]</span>
     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;APR4-1215_k1&quot;</span><span class="p">:</span>
         <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.009</span><span class="p">),</span><span class="mf">0.24</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="mf">0.0</span><span class="p">]</span>
     <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;APR4-1314_k1&quot;</span><span class="p">:</span>
@@ -607,6 +636,53 @@
         <span class="n">truths</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mf">0.0079</span><span class="p">),</span> <span class="mf">0.12</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">,</span><span class="kc">False</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">truths</span></div>
 
+<div class="viewcode-block" id="get_macronovae_rosswog"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.get_macronovae_rosswog">[docs]</a><span class="k">def</span> <span class="nf">get_macronovae_rosswog</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind1&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind2&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind3&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind4&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind5&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind6&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind7&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind8&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind9&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind10&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind11&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind12&quot;</span><span class="p">:</span> 
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind13&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind14&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind15&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind16&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind17&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind18&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind19&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind20&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;SED_wind21&quot;</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">params</span></div>
 </pre></div>
 
            </div>
@@ -643,7 +719,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.79.g4702d1c.dirty',
+            VERSION:'0+untagged.93.gee3bdbf',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

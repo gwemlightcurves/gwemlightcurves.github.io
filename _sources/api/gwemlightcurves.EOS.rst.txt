@@ -1,0 +1,17 @@
+gwemlightcurves\.EOS package
+============================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    gwemlightcurves.EOS.TOV
+
+Module contents
+---------------
+
+.. automodule:: gwemlightcurves.EOS
+    :members:
+    :undoc-members:
+    :show-inheritance:

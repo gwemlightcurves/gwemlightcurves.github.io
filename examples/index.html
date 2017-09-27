@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Simulating lightcurves &mdash; gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation</title>
+  <title>Simulating lightcurves &mdash; gwemlightcurves 0+untagged.93.gee3bdbf documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation" href="../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.93.gee3bdbf documentation" href="../index.html"/>
         <link rel="next" title="Running run_parameterized_models_event.py on the command line" href="../command-line/index.html"/>
         <link rel="prev" title="Welcome to gwemlightcurves’s documentation!" href="../index.html"/> 
 
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0+untagged.79.g4702d1c.dirty
+                0+untagged.93.gee3bdbf
               </div>
             
           
@@ -94,7 +94,10 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Simulating lightcurves</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reading">Reading</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -167,6 +170,64 @@
 <span id="examples"></span><h1>Simulating lightcurves<a class="headerlink" href="#simulating-lightcurves" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The first thing you will need in order to generate a light curve is a system that is expected to have some mass ejecta. Once you have one of these systems you can calculate the masss ejects if you have information on the mass of the objects and if it is a binary nuetron star the compactness and baryonic masses of both systems. Here we display some ways to get information on the compactness and baryonic mass of neutron stars through using certain Equation of State (EOS)</p>
+<div class="section" id="reading">
+<h3>Reading<a class="headerlink" href="#reading" title="Permalink to this headline">¶</a></h3>
+<p>Say you have run parameter estimation on a BNS signal</p>
+<p>The <cite>KNTable</cite> object comes with a <code class="xref py py-meth docutils literal"><span class="pre">KNTable.read_samples()</span></code> method, allowing
+trivial reading of samples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gwemlightcurves.KNModels</span> <span class="k">import</span> <span class="n">KNTable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">KNTable</span><span class="o">.</span><span class="n">read_samples</span><span class="p">(</span><span class="s1">&#39;posterior_samples.dat&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The results should look like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="go">   dlambdat     costheta_jn   ...      dec       matched_filter_snr</span>
+<span class="go">-------------- -------------- ... -------------- ------------------</span>
+<span class="go">-424.431604646 0.848696760069 ... 0.577824127959      33.5477773932</span>
+<span class="go">-147.120517819 0.991997169733 ... 0.576384671836      33.5566982929</span>
+<span class="go">-240.912505017 0.976047933498 ... 0.577896147804      33.6263488512</span>
+<span class="go">-186.290687306 0.727047513491 ... 0.582878134524      33.4518918366</span>
+<span class="go">-210.457602464 0.967621722464 ... 0.580780890411      33.5696948608</span>
+<span class="go">0.377168713485 0.653066039319 ...  0.57000694353      33.5307165083</span>
+<span class="go">-350.294734561 0.891785128102 ... 0.585910104721      33.5685077643</span>
+<span class="go">           ...            ... ...            ...                ...</span>
+<span class="go">-37.5863972893 0.975612607455 ... 0.575280574082      33.6140080488</span>
+<span class="go">-128.526058992 0.698513990317 ... 0.581271675244      33.5713366289</span>
+<span class="go">-10.3419873355 0.971274339543 ... 0.576536076406      33.6291236021</span>
+<span class="go"> 202.992550229 0.967479803846 ... 0.571265399682      33.5992585584</span>
+<span class="go">-21.5943515138 0.673295017122 ... 0.578523325358      33.3765394973</span>
+<span class="go"> 82.6149783838 0.941362067895 ... 0.582807999184      33.5504875571</span>
+<span class="go"> -490.19334394  0.83602530718 ... 0.564811075217      33.6087938033</span>
+<span class="go">Length = 1996 rows</span>
+</pre></div>
+</div>
+<p>After loading the table, one can caluclate lambda1 and lambda2 from dtilde if it is not already in the samples.
+<code class="xref py py-meth docutils literal"><span class="pre">calc_tidal_lambda()</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">calc_tidal_lambda</span><span class="p">(</span><span class="n">remove_negative_lambda</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After accomplishing the reading of the sample, let’s say we want to calculate
+compactness from radius. This would require calculating the radius from a mass radius curve. We can use <code class="xref py py-meth docutils literal"><span class="pre">calc_radius()</span></code>. In this module we have a number of ways to accomplish this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_mon</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">calc_radius</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;sly&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Monica&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_wolf</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">calc_radius</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;sly&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Wolfgang&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_lalsim</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">calc_radius</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;sly&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;lalsim&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After this we can now calculate the compactness <code class="xref py py-meth docutils literal"><span class="pre">calc_compactness()</span></code>.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_mon</span> <span class="o">=</span> <span class="n">t_sly_mon</span><span class="o">.</span><span class="n">calc_compactness</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Monica&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_wolf</span> <span class="o">=</span> <span class="n">t_sly_wolf</span><span class="o">.</span><span class="n">calc_compactness</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Wolfgang&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_lalsim</span> <span class="o">=</span> <span class="n">t_sly_lalsim</span><span class="o">.</span><span class="n">calc_compactness</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;lalsim&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After this we can calulcate the baryonic mass. Now we can either use the calculated compactness and have it be EOS dependent of calculate the baryonic mass using a fit using <code class="xref py py-meth docutils literal"><span class="pre">calc_baryonic_mass()</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_mon</span> <span class="o">=</span> <span class="n">t_sly_mon</span><span class="o">.</span><span class="n">calc_baryonic_mass</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Monica&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_wolf</span> <span class="o">=</span> <span class="n">t_sly_wolf</span><span class="o">.</span><span class="n">calc_baryonic_mass</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Wolfgang&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_lalsim</span> <span class="o">=</span> <span class="n">t_sly_lalsim</span><span class="o">.</span><span class="n">calc_baryonic_mass</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;lalsim&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_mon_bary_from_fit</span> <span class="o">=</span> <span class="n">t_sly_mon</span><span class="o">.</span><span class="n">calc_baryonic_mass</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Monica&#39;</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -214,7 +275,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.79.g4702d1c.dirty',
+            VERSION:'0+untagged.93.gee3bdbf',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

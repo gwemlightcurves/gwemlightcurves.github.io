@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.sampler.loglike &mdash; gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation</title>
+  <title>gwemlightcurves.sampler.loglike &mdash; gwemlightcurves 0+untagged.93.gee3bdbf documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation" href="../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.93.gee3bdbf documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.79.g4702d1c.dirty
+                0+untagged.93.gee3bdbf
               </div>
             
           
@@ -176,7 +176,7 @@
 <div class="viewcode-block" id="prior_KaKy2016"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.prior_KaKy2016">[docs]</a><span class="k">def</span> <span class="nf">prior_KaKy2016</span><span class="p">(</span><span class="n">q</span><span class="p">,</span><span class="n">chi_eff</span><span class="p">,</span><span class="n">mns</span><span class="p">,</span><span class="n">mb</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
     <span class="k">return</span> <span class="mf">1.0</span></div>
 
-<span class="k">def</span> <span class="nf">myloglike_Me2017</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+<div class="viewcode-block" id="myloglike_RoFe2017"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_RoFe2017">[docs]</a><span class="k">def</span> <span class="nf">myloglike_RoFe2017</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
 
     <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">m1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -185,18 +185,108 @@
     <span class="n">m2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
     <span class="n">mb2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
     <span class="n">c2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
-    <span class="n">beta</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
-    <span class="n">kappa_r</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">cube</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
-    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+    <span class="n">Ye</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
 
-    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">Me2017_model</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">beta</span><span class="p">,</span><span class="n">kappa_r</span><span class="p">)</span>
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">RoFe2017_model</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">Ye</span><span class="p">)</span>
 
     <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
     <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_DiUj2017</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">prior</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
         <span class="n">prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
 
-    <span class="k">return</span> <span class="n">prob</span>
+    <span class="k">return</span> <span class="n">prob</span></div>
+
+<div class="viewcode-block" id="myloglike_RoFe2017_ejecta"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_RoFe2017_ejecta">[docs]</a><span class="k">def</span> <span class="nf">myloglike_RoFe2017_ejecta</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mej</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">vej</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">Ye</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">RoFe2017_model_ejecta</span><span class="p">(</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">,</span><span class="n">Ye</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">prob</span></div>
+
+<div class="viewcode-block" id="myloglike_RoFe2017_EOSFit"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_RoFe2017_EOSFit">[docs]</a><span class="k">def</span> <span class="nf">myloglike_RoFe2017_EOSFit</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">Ye</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+
+    <span class="n">mb1</span> <span class="o">=</span> <span class="n">lightcurve_utils</span><span class="o">.</span><span class="n">EOSfit</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">)</span>
+    <span class="n">mb2</span> <span class="o">=</span> <span class="n">lightcurve_utils</span><span class="o">.</span><span class="n">EOSfit</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">RoFe2017_model</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">Ye</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_DiUj2017</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prior</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+    <span class="k">return</span> <span class="n">prob</span></div>
+
+<div class="viewcode-block" id="myloglike_Ka2017"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_Ka2017">[docs]</a><span class="k">def</span> <span class="nf">myloglike_Ka2017</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">mb1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">mb2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">Xlan</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">cube</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">Ka2017_model</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">Xlan</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_DiUj2017</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prior</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+    <span class="k">return</span> <span class="n">prob</span></div>
+
+<div class="viewcode-block" id="myloglike_Ka2017_ejecta"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_Ka2017_ejecta">[docs]</a><span class="k">def</span> <span class="nf">myloglike_Ka2017_ejecta</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">mej</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">vej</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">Xlan</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">cube</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">Ka2017_model_ejecta</span><span class="p">(</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">,</span><span class="n">Xlan</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">prob</span></div>
+
+<div class="viewcode-block" id="myloglike_Ka2017_EOSFit"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_Ka2017_EOSFit">[docs]</a><span class="k">def</span> <span class="nf">myloglike_Ka2017_EOSFit</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">Xlan</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">cube</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+
+    <span class="n">mb1</span> <span class="o">=</span> <span class="n">lightcurve_utils</span><span class="o">.</span><span class="n">EOSfit</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">)</span>
+    <span class="n">mb2</span> <span class="o">=</span> <span class="n">lightcurve_utils</span><span class="o">.</span><span class="n">EOSfit</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">Ka2017_model</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">Xlan</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_DiUj2017</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prior</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+    <span class="k">return</span> <span class="n">prob</span></div>
 
 <div class="viewcode-block" id="myloglike_Me2017"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_Me2017">[docs]</a><span class="k">def</span> <span class="nf">myloglike_Me2017</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
 
@@ -434,6 +524,59 @@
 
     <span class="k">return</span> <span class="n">prob</span></div>
 
+<div class="viewcode-block" id="myloglike_BaKa2016"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_BaKa2016">[docs]</a><span class="k">def</span> <span class="nf">myloglike_BaKa2016</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">mb1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">mb2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">BaKa2016_model</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_DiUj2017</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prior</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+    <span class="k">return</span> <span class="n">prob</span></div>
+
+<div class="viewcode-block" id="myloglike_BaKa2016_ejecta"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_BaKa2016_ejecta">[docs]</a><span class="k">def</span> <span class="nf">myloglike_BaKa2016_ejecta</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">mej</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">vej</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">BaKa2016_model_ejecta</span><span class="p">(</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">prob</span></div>
+
+<div class="viewcode-block" id="myloglike_BaKa2016_EOSFit"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_BaKa2016_EOSFit">[docs]</a><span class="k">def</span> <span class="nf">myloglike_BaKa2016_EOSFit</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
+
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">m1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">c1</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">m2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">zp</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+
+    <span class="n">mb1</span> <span class="o">=</span> <span class="n">lightcurve_utils</span><span class="o">.</span><span class="n">EOSfit</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">c1</span><span class="p">)</span>
+    <span class="n">mb2</span> <span class="o">=</span> <span class="n">lightcurve_utils</span><span class="o">.</span><span class="n">EOSfit</span><span class="p">(</span><span class="n">m2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+
+    <span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">BaKa2016_model</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+
+    <span class="n">prob</span> <span class="o">=</span> <span class="n">calc_prob</span><span class="p">(</span><span class="n">tmag</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span><span class="p">,</span> <span class="n">t0</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+    <span class="n">prior</span> <span class="o">=</span> <span class="n">prior_DiUj2017</span><span class="p">(</span><span class="n">m1</span><span class="p">,</span><span class="n">mb1</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">m2</span><span class="p">,</span><span class="n">mb2</span><span class="p">,</span><span class="n">c2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">prior</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+    <span class="k">return</span> <span class="n">prob</span></div>
+
 <div class="viewcode-block" id="myloglike_KaKy2016"><a class="viewcode-back" href="../../../api/gwemlightcurves.sampler.loglike.html#gwemlightcurves.sampler.loglike.myloglike_KaKy2016">[docs]</a><span class="k">def</span> <span class="nf">myloglike_KaKy2016</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">nparams</span><span class="p">):</span>
     <span class="n">t0</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">q</span> <span class="o">=</span> <span class="n">cube</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -566,6 +709,10 @@
         <span class="k">return</span> <span class="n">prob</span>
 
     <span class="k">elif</span> <span class="n">Global</span><span class="o">.</span><span class="n">doLightcurves</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">lbol</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+            <span class="k">return</span> <span class="n">prob</span>
+
         <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">lbol</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
             <span class="n">prob</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
             <span class="k">return</span> <span class="n">prob</span>
@@ -715,7 +862,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0+untagged.79.g4702d1c.dirty',
+            VERSION:'0+untagged.93.gee3bdbf',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

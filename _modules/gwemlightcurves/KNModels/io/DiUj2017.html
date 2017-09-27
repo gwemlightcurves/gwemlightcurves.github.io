@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.io.DiUj2017 &mdash; gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation</title>
+  <title>gwemlightcurves.KNModels.io.DiUj2017 &mdash; gwemlightcurves 0+untagged.93.gee3bdbf documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation" href="../../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.93.gee3bdbf documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.79.g4702d1c.dirty
+                0+untagged.93.gee3bdbf
               </div>
             
           
@@ -162,7 +162,7 @@
   <h1>Source code for gwemlightcurves.KNModels.io.DiUj2017</h1><div class="highlight"><pre>
 <span></span>
 <span class="c1"># Modified from: http://www2.yukawa.kyoto-u.ac.jp/~kyohei.kawaguchi/kn_calc_bns1/main.html</span>
-<span class="c1"># Reference: Dietrich et al. http://adsabs.harvard.edu/cgi-bin/bib_query?arXiv:1612.03665 </span>
+<span class="c1"># Reference: Dietrich et al. http://adsabs.harvard.edu/cgi-bin/bib_query?arXiv:1612.03665</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
@@ -191,7 +191,7 @@
     <span class="n">table</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">timeseries</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span>
     <span class="n">table</span><span class="p">[</span><span class="s1">&#39;lbol&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">timeseries</span><span class="o">.</span><span class="n">size</span><span class="p">)]</span>
     <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="p">[{}]</span>
-    
+
     <span class="c1"># Loop over samples</span>
     <span class="k">for</span> <span class="n">isample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">)):</span>
         <span class="n">table</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;lbol&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_lc</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span>
@@ -207,7 +207,7 @@
 
     <span class="n">lbol_d</span><span class="o">=</span><span class="p">[]</span>
     <span class="n">bc_tmp</span><span class="o">=</span><span class="p">[]</span>
-    <span class="n">dc</span><span class="o">=</span><span class="mi">0</span>    
+    <span class="n">dc</span><span class="o">=</span><span class="mi">0</span>
 
     <span class="n">t_d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="o">+</span><span class="n">dt</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
 
@@ -221,7 +221,7 @@
         <span class="n">vejtab</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">)</span>
         <span class="n">a</span>      <span class="o">=</span> <span class="p">(</span><span class="mf">2.01</span><span class="p">,</span><span class="mf">4.52</span><span class="p">,</span><span class="mf">8.16</span><span class="p">,</span><span class="mf">0.81</span><span class="p">,</span><span class="mf">1.90</span><span class="p">,</span><span class="mf">3.20</span><span class="p">,</span><span class="mf">0.56</span><span class="p">,</span><span class="mf">1.31</span><span class="p">,</span><span class="mf">2.19</span><span class="p">,</span><span class="mf">0.27</span><span class="p">,</span><span class="mf">0.55</span><span class="p">,</span><span class="mf">0.95</span><span class="p">)</span>
         <span class="n">b</span>      <span class="o">=</span> <span class="p">(</span><span class="mf">0.28</span><span class="p">,</span><span class="mf">0.62</span><span class="p">,</span><span class="mf">1.19</span><span class="p">,</span><span class="mf">0.19</span><span class="p">,</span><span class="mf">0.28</span><span class="p">,</span><span class="mf">0.45</span><span class="p">,</span><span class="mf">0.17</span><span class="p">,</span><span class="mf">0.21</span><span class="p">,</span><span class="mf">0.31</span><span class="p">,</span><span class="mf">0.10</span><span class="p">,</span><span class="mf">0.13</span><span class="p">,</span><span class="mf">0.15</span><span class="p">)</span>
-        <span class="n">d</span>      <span class="o">=</span> <span class="p">(</span><span class="mf">1.12</span><span class="p">,</span><span class="mf">1.39</span><span class="p">,</span><span class="mf">1.52</span><span class="p">,</span><span class="mf">0.86</span><span class="p">,</span><span class="mf">1.21</span><span class="p">,</span><span class="mf">1.39</span><span class="p">,</span><span class="mf">0.74</span><span class="p">,</span><span class="mf">1.13</span><span class="p">,</span><span class="mf">1.32</span><span class="p">,</span><span class="mf">0.60</span><span class="p">,</span><span class="mf">0.90</span><span class="p">,</span><span class="mf">1.13</span><span class="p">)</span> 
+        <span class="n">d</span>      <span class="o">=</span> <span class="p">(</span><span class="mf">1.12</span><span class="p">,</span><span class="mf">1.39</span><span class="p">,</span><span class="mf">1.52</span><span class="p">,</span><span class="mf">0.86</span><span class="p">,</span><span class="mf">1.21</span><span class="p">,</span><span class="mf">1.39</span><span class="p">,</span><span class="mf">0.74</span><span class="p">,</span><span class="mf">1.13</span><span class="p">,</span><span class="mf">1.32</span><span class="p">,</span><span class="mf">0.60</span><span class="p">,</span><span class="mf">0.90</span><span class="p">,</span><span class="mf">1.13</span><span class="p">)</span>
 
         <span class="n">fa</span>     <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp2d</span><span class="p">(</span><span class="n">mejtab</span><span class="p">,</span><span class="n">vejtab</span><span class="p">,</span><span class="n">a</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
         <span class="n">fb</span>     <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp2d</span><span class="p">(</span><span class="n">mejtab</span><span class="p">,</span><span class="n">vejtab</span><span class="p">,</span><span class="n">b</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
@@ -233,7 +233,7 @@
 
     <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">t_d</span><span class="p">:</span>
       <span class="k">if</span> <span class="n">epsBarnes</span><span class="p">:</span>
-          <span class="n">eth</span> <span class="o">=</span> <span class="mf">0.36</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">fam</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">fbm</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="n">fdm</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">fbm</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="n">fdm</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span> 
+          <span class="n">eth</span> <span class="o">=</span> <span class="mf">0.36</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">fam</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">fbm</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="n">fdm</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">fbm</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="n">fdm</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
 
       <span class="n">lbol</span><span class="o">=</span><span class="n">kn_lbol</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">,</span><span class="n">vmin</span><span class="p">,</span><span class="n">th</span><span class="p">,</span><span class="n">ph</span><span class="p">,</span><span class="n">kappa</span><span class="p">,</span><span class="n">eps</span><span class="p">,</span><span class="n">alp</span><span class="p">,</span><span class="n">eth</span><span class="p">)</span>
       <span class="n">lbol_d</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lbol</span><span class="p">)</span>
@@ -266,7 +266,7 @@
     <span class="n">mag_new</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
     <span class="n">mag_new</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
     <span class="n">mag_new</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_d</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
-  
+
     <span class="k">return</span> <span class="n">t_d</span><span class="p">,</span> <span class="n">lbol_d</span><span class="p">,</span> <span class="n">mag_new</span></div>
 
 <div class="viewcode-block" id="mag_bol"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.DiUj2017.html#gwemlightcurves.KNModels.io.DiUj2017.mag_bol">[docs]</a><span class="k">def</span> <span class="nf">mag_bol</span><span class="p">(</span><span class="n">lbol</span><span class="p">,</span><span class="n">d</span><span class="p">):</span>
@@ -297,7 +297,7 @@
     <span class="k">else</span><span class="p">:</span>
       <span class="n">bc_tmp</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">8</span><span class="p">,))</span>
       <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-          <span class="k">if</span> <span class="p">(</span><span class="n">jj</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">tt</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">):</span> 
+          <span class="k">if</span> <span class="p">(</span><span class="n">jj</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">tt</span><span class="o">&gt;</span><span class="mi">5</span><span class="p">):</span>
             <span class="n">bc_tmp</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
           <span class="k">elif</span> <span class="p">(</span><span class="n">jj</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">tt</span><span class="o">&gt;</span><span class="mf">8.5</span><span class="p">):</span>
             <span class="n">bc_tmp</span><span class="p">[</span><span class="n">jj</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -334,60 +334,60 @@
   <span class="k">return</span> <span class="n">lbol</span></div>
 
 <div class="viewcode-block" id="vmax"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.DiUj2017.html#gwemlightcurves.KNModels.io.DiUj2017.vmax">[docs]</a><span class="k">def</span> <span class="nf">vmax</span><span class="p">(</span><span class="n">vej</span><span class="p">,</span><span class="n">vmin</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">vej</span><span class="o">-</span><span class="n">vmin</span> </div>
+    <span class="k">return</span> <span class="mf">2.0</span><span class="o">*</span><span class="n">vej</span><span class="o">-</span><span class="n">vmin</span></div>
 
 <div class="viewcode-block" id="setbc"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.DiUj2017.html#gwemlightcurves.KNModels.io.DiUj2017.setbc">[docs]</a><span class="k">def</span> <span class="nf">setbc</span><span class="p">():</span>
     <span class="n">bc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-    
+
     <span class="c1"># bc u-band</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span> <span class="mf">40.01</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mf">56.79</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span> <span class="mf">25.73</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">=-</span><span class="mf">5.207</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="mf">0.3813</span>
-    
+
     <span class="c1"># bc g-band</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">6.195</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">4.054</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">1.754</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="mf">0.2246</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.009813</span>
-    
+
     <span class="c1"># bc r-band</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">2.308</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">1.445</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.5740</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0531</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.00152</span>
-    
+
     <span class="c1"># bc i-band</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.6441</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0796</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.122</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="mf">0.00793</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.000122</span>
-    
+
     <span class="c1"># bc z-band</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">1.072</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">0.3646</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.1032</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="mf">0.00368</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0000126</span>
-    
+
     <span class="c1"># bc J-band</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">1.038</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">1.348</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.2364</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0137</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.000261</span>
-    
+
     <span class="c1"># bc H-band</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">2.763</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">1.502</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.2133</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="mf">0.0128</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">4</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.000288</span>
- 
+
     <span class="c1"># bc K-band</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">7.876</span>
     <span class="n">bc</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">3.245</span>
@@ -533,7 +533,7 @@
     <span class="n">td</span><span class="p">[</span><span class="mi">128</span><span class="p">]</span><span class="o">=</span><span class="mf">14.8</span>
     <span class="n">td</span><span class="p">[</span><span class="mi">129</span><span class="p">]</span><span class="o">=</span><span class="mf">14.9</span>
     <span class="n">td</span><span class="p">[</span><span class="mi">130</span><span class="p">]</span><span class="o">=</span><span class="mf">15.</span>
-    
+
     <span class="n">bct</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">6.395022155360145</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mf">6.654952354994068</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">6.888948589861781</span>
@@ -665,7 +665,7 @@
     <span class="n">bct</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">128</span><span class="p">]</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">129</span><span class="p">]</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">130</span><span class="p">]</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-    
+
     <span class="n">bct</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">3.3222333743148966</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mf">3.4381699552906664</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">3.5555353140699872</span>
@@ -797,7 +797,7 @@
     <span class="n">bct</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">128</span><span class="p">]</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">129</span><span class="p">]</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">130</span><span class="p">]</span><span class="o">=-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-    
+
     <span class="n">bct</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">1.1944937003628249</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mf">1.2587681978190854</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">1.3227920738605798</span>
@@ -929,7 +929,7 @@
     <span class="n">bct</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">128</span><span class="p">]</span><span class="o">=-</span><span class="mf">7.060101238120772</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">129</span><span class="p">]</span><span class="o">=-</span><span class="mf">7.062043802277472</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">130</span><span class="p">]</span><span class="o">=-</span><span class="mf">7.063986366434171</span>
-    
+
     <span class="n">bct</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.38609523271530216</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">0.3490210969018331</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="mf">0.31057498662270305</span>
@@ -1061,7 +1061,7 @@
     <span class="n">bct</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">128</span><span class="p">]</span><span class="o">=-</span><span class="mf">5.087445968772583</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">129</span><span class="p">]</span><span class="o">=-</span><span class="mf">5.081501904627501</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">130</span><span class="p">]</span><span class="o">=-</span><span class="mf">5.0755578404824195</span>
-    
+
     <span class="n">bct</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">1.5261441422016604</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">1.508165936913107</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="mf">1.4889063172270438</span>
@@ -1193,7 +1193,7 @@
     <span class="n">bct</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">128</span><span class="p">]</span><span class="o">=-</span><span class="mf">3.5844218104817376</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">129</span><span class="p">]</span><span class="o">=-</span><span class="mf">3.5993431885791027</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">130</span><span class="p">]</span><span class="o">=-</span><span class="mf">3.614264566676469</span>
-    
+
     <span class="n">bct</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mf">0.8625687785530236</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mf">0.8998257468116381</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="mf">0.9369449781061147</span>
@@ -1325,7 +1325,7 @@
     <span class="n">bct</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">128</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.8657746974965055</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">129</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.8703211351110316</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">130</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.8748675727255582</span>
-    
+
     <span class="n">bct</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.8031771907732801</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.6616432769806067</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">0.5229297334326294</span>
@@ -1457,7 +1457,7 @@
     <span class="n">bct</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">128</span><span class="p">]</span><span class="o">=</span><span class="mf">0.4683729659347304</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">129</span><span class="p">]</span><span class="o">=</span><span class="mf">0.46280912465533164</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">130</span><span class="p">]</span><span class="o">=</span><span class="mf">0.4572452833759328</span>
-    
+
     <span class="n">bct</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=-</span><span class="mf">2.7570319209201695</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">=-</span><span class="mf">2.5745104153822767</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">=-</span><span class="mf">2.394426115465908</span>
@@ -1589,7 +1589,7 @@
     <span class="n">bct</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">128</span><span class="p">]</span><span class="o">=</span><span class="mf">2.4758280652483786</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">129</span><span class="p">]</span><span class="o">=</span><span class="mf">2.4771696331935056</span>
     <span class="n">bct</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="mi">130</span><span class="p">]</span><span class="o">=</span><span class="mf">2.4785112011386325</span>
-    
+
     <span class="k">return</span> <span class="n">td</span><span class="p">,</span> <span class="n">bct</span></div>
 
 <span class="n">register_model</span><span class="p">(</span><span class="s1">&#39;DiUj2017&#39;</span><span class="p">,</span> <span class="n">KNTable</span><span class="p">,</span> <span class="n">get_DiUj2017_model</span><span class="p">,</span>
@@ -1630,7 +1630,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'0+untagged.79.g4702d1c.dirty',
+            VERSION:'0+untagged.93.gee3bdbf',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

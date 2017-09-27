@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.io.Me2017 &mdash; gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation</title>
+  <title>gwemlightcurves.KNModels.io.Me2017 &mdash; gwemlightcurves 0+untagged.93.gee3bdbf documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.79.g4702d1c.dirty documentation" href="../../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.93.gee3bdbf documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.79.g4702d1c.dirty
+                0+untagged.93.gee3bdbf
               </div>
             
           
@@ -174,6 +174,14 @@
 <span class="kn">from</span> <span class="nn">gwemlightcurves.EjectaFits.DiUj2017</span> <span class="k">import</span> <span class="n">calc_meje</span><span class="p">,</span> <span class="n">calc_vej</span>
 
 <div class="viewcode-block" id="get_Me2017_model"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.Me2017.html#gwemlightcurves.KNModels.io.Me2017.get_Me2017_model">[docs]</a><span class="k">def</span> <span class="nf">get_Me2017_model</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. py:function:: get_Me2017_model(table, **kwargs) </span>
+
+<span class="sd">   :param table table: a table which must at least have columns of solar masses of objects the baryonic masses of the objects and the compactness of the object. The table except m1, mb1, c1, m2, mb2, c2, mej and vej as column names</span>
+<span class="sd">   :return: The lbol, mag and sampling times of the KN Metzger 2017</span>
+<span class="sd">   :rtype: table</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;mej&#39;</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">colnames</span><span class="p">:</span>
         <span class="c1"># calc the mass of ejecta</span>
         <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_meje</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mb1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mb2&#39;</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;c2&#39;</span><span class="p">])</span>
@@ -222,26 +230,26 @@
     <span class="n">h</span> <span class="o">=</span> <span class="mf">6.63e-27</span>
     <span class="n">arad</span> <span class="o">=</span> <span class="mf">7.56e-15</span>
     <span class="n">Mpc</span> <span class="o">=</span> <span class="mf">3.08e24</span>
-    
+
     <span class="c1"># ** define parameters **</span>
-    
+
     <span class="c1"># fiducial redshift/distance</span>
     <span class="c1">#z = 0.01</span>
     <span class="c1">#D = 39.5*Mpc</span>
     <span class="n">z</span> <span class="o">=</span> <span class="mf">0.00</span>
     <span class="n">D</span> <span class="o">=</span> <span class="mf">1e-5</span><span class="o">*</span><span class="n">Mpc</span>
-    
-    <span class="c1"># define desired observer band wavelengths (nm) </span>
+
+    <span class="c1"># define desired observer band wavelengths (nm)</span>
     <span class="c1"># u (0), b (1), v (2), r (3), i (4), z (5), y(6), j (7), k (8), l (9)</span>
     <span class="c1">#lambdaobs = np.array([365., 445., 551., 658., 806., 900., 1020., 1220., 2190., 3450.])</span>
-    
+
     <span class="c1"># u (0) g (1) r (2) i (3) z (4) y (5) J (6) H (7) K (8)</span>
     <span class="n">lambdaobs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">354.3</span><span class="p">,</span> <span class="mf">477.56</span><span class="p">,</span> <span class="mf">612.95</span><span class="p">,</span> <span class="mf">748.46</span><span class="p">,</span> <span class="mf">865.78</span><span class="p">,</span> <span class="mf">960.31</span><span class="p">,</span> <span class="mf">1235.0</span><span class="p">,</span> <span class="mf">1662.0</span><span class="p">,</span> <span class="mf">2159.0</span><span class="p">])</span>
-    
+
     <span class="n">nuobs</span> <span class="o">=</span> <span class="n">c</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0e-7</span><span class="o">*</span><span class="n">lambdaobs</span><span class="p">)</span>
     <span class="n">nuobs</span> <span class="o">=</span> <span class="n">nuobs</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">z</span><span class="p">)</span>
-    
-    <span class="c1"># total ejecta mass </span>
+
+    <span class="c1"># total ejecta mass</span>
     <span class="n">M0</span> <span class="o">=</span> <span class="n">mej</span><span class="o">*</span><span class="n">Msun</span>
     <span class="c1"># minimum initial velocity</span>
     <span class="n">v0</span> <span class="o">=</span> <span class="n">vej</span><span class="o">*</span><span class="n">c</span>
@@ -267,7 +275,7 @@
     <span class="n">B</span> <span class="o">=</span> <span class="mf">1.0e15</span>
     <span class="c1"># magnetar collapse time (in units of initial spin-down times)</span>
     <span class="n">tcollapse</span> <span class="o">=</span> <span class="mf">10000000.</span>
-    
+
     <span class="c1"># ** define time array in seconds **</span>
     <span class="c1">#tprec = 10000</span>
     <span class="c1">#tmin = np.log(0.1)</span>
@@ -275,23 +283,23 @@
     <span class="c1">#t = np.arange(tprec)*(tmax-tmin)/(tprec-1.0) + tmin</span>
     <span class="c1">#t = np.exp(t)</span>
     <span class="c1">#tdays = t/(3600.*24.)</span>
-    
+
     <span class="n">tdays</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="o">+</span><span class="n">dt</span><span class="p">,</span><span class="n">dt</span><span class="p">)</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">tdays</span><span class="o">*</span><span class="p">(</span><span class="mf">3600.</span><span class="o">*</span><span class="mf">24.</span><span class="p">)</span>
     <span class="n">tprec</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-    
+
     <span class="c1"># ** define mass/velocity array of outer ejecta, comprised of half of mass **</span>
     <span class="n">mmin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0e-8</span><span class="p">)</span>
     <span class="n">mmax</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">M0</span><span class="o">/</span><span class="n">Msun</span><span class="p">)</span>
     <span class="n">mprec</span> <span class="o">=</span> <span class="mi">300</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">mprec</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">mmax</span><span class="o">-</span><span class="n">mmin</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">mprec</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">+</span> <span class="n">mmin</span>
     <span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-    
+
     <span class="c1">#vm(where(m gt 0.5*M0/Msun)) = v0</span>
     <span class="c1">#vm(where(m le 0.5*M0/Msun)) = v0*(m(where(m le 0.5*M0/Msun))/(0.5*M0/Msun))^(-1./beta)</span>
     <span class="n">vm</span> <span class="o">=</span> <span class="n">v0</span><span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">/</span><span class="p">(</span><span class="n">M0</span><span class="o">/</span><span class="n">Msun</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="o">/</span><span class="n">beta</span><span class="p">)</span>
     <span class="n">vm</span><span class="p">[</span><span class="n">vm</span> <span class="o">&gt;</span> <span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
-    
+
     <span class="c1"># define thermalization efficiency from Barnes+16</span>
     <span class="c1"># 1e-2 Msun, 0.2 c</span>
     <span class="n">ca3</span> <span class="o">=</span> <span class="mf">1.3</span>
@@ -308,7 +316,7 @@
     <span class="n">eth</span> <span class="o">=</span> <span class="mf">0.36</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ca</span><span class="o">*</span><span class="n">tdays</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">cb</span><span class="o">*</span><span class="p">(</span><span class="n">tdays</span><span class="o">**</span><span class="p">(</span><span class="n">cd</span><span class="p">)))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">cb</span><span class="o">*</span><span class="n">tdays</span><span class="o">**</span><span class="p">(</span><span class="n">cd</span><span class="p">)))</span>
     <span class="n">eth2</span> <span class="o">=</span> <span class="mf">0.36</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ca2</span><span class="o">*</span><span class="n">tdays</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">cb2</span><span class="o">*</span><span class="p">(</span><span class="n">tdays</span><span class="o">**</span><span class="p">(</span><span class="n">cd2</span><span class="p">)))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">cb2</span><span class="o">*</span><span class="n">tdays</span><span class="o">**</span><span class="p">(</span><span class="n">cd2</span><span class="p">)))</span>
     <span class="n">eth3</span> <span class="o">=</span> <span class="mf">0.36</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">ca3</span><span class="o">*</span><span class="n">tdays</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">cb3</span><span class="o">*</span><span class="p">(</span><span class="n">tdays</span><span class="o">**</span><span class="p">(</span><span class="n">cd3</span><span class="p">)))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">cb3</span><span class="o">*</span><span class="n">tdays</span><span class="o">**</span><span class="p">(</span><span class="n">cd3</span><span class="p">)))</span>
-    
+
     <span class="c1"># ** calculate magnetar power **</span>
     <span class="n">Rns</span> <span class="o">=</span> <span class="mf">12.e5</span>
     <span class="c1"># moment of inertia</span>
@@ -328,23 +336,23 @@
     <span class="n">Lsd</span> <span class="o">=</span> <span class="n">Lsd</span><span class="o">/</span><span class="mf">1.0e20</span>
     <span class="n">Lsd</span> <span class="o">=</span> <span class="n">Lsd</span><span class="o">/</span><span class="mf">1.0e20</span>
     <span class="n">Lsd2</span> <span class="o">=</span> <span class="n">Lsd</span>
-    
+
     <span class="k">if</span> <span class="n">BH_switch</span><span class="p">:</span>
         <span class="c1">#*** calculate BH fall-back power</span>
         <span class="n">Lsd</span> <span class="o">=</span> <span class="mf">2.0e11</span><span class="o">*</span><span class="p">(</span><span class="n">ej</span><span class="o">/</span><span class="mf">0.1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="mf">0.1</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">engine_switch</span><span class="p">:</span>
         <span class="n">Lsd</span><span class="p">[:]</span> <span class="o">=</span> <span class="mf">0.0</span>
-    
+
     <span class="c1"># ** define diffusive mass depth (assumed beta = 3) **</span>
     <span class="n">Mdiff</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">M0</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">v0</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">t</span><span class="o">**</span><span class="mf">2.</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">3.0</span><span class="o">*</span><span class="n">kappa_r</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">3.</span><span class="o">/</span><span class="mf">4.</span><span class="p">)</span>
     <span class="n">Mdiff</span><span class="p">[</span><span class="n">Mdiff</span> <span class="o">&gt;</span> <span class="n">M0</span><span class="p">]</span> <span class="o">=</span> <span class="n">M0</span>
     <span class="n">Mdiff</span> <span class="o">=</span> <span class="n">Mdiff</span><span class="o">/</span><span class="n">Msun</span>
-    
+
     <span class="c1"># ** define radioactive heating rates **</span>
     <span class="c1"># neutron and r-process mass fractions</span>
     <span class="n">Xn0</span> <span class="o">=</span> <span class="n">Xn0max</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">((</span><span class="n">Mn</span><span class="o">/</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">Msun</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
     <span class="n">Xr</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">-</span><span class="n">Xn0</span>
-    
+
     <span class="c1"># define arrays in mass layer and time</span>
     <span class="n">Xn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">mprec</span><span class="p">,</span><span class="n">tprec</span><span class="p">))</span>
     <span class="n">edotn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">mprec</span><span class="p">,</span><span class="n">tprec</span><span class="p">))</span>
@@ -370,12 +378,12 @@
     <span class="n">kappan</span> <span class="o">=</span> <span class="mf">0.4</span><span class="o">*</span><span class="p">(</span><span class="mf">1.0</span><span class="o">-</span><span class="n">Xn</span><span class="o">-</span><span class="n">Xrarray</span><span class="p">)</span>
     <span class="n">kappar</span> <span class="o">=</span> <span class="n">kappa_r</span><span class="o">*</span><span class="n">Xrarray</span>
     <span class="n">kappa</span> <span class="o">=</span> <span class="n">kappan</span> <span class="o">+</span> <span class="n">kappar</span>
-    
+
     <span class="c1"># define total r-process heating of inner layer</span>
     <span class="n">Lr</span> <span class="o">=</span> <span class="n">M0</span><span class="o">*</span><span class="mf">4.0e18</span><span class="o">*</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">((</span><span class="n">t</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="n">sig</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">1.3</span><span class="p">)</span><span class="o">*</span><span class="n">eth</span>
     <span class="n">Lr</span> <span class="o">=</span> <span class="n">Lr</span><span class="o">/</span><span class="mf">1.0e20</span>
     <span class="n">Lr</span> <span class="o">=</span> <span class="n">Lr</span><span class="o">/</span><span class="mf">1.0e20</span>
-    
+
     <span class="c1"># *** define arrays by mass layer/time arrays ***</span>
     <span class="n">ene</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">mprec</span><span class="p">,</span><span class="n">tprec</span><span class="p">))</span>
     <span class="n">lum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">mprec</span><span class="p">,</span><span class="n">tprec</span><span class="p">))</span>
@@ -388,7 +396,7 @@
     <span class="n">vphoto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">tprec</span><span class="p">,))</span>
     <span class="n">mphoto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">tprec</span><span class="p">,))</span>
     <span class="n">kappaphoto</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">tprec</span><span class="p">,))</span>
-    
+
     <span class="c1"># *** define arrays for total ejecta (1 zone = deepest layer) ***</span>
     <span class="c1"># thermal energy</span>
     <span class="n">E</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">tprec</span><span class="p">,))</span>
@@ -408,7 +416,7 @@
     <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">v0</span>
     <span class="n">R</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">-</span><span class="n">t</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>   
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">t</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">-</span><span class="n">t</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">dm</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">-</span><span class="n">m</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">marray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">m</span><span class="p">,(</span><span class="n">tprec</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
     <span class="n">dmarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">dm</span><span class="p">,(</span><span class="n">tprec</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
@@ -431,8 +439,8 @@
         <span class="n">E</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">Lr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">Lsd</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="n">LPdV</span><span class="o">-</span><span class="n">Lrad</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">dt</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">+</span> <span class="n">E</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
         <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">dt</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">+</span> <span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
         <span class="n">taues</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">M0</span><span class="p">)</span><span class="o">*</span><span class="mf">0.4</span><span class="o">/</span><span class="p">(</span><span class="mf">4.0</span><span class="o">*</span><span class="n">R</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span>
-   
-        <span class="n">templayer</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.0</span><span class="o">*</span><span class="n">ene</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">dm</span><span class="o">*</span><span class="n">Msun</span><span class="o">/</span><span class="p">(</span><span class="n">arad</span><span class="o">*</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">vm</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)))</span><span class="o">**</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span> 
+
+        <span class="n">templayer</span> <span class="o">=</span> <span class="p">(</span><span class="mf">3.0</span><span class="o">*</span><span class="n">ene</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">dm</span><span class="o">*</span><span class="n">Msun</span><span class="o">/</span><span class="p">(</span><span class="n">arad</span><span class="o">*</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">vm</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)))</span><span class="o">**</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
         <span class="n">kappa_correction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">templayer</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="n">kappa_correction</span><span class="p">[</span><span class="n">templayer</span> <span class="o">&gt;</span> <span class="mf">4000.</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
         <span class="n">kappa_correction</span><span class="p">[</span><span class="n">templayer</span> <span class="o">&lt;</span> <span class="mf">4000.</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">*</span><span class="p">(</span><span class="n">templayer</span><span class="p">[</span><span class="n">templayer</span> <span class="o">&lt;</span> <span class="mf">4000.</span><span class="p">]</span><span class="o">/</span><span class="mf">4000.</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">5.5</span><span class="p">)</span>
@@ -445,18 +453,18 @@
         <span class="n">lum</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">lum</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">dm</span><span class="p">)</span><span class="o">*</span><span class="n">Msun</span>
 
         <span class="n">tau</span><span class="p">[</span><span class="n">mprec</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">tau</span><span class="p">[</span><span class="n">mprec</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
-        <span class="c1"># photosphere </span>
+        <span class="c1"># photosphere</span>
         <span class="n">pig1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tdiff</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
         <span class="n">pig</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">tau</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span><span class="o">-</span><span class="mf">1.0</span><span class="p">))</span>
         <span class="n">vphoto</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="n">pig</span><span class="p">]</span>
         <span class="n">Rphoto</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">vphoto</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">t</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
         <span class="n">mphoto</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">pig</span><span class="p">]</span>
         <span class="n">kappaphoto</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">kappa</span><span class="p">[</span><span class="n">pig</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
-      
+
     <span class="n">Ltotm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">lum</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">Ltotm</span> <span class="o">=</span> <span class="n">Ltotm</span><span class="o">/</span><span class="mf">1.0e20</span>
     <span class="n">Ltotm</span> <span class="o">=</span> <span class="n">Ltotm</span><span class="o">/</span><span class="mf">1.0e20</span>
-    
+
     <span class="k">if</span> <span class="n">engine_switch</span><span class="p">:</span>
         <span class="n">Ltot</span> <span class="o">=</span> <span class="n">Lrad</span>
         <span class="n">Tobs</span> <span class="o">=</span> <span class="mf">1.0e10</span><span class="o">*</span><span class="p">(</span><span class="n">Ltot</span><span class="o">/</span><span class="p">(</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">R</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">*</span><span class="n">sigSB</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
@@ -464,20 +472,20 @@
             <span class="n">tlife</span> <span class="o">=</span> <span class="p">(</span><span class="n">Lsd</span><span class="o">/</span><span class="mf">1.0e5</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">v</span><span class="o">/</span><span class="p">(</span><span class="mf">0.3</span><span class="o">*</span><span class="n">c</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">t</span><span class="o">/</span><span class="p">(</span><span class="mf">3600.</span><span class="o">*</span><span class="mf">24.</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span>
             <span class="n">Ltot</span> <span class="o">=</span> <span class="n">Ltot</span><span class="o">/</span><span class="p">(</span><span class="mf">1.0</span><span class="o">+</span><span class="n">tlife</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">engine_switch</span><span class="p">:</span>
-        <span class="n">Ltot</span> <span class="o">=</span> <span class="n">Ltotm</span>  
+        <span class="n">Ltot</span> <span class="o">=</span> <span class="n">Ltotm</span>
         <span class="n">Tobs</span> <span class="o">=</span> <span class="mf">1.0e10</span><span class="o">*</span><span class="p">(</span><span class="n">Ltot</span><span class="o">/</span><span class="p">(</span><span class="mf">4.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">Rphoto</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span><span class="o">*</span><span class="n">sigSB</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
- 
-    <span class="n">nuobsarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">nuobs</span><span class="p">,(</span><span class="n">tprec</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>    
-    <span class="n">expo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="n">nuobsarray</span><span class="o">/</span><span class="p">(</span><span class="n">kb</span><span class="o">*</span><span class="n">Tobs</span><span class="p">))</span><span class="o">-</span><span class="mf">1.0</span> 
+
+    <span class="n">nuobsarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">nuobs</span><span class="p">,(</span><span class="n">tprec</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">expo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="n">nuobsarray</span><span class="o">/</span><span class="p">(</span><span class="n">kb</span><span class="o">*</span><span class="n">Tobs</span><span class="p">))</span><span class="o">-</span><span class="mf">1.0</span>
     <span class="n">F</span> <span class="o">=</span> <span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="n">nuobsarray</span><span class="p">)</span><span class="o">*</span><span class="p">((</span><span class="n">nuobsarray</span><span class="o">/</span><span class="n">c</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mf">2.0</span><span class="p">))</span><span class="o">/</span><span class="n">expo</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Rphoto</span><span class="o">/</span><span class="n">D</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">Rphoto</span><span class="o">/</span><span class="n">D</span><span class="p">)</span>
 
     <span class="n">mAB</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.5</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">F</span><span class="p">)</span> <span class="o">-</span> <span class="mf">48.6</span>
-    
+
     <span class="c1"># distance modulus</span>
     <span class="n">muD</span> <span class="o">=</span> <span class="mf">5.0</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">D</span><span class="o">/</span><span class="p">(</span><span class="mf">3.08e18</span><span class="p">))</span><span class="o">-</span><span class="mf">5.</span>
 
     <span class="k">return</span> <span class="n">tdays</span><span class="p">,</span> <span class="n">Ltotm</span><span class="o">*</span><span class="mf">1e40</span><span class="p">,</span> <span class="n">mAB</span><span class="p">,</span> <span class="n">Tobs</span></div>
-   
+
 
 <span class="n">register_model</span><span class="p">(</span><span class="s1">&#39;Me2017&#39;</span><span class="p">,</span> <span class="n">KNTable</span><span class="p">,</span> <span class="n">get_Me2017_model</span><span class="p">,</span>
                  <span class="n">usage</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">)</span>
@@ -517,7 +525,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'0+untagged.79.g4702d1c.dirty',
+            VERSION:'0+untagged.93.gee3bdbf',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

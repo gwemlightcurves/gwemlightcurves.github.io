@@ -6,9 +6,12 @@ Submodules
 
 .. toctree::
 
+   gwemlightcurves.KNModels.io.BaKa2016
    gwemlightcurves.KNModels.io.DiUj2017
+   gwemlightcurves.KNModels.io.Ka2017
    gwemlightcurves.KNModels.io.KaKy2016
    gwemlightcurves.KNModels.io.Me2017
+   gwemlightcurves.KNModels.io.RoFe2017
    gwemlightcurves.KNModels.io.SmCh2017
    gwemlightcurves.KNModels.io.WoKo2017
    gwemlightcurves.KNModels.io.model

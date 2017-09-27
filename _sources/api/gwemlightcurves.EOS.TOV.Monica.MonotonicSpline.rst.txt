@@ -1,0 +1,4 @@
+.. automodule:: gwemlightcurves.EOS.TOV.Monica.MonotonicSpline
+    :members:
+    :undoc-members:
+    :show-inheritance:
