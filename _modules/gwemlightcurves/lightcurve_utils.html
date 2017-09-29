@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.lightcurve_utils &mdash; gwemlightcurves 0+untagged.93.gee3bdbf documentation</title>
+  <title>gwemlightcurves.lightcurve_utils &mdash; gwemlightcurves 0+untagged.96.g9683596.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.93.gee3bdbf documentation" href="../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.96.g9683596.dirty documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.93.gee3bdbf
+                0+untagged.96.g9683596.dirty
               </div>
             
           
@@ -683,6 +683,38 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">params</span></div>
+
+<div class="viewcode-block" id="calc_peak_mags"><a class="viewcode-back" href="../../api/gwemlightcurves.lightcurve_utils.html#gwemlightcurves.lightcurve_utils.calc_peak_mags">[docs]</a><span class="k">def</span> <span class="nf">calc_peak_mags</span><span class="p">(</span><span class="n">model_table</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    # Peak magnitudes and times in each band&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">filts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">,</span><span class="s2">&quot;g&quot;</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="s2">&quot;i&quot;</span><span class="p">,</span><span class="s2">&quot;z&quot;</span><span class="p">,</span><span class="s2">&quot;y&quot;</span><span class="p">,</span><span class="s2">&quot;J&quot;</span><span class="p">,</span><span class="s2">&quot;H&quot;</span><span class="p">,</span><span class="s2">&quot;K&quot;</span><span class="p">]</span>
+    <span class="n">magidxs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+
+    <span class="n">model_table_tts</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">model_table_mags</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">filt</span><span class="p">,</span> <span class="n">magidx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">filts</span><span class="p">,</span><span class="n">magidxs</span><span class="p">):</span>
+        <span class="n">model_table_tts</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">model_table_mags</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">model_table</span><span class="p">:</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">lbol</span><span class="p">,</span> <span class="n">mag</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;t&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;lbol&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;mag&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">filt</span><span class="p">,</span> <span class="n">magidx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">filts</span><span class="p">,</span><span class="n">magidxs</span><span class="p">):</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mag</span><span class="p">[</span><span class="n">magidx</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">idx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">model_table_tts</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+                <span class="n">model_table_mags</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">mag</span><span class="p">[</span><span class="n">magidx</span><span class="p">][</span><span class="n">idx</span><span class="p">])</span>
+                <span class="n">model_table_tts</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">idx</span><span class="p">][</span><span class="n">ii</span><span class="p">])</span>
+                <span class="n">model_table_mags</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mag</span><span class="p">[</span><span class="n">magidx</span><span class="p">][</span><span class="n">idx</span><span class="p">][</span><span class="n">ii</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">filt</span><span class="p">,</span> <span class="n">magidx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">filts</span><span class="p">,</span><span class="n">magidxs</span><span class="p">):</span>
+        <span class="n">model_table</span><span class="p">[</span><span class="s2">&quot;peak_tt_</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_table_tts</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span>
+        <span class="n">model_table</span><span class="p">[</span><span class="s2">&quot;peak_mag_</span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">filt</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_table_mags</span><span class="p">[</span><span class="n">filt</span><span class="p">]</span>        
+
+    <span class="k">return</span> <span class="n">model_table</span></div>
 </pre></div>
 
            </div>
@@ -719,7 +751,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.93.gee3bdbf',
+            VERSION:'0+untagged.96.g9683596.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
