@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; gwemlightcurves 0+untagged.96.g9683596.dirty documentation</title>
+  <title>&lt;no title&gt; &mdash; gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.96.g9683596.dirty documentation" href="../index.html"/> 
+    <link rel="top" title="gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.96.g9683596.dirty
+                0+untagged.105.g11e2ff8.dirty
               </div>
             
           
@@ -158,7 +158,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="module-gwemlightcurves.KNModels.table"></span><p>Extend <a class="reference external" href="http://docs.astropy.org/en/stable/table/index.html#module-astropy.table" title="(in Astropy v2.0.2)"><code class="xref py py-mod docutils literal"><span class="pre">astropy.table</span></code></a> with the <cite>KNTable</cite></p>
+  <span class="target" id="module-gwemlightcurves.KNModels.table"></span><p>Extend <a class="reference external" href="http://docs.astropy.org/en/stable/table/index.html#module-astropy.table" title="(in Astropy v3.0.dev20184)"><code class="xref py py-mod docutils literal"><span class="pre">astropy.table</span></code></a> with the <cite>KNTable</cite></p>
 <dl class="class">
 <dt id="gwemlightcurves.KNModels.table.KNTable">
 <em class="property">class </em><code class="descclassname">gwemlightcurves.KNModels.table.</code><code class="descname">KNTable</code><span class="sig-paren">(</span><em>data=None</em>, <em>masked=None</em>, <em>names=None</em>, <em>dtype=None</em>, <em>meta=None</em>, <em>copy=True</em>, <em>rows=None</em>, <em>copy_indices=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable" title="Permalink to this definition">¶</a></dt>
@@ -168,7 +168,7 @@
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
-<dt><a class="reference external" href="http://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v2.0.2)"><code class="xref py py-obj docutils literal"><span class="pre">astropy.table.Table</span></code></a></dt>
+<dt><a class="reference external" href="http://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v3.0.dev20184)"><code class="xref py py-obj docutils literal"><span class="pre">astropy.table.Table</span></code></a></dt>
 <dd>for details on parameters for creating an <cite>KNTable</cite></dd>
 </dl>
 </div>
@@ -317,52 +317,55 @@
 <tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">pformat</span></code>([max_lines,&nbsp;max_width,&nbsp;show_name,&nbsp;…])</td>
 <td>Return a list of lines for the formatted string representation of the table.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">pprint</span></code>([max_lines,&nbsp;max_width,&nbsp;show_name,&nbsp;…])</td>
+<tr class="row-even"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.plot_mag_panels" title="gwemlightcurves.KNModels.table.KNTable.plot_mag_panels"><code class="xref py py-obj docutils literal"><span class="pre">plot_mag_panels</span></code></a>(table_dict,&nbsp;distance[,&nbsp;…])</td>
+<td>This allows us to take the lightcurves from the KNModels samples table and plot it using a supplied set of filters.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">pprint</span></code>([max_lines,&nbsp;max_width,&nbsp;show_name,&nbsp;…])</td>
 <td>Print a formatted string representation of the table.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">read</span></code>(*args,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">read</span></code>(*args,&nbsp;**kwargs)</td>
 <td>Read and parse a data table and return as a Table.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.read_samples" title="gwemlightcurves.KNModels.table.KNTable.read_samples"><code class="xref py py-obj docutils literal"><span class="pre">read_samples</span></code></a>(filename_samples)</td>
+<tr class="row-odd"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.read_samples" title="gwemlightcurves.KNModels.table.KNTable.read_samples"><code class="xref py py-obj docutils literal"><span class="pre">read_samples</span></code></a>(filename_samples)</td>
 <td>Read LALinference posterior_samples</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_column</span></code>(name)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_column</span></code>(name)</td>
 <td>Remove a column from the table.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_columns</span></code>(names)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_columns</span></code>(names)</td>
 <td>Remove several columns from the table.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_indices</span></code>(colname)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_indices</span></code>(colname)</td>
 <td>Remove all indices involving the given column.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_row</span></code>(index)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_row</span></code>(index)</td>
 <td>Remove a row from the table.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_rows</span></code>(row_specifier)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">remove_rows</span></code>(row_specifier)</td>
 <td>Remove rows from the table.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">rename_column</span></code>(name,&nbsp;new_name)</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">rename_column</span></code>(name,&nbsp;new_name)</td>
 <td>Rename a column.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">replace_column</span></code>(name,&nbsp;col)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">replace_column</span></code>(name,&nbsp;col)</td>
 <td>Replace column <code class="docutils literal"><span class="pre">name</span></code> with the new <code class="docutils literal"><span class="pre">col</span></code> object.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">reverse</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">reverse</span></code>()</td>
 <td>Reverse the row order of table rows.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">show_in_browser</span></code>([max_lines,&nbsp;jsviewer,&nbsp;…])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">show_in_browser</span></code>([max_lines,&nbsp;jsviewer,&nbsp;…])</td>
 <td>Render the table in HTML and show it in a web browser.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">show_in_notebook</span></code>([tableid,&nbsp;css,&nbsp;…])</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">show_in_notebook</span></code>([tableid,&nbsp;css,&nbsp;…])</td>
 <td>Render the table in HTML and show it in the IPython notebook.</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">sort</span></code>([keys])</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">sort</span></code>([keys])</td>
 <td>Sort the table according to one or more keys.</td>
 </tr>
-<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">to_pandas</span></code>()</td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">to_pandas</span></code>()</td>
 <td>Return a <code class="xref py py-class docutils literal"><span class="pre">pandas.DataFrame</span></code> instance</td>
 </tr>
-<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">write</span></code>(*args,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">write</span></code>(*args,&nbsp;**kwargs)</td>
 <td>Write this Table object out in the specified format.</td>
 </tr>
 </tbody>
@@ -470,6 +473,13 @@ data format, see the online documentation for more details</p>
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="gwemlightcurves.KNModels.table.KNTable.plot_mag_panels">
+<em class="property">classmethod </em><code class="descname">plot_mag_panels</code><span class="sig-paren">(</span><em>table_dict, distance, filts=['g', 'r', 'i', 'z', 'y', 'J', 'H', 'K'], magidxs=[0, 1, 2, 3, 4, 5, 6, 7, 8], figsize=(20, 28)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.plot_mag_panels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.plot_mag_panels" title="Permalink to this definition">¶</a></dt>
+<dd><p>This allows us to take the lightcurves from the KNModels samples table and plot it
+using a supplied set of filters. Default: filts=[“g”,”r”,”i”,”z”,”y”,”J”,”H”,”K”]</p>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="gwemlightcurves.KNModels.table.KNTable.read_samples">
 <em class="property">classmethod </em><code class="descname">read_samples</code><span class="sig-paren">(</span><em>filename_samples</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.read_samples"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.read_samples" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read LALinference posterior_samples</p>
@@ -498,6 +508,12 @@ Output: Compactness (mass over radius, in geometrized units, so the result is di
 <code class="descclassname">gwemlightcurves.KNModels.table.</code><code class="descname">EOSfit</code><span class="sig-paren">(</span><em>mns</em>, <em>c</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#EOSfit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.EOSfit" title="Permalink to this definition">¶</a></dt>
 <dd><p># Equation to relate EOS and neutron star mass to Baryonic mass
 # Eq 8: <a class="reference external" href="https://arxiv.org/pdf/1708.07714.pdf">https://arxiv.org/pdf/1708.07714.pdf</a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="gwemlightcurves.KNModels.table.get_eos_list">
+<code class="descclassname">gwemlightcurves.KNModels.table.</code><code class="descname">get_eos_list</code><span class="sig-paren">(</span><em>TOV</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#get_eos_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.get_eos_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Populates lists of available EOSs for each set of TOV solvers</p>
 </dd></dl>
 
 
@@ -536,7 +552,7 @@ Output: Compactness (mass over radius, in geometrized units, so the result is di
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.96.g9683596.dirty',
+            VERSION:'0+untagged.105.g11e2ff8.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
