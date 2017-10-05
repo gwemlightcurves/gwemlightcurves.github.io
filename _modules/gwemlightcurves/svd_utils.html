@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.svd_utils &mdash; gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation</title>
+  <title>gwemlightcurves.svd_utils &mdash; gwemlightcurves 0+untagged.115.g3750a5e documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../genindex.html"/>
         <link rel="search" title="Search" href="../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation" href="../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.105.g11e2ff8.dirty
+                0+untagged.115.g3750a5e
               </div>
             
           
@@ -170,7 +170,9 @@
 
 <span class="kn">from</span> <span class="nn">gwemlightcurves</span> <span class="k">import</span> <span class="n">lightcurve_utils</span><span class="p">,</span> <span class="n">Global</span>
 
-<div class="viewcode-block" id="calc_svd_lbol"><a class="viewcode-back" href="../../api/gwemlightcurves.svd_utils.html#gwemlightcurves.svd_utils.calc_svd_lbol">[docs]</a><span class="k">def</span> <span class="nf">calc_svd_lbol</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_coeff</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">):</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">gaussian_process</span>
+
+<div class="viewcode-block" id="calc_svd_lbol"><a class="viewcode-back" href="../../api/gwemlightcurves.svd_utils.html#gwemlightcurves.svd_utils.calc_svd_lbol">[docs]</a><span class="k">def</span> <span class="nf">calc_svd_lbol</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_coeff</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">:</span>    
         <span class="n">fileDir</span> <span class="o">=</span> <span class="s2">&quot;../output/barnes_kilonova_spectra&quot;</span>
@@ -199,6 +201,8 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keySplit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
                 <span class="n">Xlan0</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="nb">float</span><span class="p">(</span><span class="n">keySplit</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Xlan1e&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">keySplit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">lbols</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">continue</span>
                 <span class="k">if</span> <span class="s2">&quot;Xlan1e&quot;</span> <span class="ow">in</span> <span class="n">keySplit</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
                     <span class="n">Xlan0</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="nb">float</span><span class="p">(</span><span class="n">keySplit</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Xlan1e&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
                 <span class="k">elif</span> <span class="s2">&quot;Xlan1e&quot;</span> <span class="ow">in</span> <span class="n">keySplit</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
@@ -213,6 +217,8 @@
         <span class="n">f</span> <span class="o">=</span> <span class="n">interp</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">lbols</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;tt&quot;</span><span class="p">][</span><span class="n">ii</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">lbols</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;Lbol&quot;</span><span class="p">][</span><span class="n">ii</span><span class="p">]),</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
         <span class="n">lbolinterp</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">f</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
         <span class="n">lbols</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;Lbol&quot;</span><span class="p">]</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">lbolinterp</span><span class="p">)</span>
+
+    <span class="n">lbolkeys</span> <span class="o">=</span> <span class="n">lbols</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 
     <span class="n">lbol_array</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">param_array</span> <span class="o">=</span> <span class="p">[]</span>
@@ -254,7 +260,7 @@
 
     <span class="k">return</span> <span class="n">svd_model</span></div>
 
-<div class="viewcode-block" id="calc_svd_mag"><a class="viewcode-back" href="../../api/gwemlightcurves.svd_utils.html#gwemlightcurves.svd_utils.calc_svd_mag">[docs]</a><span class="k">def</span> <span class="nf">calc_svd_mag</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_coeff</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="calc_svd_mag"><a class="viewcode-back" href="../../api/gwemlightcurves.svd_utils.html#gwemlightcurves.svd_utils.calc_svd_mag">[docs]</a><span class="k">def</span> <span class="nf">calc_svd_mag</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span> <span class="n">n_coeff</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">):</span>
 
     <span class="k">if</span> <span class="n">model</span> <span class="o">==</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">:</span>
         <span class="n">fileDir</span> <span class="o">=</span> <span class="s2">&quot;../output/barnes_kilonova_spectra&quot;</span>
@@ -290,6 +296,8 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keySplit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
                 <span class="n">Xlan0</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="nb">float</span><span class="p">(</span><span class="n">keySplit</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Xlan1e&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
             <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">keySplit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">mags</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="k">continue</span>
                 <span class="k">if</span> <span class="s2">&quot;Xlan1e&quot;</span> <span class="ow">in</span> <span class="n">keySplit</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
                     <span class="n">Xlan0</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="nb">float</span><span class="p">(</span><span class="n">keySplit</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Xlan1e&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
                 <span class="k">elif</span> <span class="s2">&quot;Xlan1e&quot;</span> <span class="ow">in</span> <span class="n">keySplit</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
@@ -309,6 +317,8 @@
             <span class="n">maginterp</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
             <span class="n">mags</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">][:,</span><span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="n">maginterp</span>
         <span class="n">mags</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;data_vector&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mags</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">],</span><span class="nb">len</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">filters</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">magkeys</span> <span class="o">=</span> <span class="n">mags</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 
     <span class="n">mag_array</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">param_array</span> <span class="o">=</span> <span class="p">[]</span>
@@ -365,9 +375,15 @@
     <span class="n">stds</span> <span class="o">=</span> <span class="n">svd_mag_model</span><span class="p">[</span><span class="s2">&quot;stds&quot;</span><span class="p">]</span>
     <span class="n">means</span> <span class="o">=</span> <span class="n">svd_mag_model</span><span class="p">[</span><span class="s2">&quot;means&quot;</span><span class="p">]</span>
 
+    <span class="n">gp</span> <span class="o">=</span> <span class="n">gaussian_process</span><span class="o">.</span><span class="n">GaussianProcess</span><span class="p">(</span><span class="n">theta0</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">thetaL</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span> <span class="n">thetaU</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span>
     <span class="n">cAproj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_coeff</span><span class="p">,))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_coeff</span><span class="p">):</span>
-        <span class="n">cAproj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">griddata</span><span class="p">(</span><span class="n">param_array</span><span class="p">,</span><span class="n">cAmat</span><span class="p">[</span><span class="n">i</span><span class="p">,:],</span><span class="n">param_list</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+        <span class="n">gp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">param_array</span><span class="p">,</span> <span class="n">cAmat</span><span class="p">[</span><span class="n">i</span><span class="p">,:])</span>
+        <span class="n">y_pred</span><span class="p">,</span> <span class="n">sigma2_pred</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">param_list</span><span class="p">,</span> <span class="n">eval_MSE</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1">#grid_z0 = griddata(param_array,cAmat[i,:],param_list, method=&#39;nearest&#39;)</span>
+        <span class="c1">#grid_z1 = griddata(param_array,cAmat[i,:],param_list, method=&#39;linear&#39;)</span>
+        <span class="n">cAproj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span>
+
     <span class="n">mag_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">VA</span><span class="p">[:,:</span><span class="n">n_coeff</span><span class="p">],</span><span class="n">cAproj</span><span class="p">)</span>
     <span class="n">mag_back</span> <span class="o">=</span> <span class="n">mag_back</span><span class="o">*</span><span class="n">stds</span><span class="o">+</span><span class="n">means</span>
 
@@ -382,7 +398,13 @@
 
     <span class="n">cAproj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_coeff</span><span class="p">,))</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_coeff</span><span class="p">):</span>
-        <span class="n">cAproj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">griddata</span><span class="p">(</span><span class="n">param_array</span><span class="p">,</span><span class="n">cAmat</span><span class="p">[</span><span class="n">i</span><span class="p">,:],</span><span class="n">param_list</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+        <span class="n">gp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">param_array</span><span class="p">,</span> <span class="n">cAmat</span><span class="p">[</span><span class="n">i</span><span class="p">,:])</span>
+        <span class="n">y_pred</span><span class="p">,</span> <span class="n">sigma2_pred</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">param_list</span><span class="p">,</span> <span class="n">eval_MSE</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1">#grid_z0 = griddata(param_array,cAmat[i,:],param_list, method=&#39;nearest&#39;)</span>
+        <span class="c1">#grid_z1 = griddata(param_array,cAmat[i,:],param_list, method=&#39;linear&#39;)</span>
+        <span class="n">cAproj</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span>
+
     <span class="n">lbol_back</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">VA</span><span class="p">[:,:</span><span class="n">n_coeff</span><span class="p">],</span><span class="n">cAproj</span><span class="p">)</span>
     <span class="n">lbol_back</span> <span class="o">=</span> <span class="n">lbol_back</span><span class="o">*</span><span class="n">stds</span><span class="o">+</span><span class="n">means</span>
 
@@ -426,7 +448,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0+untagged.105.g11e2ff8.dirty',
+            VERSION:'0+untagged.115.g3750a5e',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

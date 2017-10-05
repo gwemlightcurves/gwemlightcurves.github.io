@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.io.BaKa2016 &mdash; gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation</title>
+  <title>gwemlightcurves.KNModels.io.BaKa2016 &mdash; gwemlightcurves 0+untagged.115.g3750a5e documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation" href="../../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.105.g11e2ff8.dirty
+                0+untagged.115.g3750a5e
               </div>
             
           
@@ -176,16 +176,19 @@
 
 <div class="viewcode-block" id="get_BaKa2016_model"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.BaKa2016.html#gwemlightcurves.KNModels.io.BaKa2016.get_BaKa2016_model">[docs]</a><span class="k">def</span> <span class="nf">get_BaKa2016_model</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
+    <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;n_coeff&#39;</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">colnames</span><span class="p">:</span>
+        <span class="n">table</span><span class="p">[</span><span class="s1">&#39;n_coeff&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Global</span><span class="o">.</span><span class="n">svd_mag_model</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">svd_mag_model</span> <span class="o">=</span> <span class="n">Global</span><span class="o">.</span><span class="n">svd_mag_model</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">svd_mag_model</span> <span class="o">=</span> <span class="n">svd_utils</span><span class="o">.</span><span class="n">calc_svd_mag</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">)</span>
+        <span class="n">svd_mag_model</span> <span class="o">=</span> <span class="n">svd_utils</span><span class="o">.</span><span class="n">calc_svd_mag</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">,</span> <span class="n">n_coeff</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;n_coeff&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">Global</span><span class="o">.</span><span class="n">svd_mag_model</span> <span class="o">=</span> <span class="n">svd_mag_model</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">Global</span><span class="o">.</span><span class="n">svd_lbol_model</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">svd_lbol_model</span> <span class="o">=</span> <span class="n">Global</span><span class="o">.</span><span class="n">svd_lbol_model</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">svd_lbol_model</span> <span class="o">=</span> <span class="n">svd_utils</span><span class="o">.</span><span class="n">calc_svd_lbol</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">)</span>
+        <span class="n">svd_lbol_model</span> <span class="o">=</span> <span class="n">svd_utils</span><span class="o">.</span><span class="n">calc_svd_lbol</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">model</span> <span class="o">=</span> <span class="s2">&quot;BaKa2016&quot;</span><span class="p">,</span> <span class="n">n_coeff</span> <span class="o">=</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;n_coeff&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
         <span class="n">Global</span><span class="o">.</span><span class="n">svd_lbol_model</span> <span class="o">=</span> <span class="n">svd_lbol_model</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="s1">&#39;mej&#39;</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">colnames</span><span class="p">:</span>
@@ -252,7 +255,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'0+untagged.105.g11e2ff8.dirty',
+            VERSION:'0+untagged.115.g3750a5e',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

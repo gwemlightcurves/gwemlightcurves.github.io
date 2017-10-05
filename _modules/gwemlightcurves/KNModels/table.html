@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation</title>
+  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.115.g3750a5e documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation" href="../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.105.g11e2ff8.dirty
+                0+untagged.115.g3750a5e
               </div>
             
           
@@ -187,7 +187,7 @@
 <span class="kn">from</span> <span class="nn">distutils.spawn</span> <span class="k">import</span> <span class="n">find_executable</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNTable&#39;</span><span class="p">,</span> <span class="s1">&#39;tidal_lambda_from_tilde&#39;</span><span class="p">,</span> <span class="s1">&#39;CLove&#39;</span><span class="p">,</span> <span class="s1">&#39;EOSfit&#39;</span><span class="p">,</span> <span class="s1">&#39;get_eos_list&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNTable&#39;</span><span class="p">,</span> <span class="s1">&#39;tidal_lambda_from_tilde&#39;</span><span class="p">,</span> <span class="s1">&#39;CLove&#39;</span><span class="p">,</span> <span class="s1">&#39;EOSfit&#39;</span><span class="p">,</span> <span class="s1">&#39;get_eos_list&#39;</span><span class="p">,</span> <span class="s1">&#39;get_lalsim_eos&#39;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="tidal_lambda_from_tilde"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.tidal_lambda_from_tilde">[docs]</a><span class="k">def</span> <span class="nf">tidal_lambda_from_tilde</span><span class="p">(</span><span class="n">mass1</span><span class="p">,</span> <span class="n">mass2</span><span class="p">,</span> <span class="n">lam_til</span><span class="p">,</span> <span class="n">dlam_til</span><span class="p">):</span>
@@ -273,6 +273,54 @@
     <span class="k">return</span> <span class="n">EOS_List</span></div>
 
 
+<div class="viewcode-block" id="get_lalsim_eos"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.get_lalsim_eos">[docs]</a><span class="k">def</span> <span class="nf">get_lalsim_eos</span><span class="p">(</span><span class="n">eos_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    EOS tables described by Ozel [here](https://arxiv.org/pdf/1603.02698.pdf) and downloadable [here](http://xtreme.as.arizona.edu/NeutronStars/data/eos_tables.tar). LALSim utilizes this tables, but needs some interfacing (i.e. conversion to SI units, and conversion from non monotonic to monotonic pressure density tables)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">obs_max_mass</span> <span class="o">=</span> <span class="mf">2.01</span> <span class="o">-</span> <span class="mf">0.04</span>
+    <span class="nb">print</span> <span class="s2">&quot;Checking </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">eos_name</span>
+    <span class="n">eos_fname</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">eos_name</span><span class="p">):</span>
+        <span class="c1"># NOTE: Adapted from code by Monica Rizzo</span>
+        <span class="nb">print</span> <span class="s2">&quot;Loading from </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">eos_name</span>
+        <span class="n">bdens</span><span class="p">,</span> <span class="n">press</span><span class="p">,</span> <span class="n">edens</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">eos_name</span><span class="p">,</span> <span class="n">unpack</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">press</span> <span class="o">*=</span> <span class="mf">7.42591549e-25</span>
+        <span class="n">edens</span> <span class="o">*=</span> <span class="mf">7.42591549e-25</span>
+        <span class="n">eos_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">eos_name</span><span class="p">)</span>
+        <span class="n">eos_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">eos_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">numpy</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">press</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">keep_idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">press</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">keep_idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="mi">0</span><span class="p">],</span> <span class="n">keep_idx</span><span class="p">))</span>
+            <span class="n">press</span> <span class="o">=</span> <span class="n">press</span><span class="p">[</span><span class="n">keep_idx</span><span class="p">]</span>
+            <span class="n">edens</span> <span class="o">=</span> <span class="n">edens</span><span class="p">[</span><span class="n">keep_idx</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">numpy</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">press</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">numpy</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">edens</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">keep_idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">edens</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">keep_idx</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="mi">0</span><span class="p">],</span> <span class="n">keep_idx</span><span class="p">))</span>
+            <span class="n">press</span> <span class="o">=</span> <span class="n">press</span><span class="p">[</span><span class="n">keep_idx</span><span class="p">]</span>
+            <span class="n">edens</span> <span class="o">=</span> <span class="n">edens</span><span class="p">[</span><span class="n">keep_idx</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="n">numpy</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">edens</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="nb">print</span> <span class="s2">&quot;Dumping to </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">eos_fname</span>
+        <span class="n">eos_fname</span> <span class="o">=</span> <span class="s2">&quot;./.&quot;</span> <span class="o">+</span> <span class="n">eos_name</span> <span class="o">+</span> <span class="s2">&quot;.dat&quot;</span>
+        <span class="n">numpy</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">eos_fname</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="n">press</span><span class="p">,</span> <span class="n">edens</span><span class="p">)),</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">eos</span> <span class="o">=</span> <span class="n">lalsimulation</span><span class="o">.</span><span class="n">SimNeutronStarEOSFromFile</span><span class="p">(</span><span class="n">eos_fname</span><span class="p">)</span>
+        <span class="n">fam</span> <span class="o">=</span> <span class="n">lalsimulation</span><span class="o">.</span><span class="n">CreateSimNeutronStarFamily</span><span class="p">(</span><span class="n">eos</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">eos</span> <span class="o">=</span> <span class="n">lalsimulation</span><span class="o">.</span><span class="n">SimNeutronStarEOSByName</span><span class="p">(</span><span class="n">eos_name</span><span class="p">)</span>
+        <span class="n">fam</span> <span class="o">=</span> <span class="n">lalsimulation</span><span class="o">.</span><span class="n">CreateSimNeutronStarFamily</span><span class="p">(</span><span class="n">eos</span><span class="p">)</span>
+
+    <span class="n">mmass</span> <span class="o">=</span> <span class="n">lalsimulation</span><span class="o">.</span><span class="n">SimNeutronStarMaximumMass</span><span class="p">(</span><span class="n">fam</span><span class="p">)</span> <span class="o">/</span> <span class="n">lal</span><span class="o">.</span><span class="n">MSUN_SI</span>
+    <span class="nb">print</span> <span class="s2">&quot;Family </span><span class="si">%s</span><span class="s2">, maximum mass: </span><span class="si">%1.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">eos_name</span><span class="p">,</span> <span class="n">mmass</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">numpy</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">mmass</span><span class="p">)</span> <span class="ow">or</span> <span class="n">mmass</span> <span class="o">&gt;</span> <span class="mf">3.</span> <span class="ow">or</span> <span class="n">mmass</span> <span class="o">&lt;</span> <span class="n">obs_max_mass</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="k">return</span> <span class="n">eos</span><span class="p">,</span> <span class="n">fam</span></div>
+
+
+
 <div class="viewcode-block" id="KNTable"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable">[docs]</a><span class="k">class</span> <span class="nc">KNTable</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A container for a table of events</span>
 
@@ -292,8 +340,8 @@
         <span class="kn">import</span> <span class="nn">os</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Sample file supplied does not exist&quot;</span><span class="p">)</span>
-
-        <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
+            
+        <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span> 
 
         <span class="k">if</span> <span class="s1">&#39;m1_source&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_out</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
             <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">]</span>
@@ -499,6 +547,7 @@
             <span class="k">return</span> <span class="n">legend_name</span>
 
         <span class="kn">import</span> <span class="nn">matplotlib</span>
+        <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;Agg&#39;</span><span class="p">)</span>
         <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">})</span>
         <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
         <span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="k">import</span> <span class="n">cm</span>
@@ -569,6 +618,13 @@
         <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [days]&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">plt</span></div>
 
+<div class="viewcode-block" id="KNTable.mass_cut"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.mass_cut">[docs]</a>    <span class="k">def</span> <span class="nf">mass_cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mass1</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span><span class="n">mass2</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform mass cut on table.     </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You are requesting to remove samples with m1 above </span><span class="si">%.2f</span><span class="s1"> solar masses and m2 above </span><span class="si">%.2f</span><span class="s1"> solar masses&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mass1</span><span class="p">,</span><span class="n">mass2</span><span class="p">))</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mass1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mass2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="KNTable.model"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.model">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">format_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -637,7 +693,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0+untagged.105.g11e2ff8.dirty',
+            VERSION:'0+untagged.115.g3750a5e',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

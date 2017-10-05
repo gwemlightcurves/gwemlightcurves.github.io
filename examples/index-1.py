@@ -1,16 +1,27 @@
 from gwemlightcurves.KNModels import KNTable
 from gwpy.table import EventTable
+from gwpy.plotter import EventTablePlot
 t = KNTable.read_samples('posterior_samples.dat')
 t = t.calc_tidal_lambda(remove_negative_lambda=True)
-t_sly_mon = t.calc_radius(EOS='sly', TOV='Monica'); t_H4_mon = t.calc_radius(EOS='H4', TOV='Monica'); t_mpa1_mon = t.calc_radius(EOS='mpa1', TOV='Monica'); t_ms1_mon = t.calc_radius(EOS='ms1', TOV='Monica'); t_ms1b_mon = t.calc_radius(EOS='ms1b', TOV='Monica');
-t_sly_mon = t_sly_mon.calc_compactness(); t_H4_mon = t_H4_mon.calc_compactness(); t_mpa1_mon = t_mpa1_mon.calc_compactness(); t_ms1_mon = t_ms1_mon.calc_compactness(); t_ms1b_mon = t_ms1b_mon.calc_compactness()
-t_comp_fit = t.calc_compactness(fit=True)
-t_sly_mon = EventTable(t_sly_mon); t_H4_mon = EventTable(t_H4_mon); t_mpa1_mon = EventTable(t_mpa1_mon); t_ms1_mon = EventTable(t_ms1_mon); t_ms1b_mon = EventTable(t_ms1b_mon); t_comp_fit = EventTable(t_comp_fit);
-plot = t_sly_mon.hist('c1', bins=20, histtype='stepfilled', label='Compactness Monica Sly')
+
+plot = EventTablePlot(figsize=(18.5, 10.5))
 ax = plot.gca()
-ax.hist(t_H4_mon['c1'], logbins=True, bins=20, histtype='stepfilled', label='Compactness Monica H4'); ax.hist(t_mpa1_mon['c1'], logbins=True, bins=20, histtype='stepfilled', label='Compactness Monica mpa1'); ax.hist(t_ms1_mon['c1'], logbins=True, bins=20, histtype='stepfilled', label='Compactness Monica ms1'); ax.hist(t_ms1b_mon['c1'], logbins=True, bins=20, histtype='stepfilled', label='Compactness Monica ms1b'); ax.hist(t_comp_fit['c1'], logbins=True, bins=20, histtype='stepfilled', label='Compactness From Fit')
+EOS = ['ap3', 'ap4', 'eng', 'gnh3', 'H4', 'mpa1', 'ms1', 'ms1b', 'sly', 'wff1', 'wff2']
+Color = ['blue', 'green', 'red', 'cyan', 'magenta', 'yellow', 'chartreuse', 'burlywood', 'lightseagreen', 'mediumaquamarine', 'brown']
+EOS_Color = dict(zip(EOS, Color))
+
+for eos in EOS:
+    t_radius = t.calc_radius(EOS=eos, TOV='Monica')
+    t_radius_compact = t_radius.calc_compactness()
+    t_radius_compact = EventTable(t_radius_compact)
+    ax.hist(t_radius_compact['c1'], log=True, bins=20, alpha=0.5, histtype='stepfilled', label='Compactness From {0} Table'.format(eos), color=EOS_Color[eos])
+
+t_comp_fit = t.calc_compactness(fit=True)
+ax.hist(t_comp_fit['c1'], log=True, bins=20, alpha=0.2, histtype='stepfilled', label='Compactness From Fit', color='black')
+
 ax.set_xlabel('Compactness')
 ax.set_ylabel('Rate')
 ax.set_title('Compactness Values')
 plot.add_legend()
 ax.autoscale(axis='x', tight=True)
+plot.show()

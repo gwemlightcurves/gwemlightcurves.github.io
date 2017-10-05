@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.io.WoKo2017 &mdash; gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation</title>
+  <title>gwemlightcurves.KNModels.io.WoKo2017 &mdash; gwemlightcurves 0+untagged.115.g3750a5e documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.105.g11e2ff8.dirty documentation" href="../../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.105.g11e2ff8.dirty
+                0+untagged.115.g3750a5e
               </div>
             
           
@@ -165,6 +165,7 @@
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.interpolate</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="k">import</span> <span class="n">interpolate</span> <span class="k">as</span> <span class="n">interp</span>
 
 <span class="kn">from</span> <span class="nn">.model</span> <span class="k">import</span> <span class="n">register_model</span>
 <span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">KNTable</span>
@@ -196,7 +197,7 @@
     <span class="k">for</span> <span class="n">isample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">)):</span>
         <span class="n">table</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;lbol&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mag&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_lc</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="s1">&#39;tini&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;tmax&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span>
                                                                      <span class="n">table</span><span class="p">[</span><span class="s1">&#39;dt&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span>
-                                                                     <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vej&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;theta_r&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;kappa_r&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">])</span>
+                                                                     <span class="n">table</span><span class="p">[</span><span class="s1">&#39;vej&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;theta_r&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">],</span> <span class="n">table</span><span class="p">[</span><span class="s1">&#39;kappa&#39;</span><span class="p">][</span><span class="n">isample</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">table</span></div>
 
 <div class="viewcode-block" id="calc_lc"><a class="viewcode-back" href="../../../../api/gwemlightcurves.KNModels.io.WoKo2017.html#gwemlightcurves.KNModels.io.WoKo2017.calc_lc">[docs]</a><span class="k">def</span> <span class="nf">calc_lc</span><span class="p">(</span><span class="n">tini</span><span class="p">,</span><span class="n">tmax</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="n">mej</span><span class="p">,</span><span class="n">vej</span><span class="p">,</span><span class="n">theta_r</span><span class="p">,</span><span class="n">kappa_r</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;DZ2&quot;</span><span class="p">):</span>
@@ -234,18 +235,38 @@
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">data_out_slice</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">data_out_slice</span><span class="p">[:,</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="c1">#idx = np.where((t &gt;= 0) &amp; (t &lt;= 7))[0]</span>
+        <span class="c1">#t = t[idx]</span>
+        <span class="c1">#data = data[idx,:]</span>
         <span class="n">nt</span><span class="p">,</span> <span class="n">nbins</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
 
         <span class="n">a_i</span> <span class="o">=</span> <span class="p">(</span><span class="mi">360</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nbins</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">nbins</span><span class="p">))</span>
         <span class="n">b_i</span> <span class="o">=</span> <span class="p">(</span><span class="mi">360</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nbins</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="mi">2</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">nbins</span><span class="p">))</span>
         <span class="n">bins</span> <span class="o">=</span> <span class="p">(</span><span class="n">a_i</span> <span class="o">+</span> <span class="n">b_i</span><span class="p">)</span><span class="o">/</span><span class="mf">2.0</span>
 
-        <span class="k">if</span> <span class="n">ii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">f</span>     <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp2d</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bins</span><span class="o">-</span><span class="n">theta_r</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+        <span class="n">idx1</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">idx2</span> <span class="o">=</span> <span class="n">idx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">weight1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span><span class="o">-</span><span class="n">theta_r</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">weight2</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">bins</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span><span class="o">-</span><span class="n">theta_r</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">weight1</span><span class="p">):</span>
+            <span class="n">weight1</span><span class="p">,</span> <span class="n">weight2</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">weight2</span><span class="p">):</span>
+            <span class="n">weight1</span><span class="p">,</span> <span class="n">weight2</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">f</span>     <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interp2d</span><span class="p">(</span><span class="n">bins</span><span class="p">,</span><span class="n">t</span><span class="p">,</span><span class="n">data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">)</span>
+            <span class="n">weight1</span><span class="p">,</span> <span class="n">weight2</span> <span class="o">=</span> <span class="n">weight1</span><span class="o">/</span><span class="p">(</span><span class="n">weight1</span><span class="o">+</span><span class="n">weight2</span><span class="p">),</span> <span class="n">weight2</span><span class="o">/</span><span class="p">(</span><span class="n">weight1</span><span class="o">+</span><span class="n">weight2</span><span class="p">)</span>
 
-        <span class="n">fam</span>    <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">theta_r</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">tvec_days</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1">#f     = scipy.interpolate.interp2d(bins,t,np.log10(data), kind=&#39;cubic&#39;)</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="n">interp</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="n">idx1</span><span class="p">]),</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
+            <span class="n">f2</span> <span class="o">=</span> <span class="n">interp</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="n">idx2</span><span class="p">]),</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#f     = scipy.interpolate.interp2d(bins,t,data, kind=&#39;cubic&#39;)</span>
+            <span class="n">f1</span> <span class="o">=</span> <span class="n">interp</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">data</span><span class="p">[:,</span><span class="n">idx1</span><span class="p">],</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
+            <span class="n">f2</span> <span class="o">=</span> <span class="n">interp</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">data</span><span class="p">[:,</span><span class="n">idx2</span><span class="p">],</span> <span class="n">fill_value</span><span class="o">=</span><span class="s1">&#39;extrapolate&#39;</span><span class="p">)</span>
+
+        <span class="n">fam1</span><span class="p">,</span> <span class="n">fam2</span>  <span class="o">=</span> <span class="n">f1</span><span class="p">(</span><span class="n">tvec_days</span><span class="p">),</span> <span class="n">f2</span><span class="p">(</span><span class="n">tvec_days</span><span class="p">)</span>
+        <span class="n">fam</span> <span class="o">=</span> <span class="n">weight1</span><span class="o">*</span><span class="n">fam1</span><span class="o">+</span><span class="n">weight2</span><span class="o">*</span><span class="n">fam2</span>
 
         <span class="k">if</span> <span class="n">ii</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">lbol</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">fam</span>
@@ -308,7 +329,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'0+untagged.105.g11e2ff8.dirty',
+            VERSION:'0+untagged.115.g3750a5e',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
