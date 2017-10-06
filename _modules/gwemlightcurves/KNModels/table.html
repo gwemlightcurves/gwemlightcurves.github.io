@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.115.g3750a5e documentation</title>
+  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e documentation" href="../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.115.g3750a5e
+                0+untagged.115.g3750a5e.dirty
               </div>
             
           
@@ -92,7 +92,8 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Simulating lightcurves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Simulating a Kilonova Lightcurve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/lightcurves.html">Lightcurves</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
@@ -275,7 +276,7 @@
 
 <div class="viewcode-block" id="get_lalsim_eos"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.get_lalsim_eos">[docs]</a><span class="k">def</span> <span class="nf">get_lalsim_eos</span><span class="p">(</span><span class="n">eos_name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    EOS tables described by Ozel [here](https://arxiv.org/pdf/1603.02698.pdf) and downloadable [here](http://xtreme.as.arizona.edu/NeutronStars/data/eos_tables.tar). LALSim utilizes this tables, but needs some interfacing (i.e. conversion to SI units, and conversion from non monotonic to monotonic pressure density tables)</span>
+<span class="sd">    EOS tables described by Ozel `here &lt;https://arxiv.org/pdf/1603.02698.pdf&gt;`_ and downloadable `here &lt;http://xtreme.as.arizona.edu/NeutronStars/data/eos_tables.tar&gt;`_. LALSim utilizes this tables, but needs some interfacing (i.e. conversion to SI units, and conversion from non monotonic to monotonic pressure density tables)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">obs_max_mass</span> <span class="o">=</span> <span class="mf">2.01</span> <span class="o">-</span> <span class="mf">0.04</span>
     <span class="nb">print</span> <span class="s2">&quot;Checking </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">eos_name</span>
@@ -618,13 +619,26 @@
         <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [days]&#39;</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">48</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">plt</span></div>
 
-<div class="viewcode-block" id="KNTable.mass_cut"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.mass_cut">[docs]</a>    <span class="k">def</span> <span class="nf">mass_cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mass1</span><span class="o">=</span><span class="mf">3.0</span><span class="p">,</span><span class="n">mass2</span><span class="o">=</span><span class="mf">3.0</span><span class="p">):</span>
+<div class="viewcode-block" id="KNTable.mass_cut"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.mass_cut">[docs]</a>    <span class="k">def</span> <span class="nf">mass_cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mass1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mass2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mtotmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mtotmax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Perform mass cut on table.     </span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You are requesting to remove samples with m1 above </span><span class="si">%.2f</span><span class="s1"> solar masses and m2 above </span><span class="si">%.2f</span><span class="s1"> solar masses&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">mass1</span><span class="p">,</span><span class="n">mass2</span><span class="p">))</span>
-        <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">((</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mass1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mass2</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span></div>
+        <span class="c1">#print(&#39;You are requesting to remove samples with m1 above %.2f solar masses and m2 above %.2f solar masses&#39;%(mass1,mass2))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mass1</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mass1</span><span class="p">)</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mass2</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mass2</span><span class="p">)</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mtotmin</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">mtotmin</span><span class="p">)</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mtotmax</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m1&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;m2&quot;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mtotmax</span><span class="p">)</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
 
 <div class="viewcode-block" id="KNTable.model"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.model">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">format_</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -693,7 +707,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0+untagged.115.g3750a5e',
+            VERSION:'0+untagged.115.g3750a5e.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

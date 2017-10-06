@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; gwemlightcurves 0+untagged.115.g3750a5e documentation</title>
+  <title>&lt;no title&gt; &mdash; gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e documentation" href="../index.html"/> 
+    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.115.g3750a5e
+                0+untagged.115.g3750a5e.dirty
               </div>
             
           
@@ -92,6 +92,7 @@
             
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Simulating lightcurves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/lightcurves.html">Lightcurves</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
@@ -308,7 +309,7 @@
 <tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">keys</span></code>()</td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.mass_cut" title="gwemlightcurves.KNModels.table.KNTable.mass_cut"><code class="xref py py-obj docutils literal"><span class="pre">mass_cut</span></code></a>([mass1,&nbsp;mass2])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.mass_cut" title="gwemlightcurves.KNModels.table.KNTable.mass_cut"><code class="xref py py-obj docutils literal"><span class="pre">mass_cut</span></code></a>([mass1,&nbsp;mass2,&nbsp;mtotmin,&nbsp;mtotmax])</td>
 <td>Perform mass cut on table.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="#gwemlightcurves.KNModels.table.KNTable.model" title="gwemlightcurves.KNModels.table.KNTable.model"><code class="xref py py-obj docutils literal"><span class="pre">model</span></code></a>(format_,&nbsp;*args,&nbsp;**kwargs)</td>
@@ -408,7 +409,7 @@ plotting etc</p>
 
 <dl class="method">
 <dt id="gwemlightcurves.KNModels.table.KNTable.mass_cut">
-<code class="descname">mass_cut</code><span class="sig-paren">(</span><em>mass1=3.0</em>, <em>mass2=3.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.mass_cut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.mass_cut" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mass_cut</code><span class="sig-paren">(</span><em>mass1=None</em>, <em>mass2=None</em>, <em>mtotmin=None</em>, <em>mtotmax=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable.mass_cut"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable.mass_cut" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform mass cut on table.</p>
 </dd></dl>
 
@@ -528,7 +529,7 @@ Output: Compactness (mass over radius, in geometrized units, so the result is di
 <dl class="function">
 <dt id="gwemlightcurves.KNModels.table.get_lalsim_eos">
 <code class="descclassname">gwemlightcurves.KNModels.table.</code><code class="descname">get_lalsim_eos</code><span class="sig-paren">(</span><em>eos_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#get_lalsim_eos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.get_lalsim_eos" title="Permalink to this definition">¶</a></dt>
-<dd><p>EOS tables described by Ozel [here](<a class="reference external" href="https://arxiv.org/pdf/1603.02698.pdf">https://arxiv.org/pdf/1603.02698.pdf</a>) and downloadable [here](<a class="reference external" href="http://xtreme.as.arizona.edu/NeutronStars/data/eos_tables.tar">http://xtreme.as.arizona.edu/NeutronStars/data/eos_tables.tar</a>). LALSim utilizes this tables, but needs some interfacing (i.e. conversion to SI units, and conversion from non monotonic to monotonic pressure density tables)</p>
+<dd><p>EOS tables described by Ozel <a class="reference external" href="https://arxiv.org/pdf/1603.02698.pdf">here</a> and downloadable <a class="reference external" href="http://xtreme.as.arizona.edu/NeutronStars/data/eos_tables.tar">here</a>. LALSim utilizes this tables, but needs some interfacing (i.e. conversion to SI units, and conversion from non monotonic to monotonic pressure density tables)</p>
 </dd></dl>
 
 
@@ -567,7 +568,7 @@ Output: Compactness (mass over radius, in geometrized units, so the result is di
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.115.g3750a5e',
+            VERSION:'0+untagged.115.g3750a5e.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

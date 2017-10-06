@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Simulating lightcurves &mdash; gwemlightcurves 0+untagged.115.g3750a5e documentation</title>
+  <title>Simulating a Kilonova Lightcurve &mdash; gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation</title>
   
 
   
@@ -37,8 +37,8 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e documentation" href="../index.html"/>
-        <link rel="next" title="Running run_parameterized_models_event.py on the command line" href="../command-line/index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation" href="../index.html"/>
+        <link rel="next" title="Lightcurves" href="lightcurves.html"/>
         <link rel="prev" title="Welcome to gwemlightcurves’s documentation!" href="../index.html"/> 
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0+untagged.115.g3750a5e
+                0+untagged.115.g3750a5e.dirty
               </div>
             
           
@@ -93,7 +93,7 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Simulating lightcurves</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Simulating a Kilonova Lightcurve</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#reading-and-using-kntable">Reading and using KNTable</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#calculating-compactness">Calculating Compactness</a></li>
@@ -104,6 +104,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="lightcurves.html">Lightcurves</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
@@ -151,7 +152,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Simulating lightcurves</li>
+      <li>Simulating a Kilonova Lightcurve</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -170,15 +171,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="simulating-lightcurves">
-<span id="examples"></span><h1>Simulating lightcurves<a class="headerlink" href="#simulating-lightcurves" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="simulating-a-kilonova-lightcurve">
+<span id="examples"></span><h1>Simulating a Kilonova Lightcurve<a class="headerlink" href="#simulating-a-kilonova-lightcurve" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The first thing you will need in order to generate a light curve is a system that is expected to have some mass ejecta. Once you have one of these systems you can calculate the masss ejects if you have information on the mass of the objects and if it is a binary nuetron star the compactness and baryonic masses of both systems. Here we display some ways to get information on the compactness and baryonic mass of neutron stars through using certain Equation of State (EOS)</p>
+<p>When attempting to simulate the lightcurve froma kilonova assosciated with a binary coalesence, a number of parameters must be determine first. First of all, is the system a binary neutron star system or a neutron star black hole system. This determination will effect which fit model you utilize in order to calculate the expected dynamical ejecta mass (and velocity) that arises from the system. For binary neutron stars, one can use <a class="reference external" href="https://arxiv.org/pdf/1612.03665.pdf#equation.3.1">Tim Dietrich and Maximiliano Ujevic</a>, and for a NSBH one can use <a class="reference external" href="https://arxiv.org/abs/1601.07711">Kawaguchi</a>. These fits tie information such as compactness, baryonic mass, and mass of the objects to the expected ejecta. These fits come with uncertainities of ~72% but knowing the ejecta mass is critical when determining the expected lightcurve from the resulting kilonova. We now explain how one can go froma  set of posteriors of the system to generating the expected lightcurve from the kilonova. We consider many important things including whether or not you make Equation of State (EOS) assumptions. Whether or not you use fits for compactness and baryonic mass and how you treat the uncertainity in ejecta that comes with the fit.</p>
 <div class="section" id="reading-and-using-kntable">
 <h3>Reading and using KNTable<a class="headerlink" href="#reading-and-using-kntable" title="Permalink to this headline">¶</a></h3>
-<p>Say you have run parameter estimation on a BNS signal</p>
-<p>The <cite>KNTable</cite> object comes with a <code class="xref py py-meth docutils literal"><span class="pre">KNTable.read_samples()</span></code> method, allowing
+<p>The <cite>KNTable</cite> object comes with a <a class="reference internal" href="../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.read_samples" title="gwemlightcurves.KNModels.table.KNTable.read_samples"><code class="xref py py-meth docutils literal"><span class="pre">read_samples()</span></code></a>, allowing
 trivial reading of samples:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gwemlightcurves.KNModels</span> <span class="k">import</span> <span class="n">KNTable</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">KNTable</span><span class="o">.</span><span class="n">read_samples</span><span class="p">(</span><span class="s1">&#39;posterior_samples.dat&#39;</span><span class="p">)</span>
@@ -207,24 +207,24 @@ trivial reading of samples:</p>
 </pre></div>
 </div>
 <p>After loading the table, one can caluclate lambda1 and lambda2 from dtilde if it is not already in the samples.
-<code class="xref py py-meth docutils literal"><span class="pre">calc_tidal_lambda()</span></code>:</p>
+<a class="reference internal" href="../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_tidal_lambda" title="gwemlightcurves.KNModels.table.KNTable.calc_tidal_lambda"><code class="xref py py-meth docutils literal"><span class="pre">calc_tidal_lambda()</span></code></a>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">calc_tidal_lambda</span><span class="p">(</span><span class="n">remove_negative_lambda</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>After accomplishing the reading of the sample, let’s say we want to calculate
-compactness from radius. This would require calculating the radius from a mass radius curve. We can use <code class="xref py py-meth docutils literal"><span class="pre">calc_radius()</span></code>. In this module we have a number of ways to accomplish this:</p>
+compactness from radius. This would require calculating the radius from a mass radius curve. We can use <code class="xref py py-meth docutils literal"><span class="pre">gwemlightcurves.KNModels.KNTable.calc_radius()</span></code>. In this module we have a number of ways to accomplish this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_mon</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">calc_radius</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;sly&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Monica&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_wolf</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">calc_radius</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;sly&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Wolfgang&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_lalsim</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">calc_radius</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;sly&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;lalsim&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>After this we can now calculate the compactness <code class="xref py py-meth docutils literal"><span class="pre">calc_compactness()</span></code>.:</p>
+<p>After this we can now calculate the compactness <a class="reference internal" href="../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_compactness" title="gwemlightcurves.KNModels.table.KNTable.calc_compactness"><code class="xref py py-meth docutils literal"><span class="pre">calc_compactness()</span></code></a>.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_mon</span> <span class="o">=</span> <span class="n">t_sly_mon</span><span class="o">.</span><span class="n">calc_compactness</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_wolf</span> <span class="o">=</span> <span class="n">t_sly_wolf</span><span class="o">.</span><span class="n">calc_compactness</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_lalsim</span> <span class="o">=</span> <span class="n">t_sly_lalsim</span><span class="o">.</span><span class="n">calc_compactness</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>After this we can calulcate the baryonic mass. Now we can either use the calculated compactness and have it be EOS dependent of calculate the baryonic mass using a fit using <code class="xref py py-meth docutils literal"><span class="pre">calc_baryonic_mass()</span></code>:</p>
+<p>After this we can calulcate the baryonic mass. Now we can either use the calculated compactness and have it be EOS dependent of calculate the baryonic mass using a fit using <a class="reference internal" href="../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass" title="gwemlightcurves.KNModels.table.KNTable.calc_baryonic_mass"><code class="xref py py-meth docutils literal"><span class="pre">calc_baryonic_mass()</span></code></a>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_mon</span> <span class="o">=</span> <span class="n">t_sly_mon</span><span class="o">.</span><span class="n">calc_baryonic_mass</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Monica&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_wolf</span> <span class="o">=</span> <span class="n">t_sly_wolf</span><span class="o">.</span><span class="n">calc_baryonic_mass</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;Wolfgang&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_lalsim</span> <span class="o">=</span> <span class="n">t_sly_lalsim</span><span class="o">.</span><span class="n">calc_baryonic_mass</span><span class="p">(</span><span class="n">EOS</span><span class="o">=</span><span class="s1">&#39;ap4&#39;</span><span class="p">,</span> <span class="n">TOV</span><span class="o">=</span><span class="s1">&#39;lalsim&#39;</span><span class="p">)</span>
@@ -333,7 +333,7 @@ compactness from radius. This would require calculating the radius from a mass r
 <p><a class="reference external" href="https://arxiv.org/pdf/1612.03665.pdf#equation.3.1">https://arxiv.org/pdf/1612.03665.pdf#equation.3.1</a></p>
 <p>and the constants are taken from</p>
 <p><a class="reference external" href="https://arxiv.org/pdf/1612.03665.pdf#equation.3.2">https://arxiv.org/pdf/1612.03665.pdf#equation.3.2</a></p>
-<p><code class="xref py py-meth docutils literal"><span class="pre">calc_meje()</span></code>:</p>
+<p>The method used to calculate in this repo is <a class="reference internal" href="../api/gwemlightcurves.EjectaFits.DiUj2017.html#gwemlightcurves.EjectaFits.DiUj2017.calc_meje" title="gwemlightcurves.EjectaFits.DiUj2017.calc_meje"><code class="xref py py-meth docutils literal"><span class="pre">gwemlightcurves.EjectaFits.DiUj2017.calc_meje()</span></code></a> and can be used as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gwemlightcurves.EjectaFits.DiUj2017</span> <span class="k">import</span> <span class="n">calc_meje</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gwemlightcurves.KNModels</span> <span class="k">import</span> <span class="n">KNTable</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">KNTable</span><span class="o">.</span><span class="n">read_samples</span><span class="p">(</span><span class="s1">&#39;posterior_samples.dat&#39;</span><span class="p">)</span>
@@ -346,7 +346,7 @@ compactness from radius. This would require calculating the radius from a mass r
 </div>
 <p>The velocity of the ejecta mass fit can be found:</p>
 <p><a class="reference external" href="https://arxiv.org/pdf/1612.03665.pdf#equation.3.9">https://arxiv.org/pdf/1612.03665.pdf#equation.3.9</a></p>
-<p><code class="xref py py-meth docutils literal"><span class="pre">calc_vej()</span></code>:</p>
+<p>The method used to calculate in this repo is <a class="reference internal" href="../api/gwemlightcurves.EjectaFits.DiUj2017.html#gwemlightcurves.EjectaFits.DiUj2017.calc_vej" title="gwemlightcurves.EjectaFits.DiUj2017.calc_vej"><code class="xref py py-meth docutils literal"><span class="pre">gwemlightcurves.EjectaFits.DiUj2017.calc_vej()</span></code></a> and can be used as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gwemlightcurves.EjectaFits.DiUj2017</span> <span class="k">import</span> <span class="n">calc_vej</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t_sly_mon</span><span class="p">[</span><span class="s1">&#39;mej&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">calc_vej</span><span class="p">(</span><span class="n">t_sly_mon</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">],</span> <span class="n">t_sly_mon</span><span class="p">[</span><span class="s1">&#39;c1&#39;</span><span class="p">],</span> <span class="n">t_sly_mon</span><span class="p">[</span><span class="s1">&#39;m2&#39;</span><span class="p">],</span> <span class="n">t_sly_mon</span><span class="p">[</span><span class="s1">&#39;c2&#39;</span><span class="p">])</span>
 </pre></div>
@@ -406,7 +406,7 @@ compactness from radius. This would require calculating the radius from a mass r
 </div>
 <div class="section" id="generating-light-curves">
 <h3>Generating Light Curves<a class="headerlink" href="#generating-light-curves" title="Permalink to this headline">¶</a></h3>
-<p>Finally, let’s calculate a lightcurve being EOS agnostic. That is, we calculate both the compactness and baryonic masses from fits. Also let us look at a Metzer 2017 and DiUj2017 models.</p>
+<p>Finally, let’s calculate a lightcurve being EOS agnostic. That is, we calculate both the compactness and baryonic masses from fits. Also let us look at a Metzer 2017 and DiUj2017 models. In order to take a set of samples and calculate the light curves that would result from a realization of each sample you can you the <a class="reference internal" href="../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.model" title="gwemlightcurves.KNModels.table.KNTable.model"><code class="xref py py-class docutils literal"><span class="pre">model</span></code></a> which takes as inputs the string name of the model and the table of samples containing at minimum compactness and baryonic mass (it can clauclate mass ejecta and velocity of ejecta on the fly)</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gwemlightcurves.KNModels</span> <span class="k">import</span> <span class="n">KNTable</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">gwemlightcurves</span> <span class="k">import</span> <span class="n">lightcurve_utils</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">t</span> <span class="o">=</span> <span class="n">KNTable</span><span class="o">.</span><span class="n">read_samples</span><span class="p">(</span><span class="s1">&#39;posterior_samples.dat&#39;</span><span class="p">)</span>
@@ -452,7 +452,7 @@ compactness from radius. This would require calculating the radius from a mass r
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../command-line/index.html" class="btn btn-neutral float-right" title="Running run_parameterized_models_event.py on the command line" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lightcurves.html" class="btn btn-neutral float-right" title="Lightcurves" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../index.html" class="btn btn-neutral" title="Welcome to gwemlightcurves’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -486,7 +486,7 @@ compactness from radius. This would require calculating the radius from a mass r
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.115.g3750a5e',
+            VERSION:'0+untagged.115.g3750a5e.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
