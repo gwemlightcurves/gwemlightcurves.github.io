@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation</title>
+  <title>&lt;no title&gt; &mdash; gwemlightcurves 0+untagged.134.gbc97269.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation" href="../index.html"/> 
+    <link rel="top" title="gwemlightcurves 0+untagged.134.gbc97269.dirty documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0+untagged.115.g3750a5e.dirty
+                0+untagged.134.gbc97269.dirty
               </div>
             
           
@@ -91,8 +91,9 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Simulating lightcurves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/index.html">Simulating a Kilonova Lightcurve</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/lightcurves.html">Lightcurves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/eos.html">Equation of State</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
@@ -165,7 +166,6 @@
 <em class="property">class </em><code class="descclassname">gwemlightcurves.KNModels.table.</code><code class="descname">KNTable</code><span class="sig-paren">(</span><em>data=None</em>, <em>masked=None</em>, <em>names=None</em>, <em>dtype=None</em>, <em>meta=None</em>, <em>copy=True</em>, <em>rows=None</em>, <em>copy_indices=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#KNTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.KNTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">astropy.table.table.Table</span></code></p>
 <p>A container for a table of events</p>
-<p>This differs from the basic <cite>~astropy.table.Table</cite> in two ways</p>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
 <dl class="last docutils">
@@ -532,6 +532,12 @@ Output: Compactness (mass over radius, in geometrized units, so the result is di
 <dd><p>EOS tables described by Ozel <a class="reference external" href="https://arxiv.org/pdf/1603.02698.pdf">here</a> and downloadable <a class="reference external" href="http://xtreme.as.arizona.edu/NeutronStars/data/eos_tables.tar">here</a>. LALSim utilizes this tables, but needs some interfacing (i.e. conversion to SI units, and conversion from non monotonic to monotonic pressure density tables)</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="gwemlightcurves.KNModels.table.construct_eos_from_polytrope">
+<code class="descclassname">gwemlightcurves.KNModels.table.</code><code class="descname">construct_eos_from_polytrope</code><span class="sig-paren">(</span><em>EOS</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/gwemlightcurves/KNModels/table.html#construct_eos_from_polytrope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gwemlightcurves.KNModels.table.construct_eos_from_polytrope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses lalsimulation to read polytrope parameters from table</p>
+</dd></dl>
+
 
 
            </div>
@@ -568,7 +574,7 @@ Output: Compactness (mass over radius, in geometrized units, so the result is di
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0+untagged.115.g3750a5e.dirty',
+            VERSION:'0+untagged.134.gbc97269.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

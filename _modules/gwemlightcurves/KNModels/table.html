@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation</title>
+  <title>gwemlightcurves.KNModels.table &mdash; gwemlightcurves 0+untagged.134.gbc97269.dirty documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="index" title="Index"
               href="../../../genindex.html"/>
         <link rel="search" title="Search" href="../../../search.html"/>
-    <link rel="top" title="gwemlightcurves 0+untagged.115.g3750a5e.dirty documentation" href="../../../index.html"/>
+    <link rel="top" title="gwemlightcurves 0+untagged.134.gbc97269.dirty documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0+untagged.115.g3750a5e.dirty
+                0+untagged.134.gbc97269.dirty
               </div>
             
           
@@ -94,6 +94,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/index.html">Simulating a Kilonova Lightcurve</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../examples/lightcurves.html">Lightcurves</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../examples/eos.html">Equation of State</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../command-line/index.html">Running <code class="docutils literal"><span class="pre">run_parameterized_models_event.py</span></code> on the command line</a></li>
@@ -161,8 +162,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for gwemlightcurves.KNModels.table</h1><div class="highlight"><pre>
-<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
-<span class="c1"># Copyright (C) Scott Coughlin (2017)</span>
+<span></span><span class="c1"># Copyright (C) Scott Coughlin (2017)</span>
 <span class="c1">#</span>
 <span class="c1"># This file is part of gwemlightcurves.</span>
 <span class="c1">#</span>
@@ -188,7 +188,7 @@
 <span class="kn">from</span> <span class="nn">distutils.spawn</span> <span class="k">import</span> <span class="n">find_executable</span>
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Scott Coughlin &lt;scott.coughlin@ligo.org&gt;&#39;</span>
-<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNTable&#39;</span><span class="p">,</span> <span class="s1">&#39;tidal_lambda_from_tilde&#39;</span><span class="p">,</span> <span class="s1">&#39;CLove&#39;</span><span class="p">,</span> <span class="s1">&#39;EOSfit&#39;</span><span class="p">,</span> <span class="s1">&#39;get_eos_list&#39;</span><span class="p">,</span> <span class="s1">&#39;get_lalsim_eos&#39;</span><span class="p">]</span>
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;KNTable&#39;</span><span class="p">,</span> <span class="s1">&#39;tidal_lambda_from_tilde&#39;</span><span class="p">,</span> <span class="s1">&#39;CLove&#39;</span><span class="p">,</span> <span class="s1">&#39;EOSfit&#39;</span><span class="p">,</span> <span class="s1">&#39;get_eos_list&#39;</span><span class="p">,</span> <span class="s1">&#39;get_lalsim_eos&#39;</span><span class="p">,</span> <span class="s1">&#39;construct_eos_from_polytrope&#39;</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="tidal_lambda_from_tilde"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.tidal_lambda_from_tilde">[docs]</a><span class="k">def</span> <span class="nf">tidal_lambda_from_tilde</span><span class="p">(</span><span class="n">mass1</span><span class="p">,</span> <span class="n">mass2</span><span class="p">,</span> <span class="n">lam_til</span><span class="p">,</span> <span class="n">dlam_til</span><span class="p">):</span>
@@ -230,12 +230,12 @@
     <span class="n">cc</span> <span class="o">=</span> <span class="n">a0</span> <span class="o">+</span> <span class="p">(</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span><span class="o">*</span><span class="n">ll</span><span class="p">)</span><span class="o">*</span><span class="n">ll</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Returned compactnesses &gt; 4/9 = 0.44 ... setting = 4/9&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setting compact value of </span><span class="si">{0}</span><span class="s2"> for lambda </span><span class="si">{1}</span><span class="s2"> to 4/9&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">],</span> <span class="n">lmbda</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">]))</span>
-        <span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Returned compactnesses &gt; 4/9 = 0.44 ... setting = 4/9&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;setting compact value of </span><span class="si">{0}</span><span class="s2"> for lambda </span><span class="si">{1}</span><span class="s2"> to 4/9&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">],</span> <span class="n">lmbda</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">]))</span>
+            <span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span><span class="p">]</span> <span class="o">=</span> <span class="mf">4.</span><span class="o">/</span><span class="mf">9.</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">cc</span> <span class="o">&lt;</span> <span class="mf">0.</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Returned compactnesses &lt; 0 ... setting = 0.&quot;</span><span class="p">)</span>
-        <span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Warning: Returned compactnesses &lt; 0 ... setting = 0.&quot;</span><span class="p">)</span>
+            <span class="n">cc</span><span class="p">[</span><span class="n">cc</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
     <span class="k">return</span> <span class="n">cc</span></div>
 
@@ -272,6 +272,29 @@
     <span class="k">if</span> <span class="n">TOV</span> <span class="o">==</span> <span class="s1">&#39;lalsim&#39;</span><span class="p">:</span>
         <span class="n">EOS_List</span><span class="o">=</span><span class="p">[</span><span class="n">file_name</span><span class="p">[:</span><span class="o">-</span><span class="mi">14</span><span class="p">]</span> <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="k">if</span> <span class="n">file_name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;lalsim_mr.dat&quot;</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">EOS_List</span></div>
+
+<div class="viewcode-block" id="construct_eos_from_polytrope"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.construct_eos_from_polytrope">[docs]</a><span class="k">def</span> <span class="nf">construct_eos_from_polytrope</span><span class="p">(</span><span class="n">EOS</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Uses lalsimulation to read polytrope parameters from table</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">lalsimulation</span> <span class="k">as</span> <span class="nn">lalsim</span>
+    <span class="kn">from</span> <span class="nn">astropy.io</span> <span class="k">import</span> <span class="n">ascii</span>
+    <span class="n">polytrope_table</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="n">find_executable</span><span class="p">(</span><span class="s1">&#39;polytrope_table.dat&#39;</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;|S10&quot;</span><span class="p">,</span> <span class="s1">&#39;&lt;f8&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;f8&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;f8&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;f8&#39;</span><span class="p">),</span> <span class="n">names</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+	<span class="c1">#convert all eos names to lower case</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;eos&#39;</span><span class="p">])):</span>
+        <span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;eos&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;eos&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="c1">#convert logp from cgs to si</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;logP1&#39;</span><span class="p">])):</span>
+        <span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;logP1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="p">(</span><span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;logP1&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="mf">0.1</span><span class="p">)</span>
+
+    <span class="n">eos_indx</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;eos&#39;</span><span class="p">]</span><span class="o">==</span><span class="n">eos</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">eos</span><span class="o">=</span><span class="n">lalsim</span><span class="o">.</span><span class="n">SimNeutronStarEOS4ParameterPiecewisePolytrope</span><span class="p">(</span><span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;logP1&#39;</span><span class="p">][</span><span class="n">eos_indx</span><span class="p">],</span> <span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;gamma1&#39;</span><span class="p">][</span><span class="n">eos_indx</span><span class="p">],</span> <span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;gamma2&#39;</span><span class="p">][</span><span class="n">eos_indx</span><span class="p">],</span> <span class="n">polytrope_table</span><span class="p">[</span><span class="s1">&#39;gamma3&#39;</span><span class="p">][</span><span class="n">eos_indx</span><span class="p">])</span>
+    <span class="n">eos_fam</span><span class="o">=</span><span class="n">lalsim</span><span class="o">.</span><span class="n">CreateSimNeutronStarFamily</span><span class="p">(</span><span class="n">eos</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">eos_fam</span></div>
 
 
 <div class="viewcode-block" id="get_lalsim_eos"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.get_lalsim_eos">[docs]</a><span class="k">def</span> <span class="nf">get_lalsim_eos</span><span class="p">(</span><span class="n">eos_name</span><span class="p">):</span>
@@ -325,7 +348,6 @@
 <div class="viewcode-block" id="KNTable"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable">[docs]</a><span class="k">class</span> <span class="nc">KNTable</span><span class="p">(</span><span class="n">Table</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A container for a table of events</span>
 
-<span class="sd">    This differs from the basic `~astropy.table.Table` in two ways</span>
 
 <span class="sd">    See also</span>
 <span class="sd">    --------</span>
@@ -341,8 +363,8 @@
         <span class="kn">import</span> <span class="nn">os</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Sample file supplied does not exist&quot;</span><span class="p">)</span>
-            
-        <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span> 
+
+        <span class="n">data_out</span> <span class="o">=</span> <span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename_samples</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;ascii&#39;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="s1">&#39;m1_source&#39;</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">data_out</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
             <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data_out</span><span class="p">[</span><span class="s1">&#39;m1_source&#39;</span><span class="p">]</span>
@@ -621,7 +643,7 @@
 
 <div class="viewcode-block" id="KNTable.mass_cut"><a class="viewcode-back" href="../../../api/gwemlightcurves.KNModels.table.html#gwemlightcurves.KNModels.table.KNTable.mass_cut">[docs]</a>    <span class="k">def</span> <span class="nf">mass_cut</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mass1</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mass2</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mtotmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">mtotmax</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Perform mass cut on table.     </span>
+<span class="sd">        Perform mass cut on table.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1">#print(&#39;You are requesting to remove samples with m1 above %.2f solar masses and m2 above %.2f solar masses&#39;%(mass1,mass2))</span>
 
@@ -670,7 +692,6 @@
         <span class="kn">from</span> <span class="nn">.io.model</span> <span class="k">import</span> <span class="n">get_model</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">format_</span><span class="p">,</span> <span class="bp">cls</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">model</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
-
 </pre></div>
 
            </div>
@@ -707,7 +728,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0+untagged.115.g3750a5e.dirty',
+            VERSION:'0+untagged.134.gbc97269.dirty',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
